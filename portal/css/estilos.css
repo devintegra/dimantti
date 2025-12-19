@@ -1,0 +1,974 @@
+:root {
+    --color-primary: #5468ff;
+    --color-primary-dark: #3c4fe0;
+    --color-danger: #F95F53;
+    --color-danger-dark: #E0544A;
+    --color-danger-secondary: #C20000;
+    --color-danger-secondary-dark: #C53000;
+    --color-success: #57BD9C;
+    --color-success-dark: #2CA880;
+    --color-warning: #FFD94D;
+    --color-warning-dark: #FFCA1A;
+    --color-dark: #000;
+    --color-dark-gray: #3C3D40;
+    --color-badge-primary: #BFDBFE;
+    --color-badge-primary-dark: #2563EB;
+    --color-badge-success: #BBF7B0;
+    --color-badge-success-dark: #16A34A;
+    --color-badge-warning: #FEF08A;
+    --color-badge-warning-dark: #CA8A04;
+    --color-badge-danger: #FECACA;
+    --color-badge-danger-dark: #DC2626;
+    --color-badge-orange: #ffd19b;
+    --color-badge-orange-dark: #f69100;
+    --color-badge-purple: #d08bf0;
+    --color-badge-purple-dark: #9032bb;
+    --color-badge-default: #E5E7EB;
+    --color-badge-default-dark: #4B5563;
+}
+
+a {
+    text-decoration: none;
+}
+
+.swal2-icon {
+    margin-top: 20px !important;
+}
+
+/****************************BOTONES********************************/
+.btn-primary-dast,
+.btn-success-dast,
+.btn-info-dast,
+.btn-warning-dast,
+.btn-danger-dast {
+    color: #fff;
+    font-size: 0.875rem;
+    line-height: 1;
+    font-weight: 400;
+    border-radius: 5px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border: none;
+}
+
+.btn-primary-dast {
+    background-color: var(--color-badge-success-dark);
+    /*#484848*/
+    border-color: var(--color-badge-success-dark);
+}
+
+.btn-primary-dast:hover {
+    color: #fff;
+    background-color: var(--color-success-dark);
+    border-color: var(--color-success-dark);
+}
+
+.btn-success-dast {
+    background-color: var(--color-success);
+    border-color: var(--color-success);
+}
+
+.btn-success-dast:hover {
+    color: #fff;
+    background-color: var(--color-success-dark);
+    border-color: var(--color-success-dark);
+}
+
+.btn-info-dast {
+    background-color: var(--color-primary);
+    border-color: var(--color-primary);
+}
+
+.btn-info-dast:hover {
+    color: #fff;
+    background-color: var(--color-primary-dark);
+    border-color: var(--color-primary-dark);
+}
+
+.btn-warning-dast {
+    background-color: var(--color-warning-dark);
+    border-color: var(--color-warning-dark);
+}
+
+.btn-warning-dast:hover {
+    color: #000;
+    background-color: var(--color-warning);
+    border-color: var(--color-warning);
+}
+
+.btn-danger-dast {
+    background-color: var(--color-danger);
+    border-color: var(--color-danger);
+}
+
+.btn-danger-dast:hover {
+    color: #000;
+    background-color: var(--color-danger-dark);
+    border-color: var(--color-danger-dark);
+}
+
+.btn-info-dast {
+    background-color: var(--color-primary);
+    border-color: var(--color-primary);
+}
+
+.btn-info-dast:hover {
+    color: #fff;
+    background-color: var(--color-primary-dark);
+    border-color: var(--color-primary-dark);
+}
+
+.btn-eliminar-dast {
+    background-color: var(--color-danger);
+    width: 100px;
+    height: 30px;
+    border-radius: 5px;
+    border: none;
+    font-size: 13px;
+    color: #fff;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.btn-eliminar-dast:hover {
+    background-color: var(--color-danger-dark);
+}
+
+.btn-rounded-integra {
+    padding: 12px;
+    border-radius: 50%;
+    width: 40px;
+    height: 40px;
+    text-align: center;
+    background-color: var(--color-badge-primary);
+    color: var(--color-badge-primary-dark);
+}
+
+
+/******************** Botones -> Módulo: verOrdenes.php *******************/
+.btn-reasignar-dast,
+.btn-reabrir-dast,
+.btn-iniciar-dast,
+.btn-entregar-dast,
+.btn-eliminar-orden-dast,
+.btn-editar-dast,
+.btn-reasignar-txt,
+.btn-reabrir-txt,
+.btn-iniciar-txt,
+.btn-entregar-txt,
+.btn-eliminar-orden-txt,
+.btn-editar-txt {
+    align-items: center;
+    appearance: none;
+    border: 0;
+    border-radius: 6px;
+    box-sizing: border-box;
+    color: #fff;
+    cursor: pointer;
+    display: inline-flex;
+    font-family: "JetBrains Mono", monospace;
+    height: 32px;
+    width: 32px;
+    justify-content: center;
+    line-height: 1;
+    list-style: none;
+    overflow: hidden;
+    padding-left: 12px;
+    padding-right: 12px;
+    position: relative;
+    text-align: left;
+    text-decoration: none;
+    transition: box-shadow .15s, transform .15s;
+    user-select: none;
+    -webkit-user-select: none;
+    touch-action: manipulation;
+    white-space: nowrap;
+    will-change: box-shadow, transform;
+    font-size: 12px;
+    margin: 3px;
+}
+
+.btn-reasignar-dast:hover {
+    background-color: var(--color-dark-gray);
+    color: #fff;
+}
+
+.btn-reasignar-dast {
+    background-image: radial-gradient(100% 100% at 100% 0, #363536 0, var(--color-dark-gray) 100%);
+    box-shadow: rgba(45, 35, 66, .4) 0 2px 4px, rgba(45, 35, 66, .3) 0 7px 13px -3px, rgba(58, 65, 111, .5) 0 -3px 0 inset;
+}
+
+.btn-reasignar-dast:hover {
+    box-shadow: rgba(45, 35, 66, .4) 0 4px 8px, rgba(45, 35, 66, .3) 0 7px 13px -3px, var(--color-dark-gray) 0 -3px 0 inset;
+    transform: translateY(-2px);
+}
+
+.btn-reabrir-dast {
+    background-image: radial-gradient(100% 100% at 100% 0, #ff5a76 0, var(--color-danger) 100%);
+    box-shadow: rgba(45, 35, 66, .4) 0 2px 4px, rgba(45, 35, 66, .3) 0 7px 13px -3px, rgba(58, 65, 111, .5) 0 -3px 0 inset;
+}
+
+.btn-reabrir-dast:hover {
+    box-shadow: rgba(45, 35, 66, .4) 0 4px 8px, rgba(45, 35, 66, .3) 0 7px 13px -3px, var(--color-danger-dark) 0 -3px 0 inset;
+    transform: translateY(-2px);
+}
+
+.btn-editar-dast {
+    background-image: radial-gradient(100% 100% at 100% 0, #fff45a 0, var(--color-warning) 100%);
+    box-shadow: rgba(45, 35, 66, .4) 0 2px 4px, rgba(45, 35, 66, .3) 0 7px 13px -3px, rgba(58, 65, 111, .5) 0 -3px 0 inset;
+}
+
+.btn-editar-dast:hover {
+    box-shadow: rgba(45, 35, 66, .4) 0 4px 8px, rgba(45, 35, 66, .3) 0 7px 13px -3px, var(--color-warning-dark) 0 -3px 0 inset;
+    transform: translateY(-2px);
+}
+
+.btn-iniciar-dast {
+    background-image: radial-gradient(100% 100% at 100% 0, #5adaff 0, var(--color-primary) 100%);
+    box-shadow: rgba(45, 35, 66, .4) 0 2px 4px, rgba(45, 35, 66, .3) 0 7px 13px -3px, rgba(58, 65, 111, .5) 0 -3px 0 inset;
+    /* background-color: var(--color-primary); */
+}
+
+.btn-iniciar-dast:hover {
+    /* background-color: var(--color-primary-dark);
+    color: #fff; */
+    box-shadow: rgba(45, 35, 66, .4) 0 4px 8px, rgba(45, 35, 66, .3) 0 7px 13px -3px, var(--color-primary-dark) 0 -3px 0 inset;
+    transform: translateY(-2px);
+}
+
+.btn-entregar-dast {
+    background-image: radial-gradient(100% 100% at 100% 0, #5affc0 0, var(--color-success) 100%);
+    box-shadow: rgba(45, 35, 66, .4) 0 2px 4px, rgba(45, 35, 66, .3) 0 7px 13px -3px, rgba(58, 65, 111, .5) 0 -3px 0 inset;
+}
+
+.btn-entregar-dast:hover {
+    box-shadow: rgba(45, 35, 66, .4) 0 4px 8px, rgba(45, 35, 66, .3) 0 7px 13px -3px, var(--color-success-dark) 0 -3px 0 inset;
+    transform: translateY(-2px);
+}
+
+
+
+
+/******************** Botones con Texto *******************/
+.btn-reasignar-txt,
+.btn-reabrir-txt,
+.btn-iniciar-txt,
+.btn-entregar-txt,
+.btn-eliminar-orden-txt,
+.btn-editar-txt {
+    width: auto;
+}
+
+.btn-reasignar-txt:hover {
+    background-color: var(--color-dark-gray);
+    color: #fff;
+}
+
+.btn-reasignar-txt {
+    background-image: radial-gradient(100% 100% at 100% 0, #363536 0, var(--color-dark-gray) 100%);
+    box-shadow: rgba(45, 35, 66, .4) 0 2px 4px, rgba(45, 35, 66, .3) 0 7px 13px -3px, rgba(58, 65, 111, .5) 0 -3px 0 inset;
+}
+
+.btn-reasignar-txt:hover {
+    box-shadow: rgba(45, 35, 66, .4) 0 4px 8px, rgba(45, 35, 66, .3) 0 7px 13px -3px, var(--color-dark-gray) 0 -3px 0 inset;
+    transform: translateY(-2px);
+}
+
+.btn-reabrir-txt {
+    background-image: radial-gradient(100% 100% at 100% 0, #ff5a76 0, var(--color-danger) 100%);
+    box-shadow: rgba(45, 35, 66, .4) 0 2px 4px, rgba(45, 35, 66, .3) 0 7px 13px -3px, rgba(58, 65, 111, .5) 0 -3px 0 inset;
+}
+
+.btn-reabrir-txt:hover {
+    box-shadow: rgba(45, 35, 66, .4) 0 4px 8px, rgba(45, 35, 66, .3) 0 7px 13px -3px, var(--color-danger-dark) 0 -3px 0 inset;
+    transform: translateY(-2px);
+}
+
+.btn-editar-txt {
+    background-image: radial-gradient(100% 100% at 100% 0, #fff45a 0, var(--color-warning) 100%);
+    box-shadow: rgba(45, 35, 66, .4) 0 2px 4px, rgba(45, 35, 66, .3) 0 7px 13px -3px, rgba(58, 65, 111, .5) 0 -3px 0 inset;
+}
+
+.btn-editar-txt:hover {
+    box-shadow: rgba(45, 35, 66, .4) 0 4px 8px, rgba(45, 35, 66, .3) 0 7px 13px -3px, var(--color-warning-dark) 0 -3px 0 inset;
+    transform: translateY(-2px);
+}
+
+.btn-iniciar-txt {
+    background-image: radial-gradient(100% 100% at 100% 0, #5adaff 0, var(--color-primary) 100%);
+    box-shadow: rgba(45, 35, 66, .4) 0 2px 4px, rgba(45, 35, 66, .3) 0 7px 13px -3px, rgba(58, 65, 111, .5) 0 -3px 0 inset;
+    /* background-color: var(--color-primary); */
+}
+
+.btn-iniciar-txt:hover {
+    /* background-color: var(--color-primary-dark);
+    color: #fff; */
+    box-shadow: rgba(45, 35, 66, .4) 0 4px 8px, rgba(45, 35, 66, .3) 0 7px 13px -3px, var(--color-primary-dark) 0 -3px 0 inset;
+    transform: translateY(-2px);
+}
+
+.btn-entregar-txt {
+    background-image: radial-gradient(100% 100% at 100% 0, #5affc0 0, var(--color-success) 100%);
+    box-shadow: rgba(45, 35, 66, .4) 0 2px 4px, rgba(45, 35, 66, .3) 0 7px 13px -3px, rgba(58, 65, 111, .5) 0 -3px 0 inset;
+}
+
+.btn-entregar-txt:hover {
+    box-shadow: rgba(45, 35, 66, .4) 0 4px 8px, rgba(45, 35, 66, .3) 0 7px 13px -3px, var(--color-success-dark) 0 -3px 0 inset;
+    transform: translateY(-2px);
+}
+
+
+
+
+.btn-eliminar-orden-dast {
+    background-color: var(--color-danger-secondary);
+}
+
+.btn-eliminar-orden-dast:hover {
+    background-color: var(--color-danger-secondary-dark);
+    color: #fff;
+}
+
+
+/******************** Botones -> Módulo: verOrden.php *******************/
+.btn-agregar-dast {
+    background-color: var(--color-dark);
+    width: auto;
+    height: auto;
+    padding: 5px 8px;
+    border-radius: 3px;
+    margin: 5px 0;
+    font-size: 12px;
+    color: #fff;
+    border: none;
+}
+
+.btn-agregar-dast:hover {
+    background-color: var(--color-dark-gray);
+    color: #fff;
+}
+
+
+/***************Bóton de PDF / IMG***************+*/
+.btn-pdf,
+.btn-img,
+.btn-filtro,
+.btn-excel,
+.btn-yellow,
+.btn-whatsapp {
+    /* background-color: var(--color-danger);
+    padding: 10px;
+    border-radius: 7px;
+    color: #fff;
+    margin: 2px; */
+
+    align-items: center;
+    appearance: none;
+    border: 0;
+    border-radius: 7px;
+    box-sizing: border-box;
+    color: #fff;
+    cursor: pointer;
+    display: inline-flex;
+    height: auto;
+    width: auto;
+    justify-content: center;
+    line-height: 1;
+    list-style: none;
+    overflow: hidden;
+    padding: 10px;
+    position: relative;
+    text-align: left;
+    text-decoration: none;
+    transition: box-shadow .15s, transform .15s;
+    user-select: none;
+    -webkit-user-select: none;
+    touch-action: manipulation;
+    white-space: nowrap;
+    will-change: box-shadow, transform;
+    font-size: 18px;
+    margin: 3px;
+}
+
+.btn-pdf {
+    background-image: radial-gradient(100% 100% at 100% 0, #ff5a5a 0, var(--color-danger) 100%);
+    box-shadow: rgba(45, 35, 66, .4) 0 2px 4px, rgba(45, 35, 66, .3) 0 7px 13px -3px, rgba(58, 65, 111, .5) 0 -3px 0 inset;
+}
+
+.btn-pdf:hover {
+    box-shadow: rgba(45, 35, 66, .4) 0 4px 8px, rgba(45, 35, 66, .3) 0 7px 13px -3px, var(--color-danger-dark) 0 -3px 0 inset;
+    transform: translateY(-2px);
+}
+
+/* .btn-img {
+    background-color: var(--color-primary);
+}
+
+.btn-img:hover {
+    background-color: var(--color-primary-dark);
+} */
+
+.btn-img {
+    background-image: radial-gradient(100% 100% at 100% 0, #5adaff 0, var(--color-primary) 100%);
+    box-shadow: rgba(45, 35, 66, .4) 0 2px 4px, rgba(45, 35, 66, .3) 0 7px 13px -3px, rgba(58, 65, 111, .5) 0 -3px 0 inset;
+}
+
+.btn-img:hover {
+    box-shadow: rgba(45, 35, 66, .4) 0 4px 8px, rgba(45, 35, 66, .3) 0 7px 13px -3px, var(--color-primary-dark) 0 -3px 0 inset;
+    transform: translateY(-2px);
+}
+
+
+
+.btn-excel {
+    background-image: radial-gradient(100% 100% at 100% 0, #5affc0 0, var(--color-success) 100%);
+    box-shadow: rgba(45, 35, 66, .4) 0 2px 4px, rgba(45, 35, 66, .3) 0 7px 13px -3px, rgba(58, 65, 111, .5) 0 -3px 0 inset;
+}
+
+.btn-excel:hover {
+    box-shadow: rgba(45, 35, 66, .4) 0 4px 8px, rgba(45, 35, 66, .3) 0 7px 13px -3px, var(--color-success-dark) 0 -3px 0 inset;
+    transform: translateY(-2px);
+}
+
+
+
+.btn-yellow {
+    background-image: radial-gradient(100% 100% at 100% 0, #fff45a 0, var(--color-warning) 100%);
+    box-shadow: rgba(45, 35, 66, .4) 0 2px 4px, rgba(45, 35, 66, .3) 0 7px 13px -3px, rgba(58, 65, 111, .5) 0 -3px 0 inset;
+}
+
+.btn-yellow:hover {
+    box-shadow: rgba(45, 35, 66, .4) 0 4px 8px, rgba(45, 35, 66, .3) 0 7px 13px -3px, var(--color-warning-dark) 0 -3px 0 inset;
+    transform: translateY(-2px);
+}
+
+
+.btn-whatsapp {
+    background-image: radial-gradient(100% 100% at 100% 0, #5affc0 0, var(--color-success) 100%);
+    box-shadow: rgba(45, 35, 66, .4) 0 2px 4px, rgba(45, 35, 66, .3) 0 7px 13px -3px, rgba(58, 65, 111, .5) 0 -3px 0 inset;
+}
+
+.btn-whatsapp:hover {
+    box-shadow: rgba(45, 35, 66, .4) 0 4px 8px, rgba(45, 35, 66, .3) 0 7px 13px -3px, var(--color-success-dark) 0 -3px 0 inset;
+    transform: translateY(-2px);
+}
+
+
+
+
+
+
+/***************BADGES***************+*/
+.badge-primary-integra,
+.badge-default-integra,
+.badge-success-integra,
+.badge-warning-integra,
+.badge-danger-integra,
+.badge-orange-integra,
+.badge-purple-integra {
+    padding: 2px 12px;
+    border-radius: 18px;
+    text-align: center;
+    width: fit-content;
+}
+
+.badge-primary-integra {
+    background-color: var(--color-badge-primary);
+    color: var(--color-badge-primary-dark);
+    box-shadow: rgba(37, 99, 235, 0.4) 0px 5px 15px;
+}
+
+.badge-default-integra {
+    background-color: var(--color-badge-default);
+    color: var(--color-badge-default-dark);
+    box-shadow: rgba(75, 85, 99, 0.4) 0px 5px 15px;
+}
+
+.badge-success-integra {
+    background-color: var(--color-badge-success);
+    color: var(--color-badge-success-dark);
+    box-shadow: rgba(22, 163, 74, 0.4) 0px 5px 15px;
+}
+
+.badge-warning-integra {
+    background-color: var(--color-badge-warning);
+    color: var(--color-badge-warning-dark);
+    box-shadow: rgba(202, 138, 4, 0.4) 0px 5px 15px;
+}
+
+.badge-danger-integra {
+    background-color: var(--color-badge-danger);
+    color: var(--color-badge-danger-dark);
+    box-shadow: rgba(220, 38, 38, 0.4) 0px 5px 15px;
+}
+
+.badge-orange-integra {
+    background-color: var(--color-badge-orange);
+    color: var(--color-badge-orange-dark);
+    box-shadow: rgba(246, 145, 0, 0.4) 0px 5px 15px;
+}
+
+.badge-purple-integra {
+    background-color: var(--color-badge-purple);
+    color: var(--color-badge-purple-dark);
+    box-shadow: rgba(144, 50, 187, 0.4) 0px 5px 15px;
+}
+
+
+/***************LÍNEA DIVISORAS***************+*/
+.line-default-integra,
+.line-primary-integra,
+.line-success-integra,
+.line-warning-integra,
+.line-danger-integra {
+    width: 60%;
+    height: 3px;
+    border-radius: 10px;
+    margin: 2px 0 15px 2px;
+}
+
+.line-default-integra {
+    background-color: var(--color-badge-default-dark);
+}
+
+.line-primary-integra {
+    background-color: var(--color-badge-primary-dark);
+}
+
+.line-success-integra {
+    background-color: var(--color-success-dark);
+}
+
+.line-warning-integra {
+    background-color: var(--color-badge-warning-dark);
+}
+
+.line-danger-integra {
+    background-color: var(--color-badge-danger-dark);
+}
+
+
+
+
+
+/***************** Scroll de la tabla de ordenes ****************/
+#dtEmpresa_wrapper>.row:nth-child(2),
+.scroll-x {
+    overflow: auto;
+}
+
+#dtEmpresa_wrapper>.row:nth-child(2)::-webkit-scrollbar,
+.scroll-x::-webkit-scrollbar {
+    height: 12px;
+    background-color: inherit;
+}
+
+#dtEmpresa_wrapper>.row:nth-child(2)::-webkit-scrollbar-thumb,
+.scroll-x::-webkit-scrollbar-thumb {
+    background-color: #DEDEDE;
+    border-radius: 10px;
+}
+
+.scroll-style::-webkit-scrollbar {
+    height: 12px;
+    background-color: inherit;
+}
+
+.scroll-style::-webkit-scrollbar-thumb {
+    background-color: #DEDEDE;
+    border-radius: 10px;
+}
+
+
+
+/******************Estilos de los filtros datatables**********************/
+#dtEmpresa_filter>label,
+#dtProductos_filter>label,
+#dtInfo_filter>label,
+#dtClientes_filter>label {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin: 15px 0 15px 0;
+}
+
+#dtEmpresa_length>label,
+#dtProductos_length>label,
+#dtInfo_length>label,
+#dtClientes_length>label {
+    display: flex;
+    justify-content: start;
+    align-items: center;
+    width: 80%;
+    margin: 15px 0 15px 0;
+}
+
+#dtEmpresa_paginate>ul,
+#dtProductos_paginate>ul,
+#dtInfo_paginate>ul,
+#dtClientes_paginate>ul {
+    display: flex;
+    justify-content: end;
+}
+
+.a-icons {
+    text-decoration: none;
+}
+
+.container-index-icons {
+    width: 135px;
+    height: 135px;
+    background-image: url("../../images/icons_Fondo.png");
+    background-size: cover;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 15px;
+}
+
+.container-index-icons:hover {
+    box-shadow: 5px 5px 15px -2px rgba(0, 0, 0, 0.58);
+}
+
+.content-index-icons {
+    width: 100px;
+    height: 80px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+
+.content-index-icons>img {
+    width: 35px;
+    height: 35px;
+    object-fit: containf;
+}
+
+.content-index-icons>p {
+    font-family: "Monserrat-Light", sans-serif;
+    color: #fff;
+    font-size: 20px;
+    margin: 10px 0px;
+    letter-spacing: 2pt;
+    text-align: center;
+}
+
+/**********Previsualizar imagen tipo file antes de enviarla a BD***********/
+
+#preview img {
+    width: 100%;
+    display: block;
+    border-radius: 12px;
+}
+
+/*Estilos al seleccionar un avatar*/
+.img-container label input[type="radio"] {
+    display: none;
+}
+
+.img-container label input[type="radio"]:disabled~img {
+    border: none;
+}
+
+.img-container label input[type="radio"]:checked~img {
+    border: 2px solid var(--color-primary);
+}
+
+
+
+/***************Estilos del data-title*****************/
+
+[data-title]:hover:after {
+    opacity: 1;
+    transition: all 0.1s ease 0.5s;
+    visibility: visible;
+}
+
+[data-title]:after {
+    content: attr(data-title);
+    background-color: #333;
+    color: #fff;
+    font-size: 12px;
+    font-family: "Monserrat-Light", sans-serif;
+    position: absolute;
+    padding: 5px 20px;
+    bottom: -1.6em;
+    right: 100%;
+    left: 100%;
+    white-space: normal;
+    box-shadow: 1px 1px 3px #222222;
+    opacity: 0;
+    border: 1px solid #111111;
+    z-index: 99999;
+    visibility: hidden;
+    border-radius: 6px;
+    width: 200px;
+}
+
+[data-title] {
+    /* position: relative; */
+    position: inherit;
+}
+
+/*Estilos de las imagenes de cada avatar*/
+.img_avatar {
+    width: auto;
+    height: 90px;
+    border-radius: 7px;
+    cursor: pointer;
+    margin: 5px;
+}
+
+.img_avatar:hover {
+    box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
+    transition: all 0.2s ease;
+}
+
+/*Estilos al seleccionar un avatar*/
+.img-container label input[type="radio"] {
+    display: none;
+}
+
+.img-container label input[type="radio"]:disabled~img {
+    border: none;
+}
+
+.img-container label input[type="radio"]:checked~img {
+    border: 2px solid var(--color-primary);
+}
+
+/*********************Input file -> Nueva orden**********************/
+.preview {
+    width: 200px;
+    height: 200px;
+    margin: 10px;
+    border: 2px dashed #E9ECEF;
+    background: transparent url(../images/picture.png);
+    background-size: cover;
+    background-position: center;
+    padding: 0;
+}
+
+.preview label {
+    width: 100%;
+    height: 100%;
+    position: relative;
+    display: block;
+    background-size: cover;
+}
+
+.preview input[type=file] {
+    display: block;
+    width: 100%;
+    height: 100%;
+    opacity: 0;
+    margin-top: -300px;
+}
+
+.preview img {
+    width: 100%;
+    height: 100%;
+    display: block;
+    border-radius: 20px;
+    object-fit: cover;
+}
+
+
+/*********************Input file -> Agregar Producto**********************/
+#preview {
+    width: 220px;
+    height: 220px;
+    margin: 10px;
+    border: 2px dashed #E9ECEF;
+    background: transparent url(../images/picture.png);
+    background-size: cover;
+    padding: 0;
+}
+
+#preview label {
+    width: 100%;
+    height: 100%;
+    position: relative;
+    display: block;
+    background-size: cover;
+}
+
+#preview input[type=file] {
+    display: block;
+    width: 100%;
+    height: 100%;
+    opacity: 0;
+    margin-top: -220px;
+}
+
+#preview img {
+    width: 100%;
+    height: 100%;
+    display: block;
+    object-fit: cover;
+}
+
+
+
+/***************BOTONES DE BILLETES***************+*/
+.btn-billete {
+    width: 100%;
+    border: none;
+    background-color: transparent;
+    transition: transform .2s;
+}
+
+.btn-billete:hover {
+    -ms-transform: scale(0.8);
+    -webkit-transform: scale(0.8);
+    transform: scale(0.8);
+}
+
+.btn-billete>img {
+    width: 100%;
+    height: 100%;
+    border-radius: 7px;
+}
+
+
+/***************DROPZONE***************+*/
+.dropzone {
+    border: 3px dashed #5d33b8;
+    border-radius: 15px;
+    margin-bottom: 30px;
+    background-color: #ebe7f6;
+}
+
+.dz-remove {
+    background-color: #5d33b8;
+    color: #fff;
+    margin-top: 40px;
+    border-radius: 8px;
+    padding: 4px 6px;
+    text-decoration: none !important;
+}
+
+.dz-remove:hover {
+    text-decoration: none !important;
+    color: #fff;
+}
+
+
+/***************FILTROS DE TABLA****************/
+.filter-box {
+    background-color: #dede;
+    padding: 20px;
+    border-radius: 20px;
+    margin: 20px 0 10px 0;
+}
+
+.tooltip-custom {
+    display: none;
+}
+
+.tooltip-custom.open {
+    display: block;
+}
+
+
+/***************NOTIFICACIONES**************/
+.btn-notification {
+    width: 40px;
+    height: 40px;
+    background-color: rgba(255, 255, 255, 0.5);
+    border-radius: 7px;
+    padding: 12px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    position: relative;
+    margin-right: 20px;
+}
+
+.btn-notification>i {
+    font-size: 24px;
+    color: #000;
+}
+
+.btn-notification>.badge-btn-notification {
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    background-color: red;
+    position: absolute;
+    top: -5px;
+    right: 2px;
+    display: flex;
+    justify-content: center;
+    visibility: hidden;
+}
+
+.btn-notification>.badge-btn-notification>p {
+    font-size: 12px;
+    color: #fff;
+}
+
+.btn-notification>#dropdown-notifications {
+    width: 350px;
+    height: auto;
+    max-height: 400px;
+    background-color: #fff;
+    position: absolute;
+    color: #fff;
+    top: 38px;
+    right: 0px;
+    overflow-y: auto;
+    border-radius: 15px;
+    box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+    display: none;
+}
+
+.btn-notification>#dropdown-notifications>.notifications-empty {
+    padding: 30px;
+    color: #000;
+    text-align: center;
+}
+
+.btn-notification>#dropdown-notifications>.notifications-empty>p {
+    margin-top: 15px;
+}
+
+.btn-notification>#dropdown-notifications>.notifications-item {
+    width: 100%;
+    height: auto;
+    padding: 20px;
+    color: #000;
+    display: flex;
+    flex-direction: column;
+}
+
+.btn-notification>#dropdown-notifications>.notifications-item>span {
+    font-size: 12px;
+    color: #b9b9b9;
+}
+
+.btn-notification>#dropdown-notifications>.notifications-item>.item-user {
+    display: flex;
+    justify-content: start;
+    align-items: center;
+    gap: 10px;
+}
+
+.btn-notification>#dropdown-notifications>.notifications-item>.item-user>.item-circle {
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+}
+
+.btn-notification>#dropdown-notifications>.notifications-item>p {
+    font-size: 14px;
+    color: #000;
+}
+
+.btn-notification>#dropdown-notifications>.notifications-item:hover {
+    background-color: #f0f0f0;
+}

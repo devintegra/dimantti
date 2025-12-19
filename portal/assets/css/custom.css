@@ -1,0 +1,266 @@
+/*
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+*/
+/* 
+    Created on : 7/05/2018, 12:16:33 PM
+    Author     : desarrollo
+*/
+@font-face {
+	font-family: 'Bebas Neue';
+	src:url('fonts/BebasNeue.otf');
+	
+}
+
+img.logoc
+{
+    height: 50px
+}
+
+.menutoggle
+{
+    background-color: #276ca4!important;
+}
+
+#mapa
+{
+    width: 100%;
+    height: 300px
+}
+
+.modalDialogEs {
+		position: fixed;
+		top: 0;
+		right: 0;
+		bottom: 0;
+		left: 0;
+		background: rgba(0,0,0,0.8);
+		z-index: 99999;
+		opacity:0;
+		-webkit-transition: opacity 400ms ease-in;
+		-moz-transition: opacity 400ms ease-in;
+		transition: opacity 400ms ease-in;
+		pointer-events: none;
+                font-family: 'Bebas Neue'!important;
+	}
+
+	.modalDialogEs:target {
+		opacity:1;
+		pointer-events: auto;
+	}
+
+	.modalDialogEs > div {
+		width: 400px;
+		position: relative;
+		margin: 10% auto;
+		padding: 5px 20px 13px 20px;
+		border-radius: 10px;
+		background: #fff;
+		/*background: -moz-linear-gradient(#fff, #999);
+		background: -webkit-linear-gradient(#fff, #999);
+		background: -o-linear-gradient(#fff, #999);*/
+	}
+
+	.closeEs {
+		background: #606061;
+		color: #FFFFFF;
+		line-height: 25px;
+		position: absolute;
+		right: -12px;
+		text-align: center;
+		top: -10px;
+		width: 24px;
+		text-decoration: none;
+		font-weight: bold;
+		-webkit-border-radius: 12px;
+		-moz-border-radius: 12px;
+		border-radius: 12px;
+		-moz-box-shadow: 1px 1px 3px #000;
+		-webkit-box-shadow: 1px 1px 3px #000;
+		box-shadow: 1px 1px 3px #000;
+	}
+
+	.closeEs:hover { background: #00d9ff; }
+
+        
+        
+        
+        .close
+        {
+            display: none!important
+        }
+.counta
+{
+    border-radius: 50%;
+    color: #fff;
+    font-size: 11px;
+    height: 15px;
+    width: 15px;
+    line-height: 15px;
+    right: 0;
+    top: 0;
+    position: absolute;
+}
+
+h3.titviajes
+{
+    font-size: 1.1em;
+    margin-bottom: 10px
+}
+
+
+div.derecho
+{
+    text-align: right!important;
+}
+
+
+div.izquierdo
+{
+    text-align: left!important;
+}
+
+div.centrado
+{
+    text-align: center!important;
+}
+
+
+.espaciod
+{
+    margin-right: 15px!important;
+}
+
+.sinborde
+{
+    border: none!important
+}
+
+.icon-rounded{
+  background-color:#6e5800;
+  color: #ffffff;
+  font-size: 20px;
+  margin-left: 20px;
+  padding: 5px
+}
+
+
+.aeliminar
+{
+    padding-top: 3px;
+    padding-bottom: 3px;
+    padding-left: 2px;
+    padding-right: 2px;
+    background-color: red
+}
+
+.exitot
+{
+    font-size: 1.5em !important;
+    width: 100%
+}
+
+.pdfb
+{
+    color: white !important
+}
+
+.vpdf
+{
+    padding: 10px;
+    background-color: red;
+    color: white;
+    border-radius: 10px
+}
+
+.vpdfb
+{
+    padding: 10px;
+    background-color:  #2184be;
+    color: white;
+    border-radius: 10px
+}
+
+.vimg
+{
+    padding: 10px;
+    background-color: blue;
+    color: white;
+    margin-left: 10px
+}
+
+a.pagos
+{
+    color: blue;
+    text-decoration: underline;
+    font-weight: bolder;
+    cursor: pointer
+}
+
+
+.del
+{
+    padding: 10px;
+    background-color: red;
+    color: white
+}
+
+.invalid
+{
+background-color: #ffdddd;    
+}
+
+/* Pasos */
+
+/* Hide all steps by default: */
+.tab {
+  display: none;
+}
+
+/* Make circles that indicate the steps of the form: */
+.step {
+  height: 15px;
+  width: 15px;
+  margin: 0 2px;
+  background-color: #bbbbbb;
+  border: none; 
+  border-radius: 50%;
+  display: inline-block;
+  opacity: 0.5;
+}
+
+/* Mark the active step: */
+.step.active {
+  opacity: 1;
+}
+
+/* Mark the steps that are finished and valid: */
+.step.finish {
+  background-color: #4CAF50;
+}
+
+
+.lpasos
+{
+    margin-left: 7px!important;
+    padding: 5px;
+    
+}
+
+.lpasosact
+{
+    background-color: #2184be;
+    color: white;
+    border-radius: 10px;
+    padding: 10px;
+    
+}
+
+h2.cal
+{
+    text-transform: lowercase!important;
+    text-align: center;
+}
+
+/* Hide all steps by default: */

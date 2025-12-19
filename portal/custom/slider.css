@@ -1,0 +1,157 @@
+/*
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+*/
+/* 
+    Created on : 15/04/2015, 01:42:30 AM
+    Author     : Roberto
+*/
+@import url(http://fonts.googleapis.com/css?family=Open+Sans:300,400,700);
+
+@font-face {
+	font-family: 'Bebas Neue';
+	src:url('../fonts/BebasNeue.otf');
+	
+}
+
+
+#owl-demo .item img {
+    display: block;
+    width: 100%;
+    height: auto;
+}
+
+
+
+#owl-demo .item #login {
+    display: block;
+     width:100%;
+     height: auto;
+  margin:0 auto;
+  margin-top:8px;
+  margin-bottom:2%;
+  transition:opacity 1s;
+  -webkit-transition:opacity 1s;
+   
+}
+
+#owl-demo .item .info
+{
+    text-align: center;
+    vertical-align: middle;
+    color: white;
+    background-color:  #22aadd;
+    font-family: 'arial';
+    width: 100%;
+    height: auto;
+    
+}
+
+.tituloc
+{
+    
+    font-size: 14pt;
+    
+}
+
+.contc
+{
+    
+    font-size: 12pt;
+    
+    
+}
+
+
+div.next
+{
+    left:95%; 
+top:50%; 
+margin: auto;
+transform:translate(-50%,-50%); 
+-webkit-transform:translate(-50%,-50%); 
+-ms-transform:translate(-50%,-50%); 
+position: absolute;
+background: rgba(0, 0, 0, .5);
+color: white;
+
+padding:5%;
+z-index: 100;
+font-size: 30px;
+text-align: right;
+
+}
+
+div.prev
+{
+    left:5%; 
+top:50%; 
+margin: auto;
+transform:translate(-50%,-50%); 
+-webkit-transform:translate(-50%,-50%); 
+-ms-transform:translate(-50%,-50%); 
+position: absolute;
+background: rgba(0, 0, 0, .5);
+color: white;
+
+padding:5%;
+z-index: 100;
+font-size: 30px;
+text-align: right;
+
+}
+
+
+
+div.item div.consejo
+{
+ height: 8%;
+ margin-top: auto;
+ top: 50%;
+ margin-bottom: auto;
+ background: rgba(200, 12, 12, .8);
+ z-index: 100;
+ position: absolute;
+ color: white;
+ width: 100%;
+ font-family: 'Bebas Neue'!important;
+ font-size:20px;
+ font-weight: lighter
+     
+ 
+}
+
+
+div.item div.consejo a
+{
+    text-decoration: none;
+    color:white
+}
+
+
+
+.owl-wrapper-outer
+{
+    width: 100%!important;
+}
+
+div.item button
+{
+ 
+ margin-top: auto;
+ top: 90%;
+ left: 78%;
+
+ margin-bottom: auto;
+ z-index: 100;
+ position: absolute;
+ color: white;
+ font-family: 'Bebas Neue'!important;
+ font-weight: lighter
+      
+}
+
+
+
+
