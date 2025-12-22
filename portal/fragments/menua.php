@@ -402,9 +402,9 @@ $avatar = $usuarios["imagen"];
             </li>
 
             <!--PRODUCTOS-->
-            <!-- <li class="nav-item">
+            <li class="nav-item">
                 <a class="nav-link" data-bs-toggle="collapse" href="#productos" aria-expanded="false" aria-controls="charts">
-                    <i class='bx bx-devices left-panel-icons'></i>
+                    <i class='bx bx-shopping-bag left-panel-icons'></i>
                     <span class="menu-title">Productos</span>
                     <i class="menu-arrow"></i>
                 </a>
@@ -413,7 +413,7 @@ $avatar = $usuarios["imagen"];
                         <li class="nav-item"> <a class="nav-link" href="../portal/verProductos.php">ABC Productos</a></li>
                     </ul>
                 </div>
-            </li> -->
+            </li>
 
             <!--ALMACEN-->
             <!-- <li class="nav-item">

@@ -24787,7 +24787,10 @@ code {
     align-items: center;
 }
 
-.btn-add.btn-social-icon-text i {
+.btn-add.btn-social-icon-text i,
+.btn-add-orange.btn-social-icon-text i,
+.btn-add-blue.btn-social-icon-text i,
+.btn-add-purple.btn-social-icon-text i {
     background: tranparent;
     /*#BBF7B0*/
     padding: .75rem;
@@ -24795,6 +24798,66 @@ code {
     margin-right: 1.5rem;
     font-size: 20px;
     border-radius: 3px;
+}
+
+.btn-add-orange {
+    background: #ffc53e;
+    color: #ffffff;
+}
+
+.btn-add-orange:hover,
+.btn-add-orange:focus {
+    background: #ffc53e;
+    color: #ffffff;
+    box-shadow: 0 4px 20px rgba(255, 197, 62, 0.2), 0 2px 20px rgba(255, 197, 62, 0.7);
+}
+
+.btn-add-orange.btn-social-icon-text {
+    padding: 0 1.5rem 0 0;
+    background: #ffc53e;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.btn-add-blue {
+    background: #8e8eff;
+    color: #ffffff;
+}
+
+.btn-add-blue:hover,
+.btn-add-blue:focus {
+    background: #8e8eff;
+    color: #ffffff;
+    box-shadow: 0 4px 20px rgba(142, 142, 255, 0.2), 0 2px 20px rgba(142, 142, 255, 0.7);
+}
+
+.btn-add-blue.btn-social-icon-text {
+    padding: 0 1.5rem 0 0;
+    background: #8e8eff;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.btn-add-purple {
+    background: #d08bf0;
+    color: #ffffff;
+}
+
+.btn-add-purple:hover,
+.btn-add-purple:focus {
+    background: #d08bf0;
+    color: #ffffff;
+    box-shadow: 0 4px 20px rgba(208, 139, 240, 0.2), 0 2px 20px rgba(208, 139, 240, 0.7);
+}
+
+.btn-add-purple.btn-social-icon-text {
+    padding: 0 1.5rem 0 0;
+    background: #d08bf0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
 .btn-linkedin {
