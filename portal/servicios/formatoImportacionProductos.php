@@ -125,7 +125,7 @@ while ($row = $rsp_get_registros->fetch_assoc()) {
 
 //INDICACIONES
 #region
-$objPHPExcel->getActiveSheet()->setCellValue('S7', "id_presentacion: Ir a pestaña Configuración/Presentaciones/Columna ID");
+$objPHPExcel->getActiveSheet()->setCellValue('S7', "id_presentacion: Ir a pestaña Productos/ABC Presentaciones/Columna ID");
 $objPHPExcel->getActiveSheet()->setCellValue('S8', "id_categoria: Ir a pestaña Configuración/Categorías/Columna ID");
 $objPHPExcel->getActiveSheet()->setCellValue('S9', "¿inventario?: Indica si el producto maneja inventario. 1:No, 2:Si");
 #endregion
