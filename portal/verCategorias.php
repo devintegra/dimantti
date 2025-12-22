@@ -90,6 +90,7 @@ if (!$rcategorias = $mysqli->query($qcategorias)) {
                                 <table id='dtEmpresa' class='table table-striped text-center'>
                                     <thead>
                                         <tr>
+                                            <th>ID</th>
                                             <th>Nombre de la categoría</th>
                                         </tr>
                                     </thead>
@@ -100,6 +101,9 @@ if (!$rcategorias = $mysqli->query($qcategorias)) {
 
                                             echo <<<HTML
                                                 <tr class='odd gradeX'>
+                                                    <td>
+                                                        <a href='editarCategoria.php?id=$row[pk_categoria]'>$row[pk_categoria]</a>
+                                                    </td>
                                                     <td>
                                                         <a href='editarCategoria.php?id=$row[pk_categoria]'>$row[nombre]</a>
                                                     </td>
