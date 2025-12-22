@@ -360,7 +360,7 @@ $avatar = $usuarios["imagen"];
             </li>
 
             <!--SUCURSALES-->
-            <!-- <li class="nav-item">
+            <li class="nav-item">
                 <a class="nav-link" data-bs-toggle="collapse" href="#sucursales" aria-expanded="false" aria-controls="charts">
                     <i class='bx bx-store left-panel-icons'></i>
                     <span class="menu-title">Sucursales</span>
@@ -371,7 +371,7 @@ $avatar = $usuarios["imagen"];
                         <li class="nav-item"> <a class="nav-link" href="../portal/verSucursales.php">ABC Sucursales</a></li>
                     </ul>
                 </div>
-            </li> -->
+            </li>
 
             <!--CLIENTES-->
             <!-- <li class="nav-item">
