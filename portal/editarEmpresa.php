@@ -48,7 +48,7 @@ $cp = $rowe["cp"];
 $rfc = $rowe["rfc"];
 $pass = base64_decode($rowe["pass"]);
 $fk_regimen_fiscal = $rowe["fk_regimen_fiscal"];
-$clave_regimen = $rowe["clave"];
+$clave_regimen = $rowe["regimen"];
 #endregion
 
 
