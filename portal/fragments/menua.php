@@ -388,7 +388,7 @@ $avatar = $usuarios["imagen"];
             </li>
 
             <!--PROVEEDORES-->
-            <!-- <li class="nav-item">
+            <li class="nav-item">
                 <a class="nav-link" data-bs-toggle="collapse" href="#proveedores" aria-expanded="false" aria-controls="charts">
                     <i class='bx bx-group left-panel-icons'></i>
                     <span class="menu-title">Proveedores</span>
@@ -399,7 +399,7 @@ $avatar = $usuarios["imagen"];
                         <li class="nav-item"> <a class="nav-link" href="../portal/verProveedores.php">ABC Proveedores</a></li>
                     </ul>
                 </div>
-            </li> -->
+            </li>
 
             <!--PRODUCTOS-->
             <!-- <li class="nav-item">
