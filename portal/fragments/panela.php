@@ -139,7 +139,7 @@ $nproductos = $productos["total"];
 
                         </div>
                         <div class="d-flex flex-wrap justify-content-center align-items-center">
-                            <i class='bx bxs-devices'></i>
+                            <i class='bx bx-shopping-bag'></i>
                         </div>
                     </div>
 
