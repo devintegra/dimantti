@@ -51,23 +51,14 @@ function getExistencias() {
                     badge = "<p class='badge-primary-integra'>Inventario estable</p>";
                 }
 
-                //IMAGEN
-                //#region
-                var file = `servicios/productos/${element.imagen}`;
-                if (file) {
-                    var fondo = `<img style='border-radius: 7px; width:50px; height:50px; object-fit:cover;' loading='lazy' src='servicios/productos/${element.imagen}'>`;
-                } else {
-                    var fondo = "<img style='border-radius: 7px; width:50px; height:50px; object-fit:cover;' loading='lazy' src='images/picture.png'>";
-                }
-                //#endregion
+                let pathImage = (element.imagen) ? `servicios/productos/${element.imagen}` : 'images/picture.png';
 
                 var tr = `
                     <tr class='odd gradeX'>
-                        <td>${fondo}</td>
+                        <td><img style='border-radius: 7px; width:50px; height:50px; object-fit:cover;' loading='lazy' src='${pathImage}'></td>
                         <td style='white-space: normal'>${element.sucursal} / ${element.almacen}</td>
                         <td>${element.codigobarras}</td>
                         <td style='white-space: normal'>${element.descripcion_producto}</td>
-                        <td style='white-space: normal'>${element.serie}</td>
                         <td>${element.cantidad}</td>
                         <td>${badge}</td>
                     </tr>
