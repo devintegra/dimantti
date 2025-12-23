@@ -70,16 +70,23 @@ if ($nivel != 1) {
                 <div class="card">
                     <div class="card-body">
                         <div class="d-flex justify-content-between">
-                            <h4 class="card-title">Nueva presentación</h4>
-                            <i class='bx bx-ruler' style="font-size:32px"></i>
+                            <h4 class="card-title">Nueva ruta</h4>
+                            <i class='bx bx-trip' style="font-size:32px"></i>
                         </div>
                         <form class="forms-sample" enctype="multipart/form-data" id="formuploadajax">
 
                             <div class="row">
                                 <div class="col-lg-6">
                                     <div class="form-group">
+                                        <label for="clave">Clave</label>
+                                        <input type="text" id="clave" name="clave" placeholder="Clave" class="form-control" autocomplete="off">
+                                    </div>
+                                </div>
+
+                                <div class="col-lg-6">
+                                    <div class="form-group">
                                         <label for="nombre">Nombre</label>
-                                        <input type="text" id="nombre" name="nombre" placeholder="Ej.Chica" class="form-control" autocomplete="off">
+                                        <input type="text" id="nombre" name="nombre" placeholder="Nombre" class="form-control" autocomplete="off">
                                     </div>
                                 </div>
                             </div>
@@ -103,7 +110,7 @@ if ($nivel != 1) {
     <script src="custom/jquery.maskedinput.js"></script>
     <script src="assets/loading/loadingoverlay.js"></script>
     <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
-    <script src="custom/agregarPresentacion.js"></script>
+    <script src="custom/agregarRuta.js"></script>
 
 
 </body>
