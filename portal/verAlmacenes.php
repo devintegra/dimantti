@@ -111,7 +111,6 @@ if ($nivel != 1) {
 
                                         if ($estatus == 3) {
                                             $nestatus = "<p class='badge-success-integra'>Corte realizado</p>";
-                                            //$boton = "<button type='button' onclick='confirmar($pk_almacen)' class='btn-add acciones' title='Reactivar' ><i class='bx bx-play'></i></button>";
                                             $boton = "<button type='button' onclick='confirmar($pk_almacen)' class='btn-entregar-dast' title='Reactivar'><i class='fa fa-play'></i></button>";
                                         }
                                         #endregion
