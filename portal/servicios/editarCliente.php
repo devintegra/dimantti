@@ -51,16 +51,16 @@ if (isset($_POST['rfc']) && is_string($_POST['rfc'])) {
     $rfc = $_POST['rfc'];
 }
 
-if (isset($_POST['usuario']) && is_string($_POST['usuario'])) {
-    $usuario = $_POST['usuario'];
-}
-
-if (isset($_POST['pass']) && is_string($_POST['pass'])) {
-    $pass = $_POST['pass'];
-}
-
 if (isset($_POST['fk_regimen_fiscal']) && is_numeric($_POST['fk_regimen_fiscal'])) {
     $fk_regimen_fiscal = (int)$_POST['fk_regimen_fiscal'];
+}
+
+if (isset($_POST['fk_ruta']) && is_numeric($_POST['fk_ruta'])) {
+    $fk_ruta = (int)$_POST['fk_ruta'];
+}
+
+if (isset($_POST['dia']) && is_numeric($_POST['dia'])) {
+    $dia = (int)$_POST['dia'];
 }
 
 if (isset($_POST['latitud']) && is_string($_POST['latitud'])) {
@@ -77,11 +77,12 @@ if (isset($_POST['direccion']) && is_string($_POST['direccion'])) {
 
 $fk_regimen_fiscal ? $fk_regimen_fiscal = $fk_regimen_fiscal : $fk_regimen_fiscal = 0;
 
+$arrayDias = array("Lunes", "Martes", "Miercoles", "Jueves", "Viernes", "Sábado", "Domingo");
+$diaNombre = $arrayDias[$dia - 1];
 
 
 
-
-if (!$mysqli->query("UPDATE ct_clientes SET nombre='$nombre', telefono='$telefono', correo='$correo', dias_credito=$dias_credito, limite_credito=$limite_credito, credito=$credito, abonos=$abonos, fk_categoria_cliente=$fk_categoria, cp='$cp', rfc='$rfc', fk_regimen_fiscal=$fk_regimen_fiscal, pass = '$pass', usuario = '$usuario', direccion = '$direccion', latitud = '$latitud', longitud = '$longitud' WHERE pk_cliente=$pk_cliente")) {
+if (!$mysqli->query("UPDATE ct_clientes SET nombre='$nombre', telefono='$telefono', correo='$correo', dias_credito=$dias_credito, limite_credito=$limite_credito, credito=$credito, abonos=$abonos, fk_categoria_cliente=$fk_categoria, cp='$cp', rfc='$rfc', fk_regimen_fiscal=$fk_regimen_fiscal, fk_ruta = $fk_ruta, dia_numero = $dia, dia = '$diaNombre', direccion = '$direccion', latitud = '$latitud', longitud = '$longitud' WHERE pk_cliente=$pk_cliente")) {
     $codigo = 201;
     $descripcion = "Error al guardar el registro";
 }

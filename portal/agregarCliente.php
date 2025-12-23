@@ -25,7 +25,7 @@ if ($nivel != 1) {
 }
 
 
-//Regímenes fiscales
+//REGIMENES FISCALES
 #region
 $qregimen = "SELECT * FROM ct_regimenes_fiscales where estado=1";
 
@@ -36,7 +36,15 @@ if (!$rregimen = $mysqli->query($qregimen)) {
 #endregion
 
 
+//RUTAS
+#region
+$qrutas = "SELECT * FROM ct_rutas where estado=1";
 
+if (!$rrutas = $mysqli->query($qrutas)) {
+    echo "Lo sentimos, esta aplicación está experimentando problemas.";
+    exit;
+}
+#endregion
 
 ?>
 <!doctype html>
@@ -142,29 +150,37 @@ if (!$rregimen = $mysqli->query($qregimen)) {
                                 </div>
                             </div>
 
-
-
                             <div class="row">
                                 <div class="col-lg-6">
                                     <div class="form-group">
-                                        <label for="usuario">Usuario</label>
-                                        <input type='text' id='usuario' name='text-input' placeholder='Usuario' class='form-control' autocomplete='off'>
+                                        <label for="ruta">Ruta</label>
+                                        <select class="form-control" id="fk_ruta">
+                                            <option value="0">Seleccione</option>
+                                            <?php
+                                            while ($rowr = $rrutas->fetch_assoc()) {
+                                                echo "<option value='$rowr[pk_ruta]'>$rowr[clave]</option>";
+                                            }
+                                            ?>
+                                        </select>
                                     </div>
                                 </div>
 
                                 <div class="col-lg-6">
                                     <div class="form-group">
-                                        <label for="pass">Contraseña</label>
-                                        <div class="d-flex justify-content-between align-items-center">
-                                            <input type='password' id='pass' name='text-input' placeholder='Contraseña' class='form-control' autocomplete="off">
-                                            <div class="d-flex justify-content-center align-items-center"><i class='bx bx-info-circle' title='La contraseña debe contener al menos 5 caracteres' style="font-size:24px; color: #918D8D; cursor:pointer;"></i></div>
-                                            <div class="d-flex justify-content-center align-items-center"><i class='bx bx-low-vision' title='Ver contraseña' id="ver_password" style="font-size:24px; color: #918D8D; cursor:pointer;"></i></div>
-                                        </div>
+                                        <label for="dia">Día</label>
+                                        <select class="form-control" id="dia">
+                                            <option value="0">Seleccione</option>
+                                            <option value="1">Lunes</option>
+                                            <option value="2">Martes</option>
+                                            <option value="3">Miercoles</option>
+                                            <option value="4">Jueves</option>
+                                            <option value="5">Viernes</option>
+                                            <option value="6">Sábado</option>
+                                            <option value="7">Domingo</option>
+                                        </select>
                                     </div>
                                 </div>
                             </div>
-
-
 
                             <div class="row">
                                 <div class="col-lg-6">
@@ -243,7 +259,9 @@ if (!$rregimen = $mysqli->query($qregimen)) {
                                 <p style="font-size: 12px;">*Si no se selecciona una lista de precios, se asignará por defecto el Precio N°1</p>
                             </div>
 
-                            <br>
+
+
+                            <br><br>
 
                             <button id="guardar" type="button" class="btn btn-primary-dast mx-2"><i class="fa fa-save mx-2"></i>Guardar</button>
 

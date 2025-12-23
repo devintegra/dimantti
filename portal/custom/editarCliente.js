@@ -176,11 +176,20 @@ function validar() {
     }
 
     if ($("#correo").val() != '') {
-
         if (!regex.test($('#correo').val().trim())) {
             retorno = false;
             $('#correo').css('background-color', '#ffdddd');
         }
+    }
+
+    if ($('#fk_ruta').val() == 0) {
+        retorno = false;
+        $('#fk_ruta').css('background-color', '#ffdddd');
+    }
+
+    if ($('#dia').val() == 0) {
+        retorno = false;
+        $('#dia').css('background-color', '#ffdddd');
     }
 
     if ($('#abonos').val() == 0) {
@@ -208,13 +217,6 @@ function validar() {
         swal('Mensaje', 'El crédito disponible no puede ser mayor al límite del crédito', 'info');
     }
 
-    if ($("#pass").val().length > 0) {
-        if ($('#pass').val().length < 5) {
-            retorno = false;
-            $('#pass').css('background-color', '#ffdddd');
-        }
-    }
-
     return retorno;
 
 }
@@ -227,23 +229,23 @@ $('#guardar').click(function () {
         var pass = btoa($("#pass").val());
 
         var parametros = {
+            "pk_cliente": $("#pk_cliente").val(),
             "nombre": $("#nombre").val(),
             "telefono": $("#telefono").val(),
             "correo": $("#correo").val(),
-            "pk_cliente": $("#pk_cliente").val(),
+            "cp": $("#cp").val(),
+            "rfc": $("#rfc").val(),
+            "fk_regimen_fiscal": $("#regimen_fiscal").val(),
+            "fk_ruta": $("#fk_ruta").val(),
+            "dia": $("#dia").val(),
+            "direccion": $("#direccion").val(),
+            "latitud": latitud,
+            "longitud": longitud,
             "dias_credito": $("#dias_credito").val(),
             "limite_credito": $("#limite_credito").val().replace(/,/g, ""),
             "credito": $("#credito").val().replace(/,/g, ""),
             "abonos": $("#abonos").val(),
-            "fk_categoria": $("#categoria").val(),
-            "cp": $("#cp").val(),
-            "rfc": $("#rfc").val(),
-            "fk_regimen_fiscal": $("#regimen_fiscal").val(),
-            "usuario": $("#usuario").val(),
-            "pass": pass,
-            "direccion": $("#direccion").val(),
-            "latitud": latitud,
-            "longitud": longitud
+            "fk_categoria": $("#categoria").val()
         };
 
         $.ajax({

@@ -165,6 +165,16 @@ function validar() {
         }
     }
 
+    if ($('#fk_ruta').val() == 0) {
+        retorno = false;
+        $('#fk_ruta').css('background-color', '#ffdddd');
+    }
+
+    if ($('#dia').val() == 0) {
+        retorno = false;
+        $('#dia').css('background-color', '#ffdddd');
+    }
+
     if ($('#abonos').val() == 0) {
         retorno = false;
         $('#abonos').css('background-color', '#ffdddd');
@@ -190,13 +200,6 @@ function validar() {
         swal('Mensaje', 'El crédito disponible no puede ser mayor al límite del crédito', 'info');
     }
 
-    if ($("#pass").val().length > 0) {
-        if ($('#pass').val().length < 5) {
-            retorno = false;
-            $('#pass').css('background-color', '#ffdddd');
-        }
-    }
-
     return retorno;
 
 }
@@ -218,20 +221,20 @@ $('#guardar').click(function () {
             "nombre": $("#nombre").val(),
             "telefono": $("#telefono").val(),
             "correo": $("#correo").val(),
-            "dias_credito": $("#dias_credito").val(),
-            "limite_credito": $("#limite_credito").val().replace(/,/g, ""),
-            "credito": $("#credito").val().replace(/,/g, ""),
-            "abonos": $("#abonos").val(),
-            "fk_categoria": $("#categoria").val(),
             "cp": $("#cp").val(),
             "rfc": $("#rfc").val(),
             "tipo": 1,
             "fk_regimen_fiscal": $("#regimen_fiscal").val(),
-            "usuario": $("#usuario").val(),
-            "pass": pass,
+            "fk_ruta": $("#fk_ruta").val(),
+            "dia": $("#dia").val(),
             "direccion": $("#direccion").val(),
             "latitud": latitud,
-            "longitud": longitud
+            "longitud": longitud,
+            "dias_credito": $("#dias_credito").val(),
+            "limite_credito": $("#limite_credito").val().replace(/,/g, ""),
+            "credito": $("#credito").val().replace(/,/g, ""),
+            "abonos": $("#abonos").val(),
+            "fk_categoria": $("#categoria").val()
         };
 
         $.ajax({

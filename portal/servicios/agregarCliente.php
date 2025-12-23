@@ -51,16 +51,16 @@ if (isset($_POST['fk_regimen_fiscal']) && is_numeric($_POST['fk_regimen_fiscal']
     $fk_regimen_fiscal = (int)$_POST['fk_regimen_fiscal'];
 }
 
+if (isset($_POST['fk_ruta']) && is_numeric($_POST['fk_ruta'])) {
+    $fk_ruta = (int)$_POST['fk_ruta'];
+}
+
+if (isset($_POST['dia']) && is_numeric($_POST['dia'])) {
+    $dia = (int)$_POST['dia'];
+}
+
 if (isset($_POST['tipo']) && is_numeric($_POST['tipo'])) {
     $tipo = (int)$_POST['tipo'];
-}
-
-if (isset($_POST['usuario']) && is_string($_POST['usuario'])) {
-    $usuario = $_POST['usuario'];
-}
-
-if (isset($_POST['pass']) && is_string($_POST['pass'])) {
-    $pass = $_POST['pass'];
 }
 
 if (isset($_POST['latitud']) && is_string($_POST['latitud'])) {
@@ -75,8 +75,30 @@ if (isset($_POST['direccion']) && is_string($_POST['direccion'])) {
     $direccion = $_POST['direccion'];
 }
 
+$ahora = new DateTime();
+$id_file = $ahora->getTimestamp();
 
-if (!$mysqli->query("INSERT INTO ct_clientes(nombre, telefono, fk_sucursal, correo, dias_credito, limite_credito, credito, abonos, fk_categoria_cliente, cp, rfc, fk_regimen_fiscal, tipo, pass, usuario, direccion, latitud, longitud) values ('$nombre', '$telefono', 1, '$correo', $dias_credito, $limite_credito, $credito, $abonos, $fk_categoria, '$cp', '$rfc', $fk_regimen_fiscal, $tipo, '$pass', '$usuario', '$direccion', '$latitud', '$longitud')")) {
+$arrayDias = array("Lunes", "Martes", "Miercoles", "Jueves", "Viernes", "Sábado", "Domingo");
+$diaNombre = $arrayDias[$dia - 1];
+
+
+
+//RUTA
+#region
+if (!$rruta = $mysqli->query("SELECT * FROM ct_rutas WHERE pk_ruta = $fk_ruta AND estado = 1")) {
+    $codigo = 201;
+    $descripcion = "Error al insertar el encabezado";
+}
+
+$rowr = $rruta->fetch_assoc();
+$ruta = $rowr["clave"];
+$clave = "R" . $ruta . $id_file;
+#endregion
+
+
+
+
+if (!$mysqli->query("INSERT INTO ct_clientes(clave, nombre, telefono, fk_sucursal, correo, dias_credito, limite_credito, credito, abonos, fk_categoria_cliente, cp, rfc, fk_regimen_fiscal, tipo, direccion, latitud, longitud, fk_ruta, dia_numero, dia) values ('$clave', '$nombre', '$telefono', 1, '$correo', $dias_credito, $limite_credito, $credito, $abonos, $fk_categoria, '$cp', '$rfc', $fk_regimen_fiscal, $tipo, '$direccion', '$latitud', '$longitud', $fk_ruta, $dia, '$diaNombre')")) {
     $codigo = 201;
     $descripcion = "Error al guardar el registro";
 }

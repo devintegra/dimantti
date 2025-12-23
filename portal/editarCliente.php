@@ -47,6 +47,8 @@ if (!$resultado = $mysqli->query($eusuario)) {
 }
 
 $row = $resultado->fetch_assoc();
+$fk_ruta = $row["fk_ruta"];
+$clave = $row["clave"];
 $nombre = $row["nombre"];
 $telefono = $row["telefono"];
 $correo = $row["correo"];
@@ -58,8 +60,7 @@ $fk_categoria = $row["fk_categoria_cliente"];
 $cp = $row["cp"];
 $rfc = $row["rfc"];
 $fk_regimen_fiscal = $row["fk_regimen_fiscal"];
-$usuario_cliente = $row["usuario"];
-$pass = base64_decode($row["pass"]);
+$dia = $row["dia_numero"];
 $clave_regimen = $row["regimen"];
 $direccion = $row["direccion"];
 $latitud = $row["latitud"];
@@ -91,6 +92,31 @@ $arrayPrecios = array(
     array('id' => 2, 'nombre' => 'Precio N°2'),
     array('id' => 3, 'nombre' => 'Precio N°3'),
     array('id' => 4, 'nombre' => 'Precio N°4')
+);
+#endregion
+
+
+//RUTAS
+#region
+$qrutas = "SELECT * FROM ct_rutas where estado=1";
+
+if (!$rrutas = $mysqli->query($qrutas)) {
+    echo "Lo sentimos, esta aplicación está experimentando problemas.";
+    exit;
+}
+#endregion
+
+
+//DIAS
+#region
+$arrayDias = array(
+    array('id' => 1, 'nombre' => 'Lunes'),
+    array('id' => 2, 'nombre' => 'Martes'),
+    array('id' => 3, 'nombre' => 'Miercoles'),
+    array('id' => 4, 'nombre' => 'Jueves'),
+    array('id' => 5, 'nombre' => 'Viernes'),
+    array('id' => 6, 'nombre' => 'Sábado'),
+    array('id' => 7, 'nombre' => 'Domingo')
 );
 #endregion
 
@@ -184,7 +210,6 @@ $arrayPrecios = array(
                                 </div>
                             </div>
 
-
                             <div class="row">
                                 <div class="col-lg-6">
                                     <div class="form-group">
@@ -214,33 +239,43 @@ $arrayPrecios = array(
                                 </div>
                             </div>
 
-
                             <div class="row">
                                 <div class="col-lg-6">
                                     <div class="form-group">
-                                        <label for="usuario">Usuario</label>
-                                        <?php
-                                        $usuarioDisabled = strlen($usuario_cliente) > 0 ? "disabled" : "";
-                                        echo "<input type='text' id='usuario' name='text-input' placeholder='Usuario' class='form-control' value='$usuario_cliente' $usuarioDisabled autocomplete='off'>";
-                                        ?>
+                                        <label for="fk_ruta">Ruta</label>
+                                        <select class="form-control" id="fk_ruta">
+                                            <option value="0">Seleccione</option>
+                                            <?php
+                                            while ($rowr = $rrutas->fetch_assoc()) {
+                                                if ($rowr['pk_ruta'] == $fk_ruta) {
+                                                    echo "<option value='$rowr[pk_ruta]' selected>$rowr[nombre]</option>";
+                                                } else {
+                                                    echo "<option value='$rowr[pk_ruta]'>$rowr[nombre]</option>";
+                                                }
+                                            }
+                                            ?>
+                                        </select>
                                     </div>
                                 </div>
 
                                 <div class="col-lg-6">
                                     <div class="form-group">
-                                        <label for="pass">Contraseña</label>
-                                        <div class="d-flex justify-content-between align-items-center">
+                                        <label for="dia">Día</label>
+                                        <select class='form-control' id='dia'>
+                                            <option value='0'>Seleccione</option>
                                             <?php
-                                            echo "<input type='password' id='pass' name='text-input' placeholder='Contraseña' class='form-control' value='$pass'>";
+                                            foreach ($arrayDias as $rowd) {
+                                                if ($rowd['id'] == $dia) {
+                                                    echo "<option value='$rowd[id]' selected>$rowd[nombre]</option>";
+                                                } else {
+                                                    echo "<option value='$rowd[id]'>$rowd[nombre]</option>";
+                                                }
+                                            }
                                             ?>
-                                            <div class="d-flex justify-content-center align-items-center"><i class='bx bx-info-circle' title='La contraseña debe contener al menos 5 caracteres' style="font-size:24px; color: #918D8D; cursor:pointer;"></i></div>
-                                            <div class="d-flex justify-content-center align-items-center"><i class='bx bx-low-vision' title='Ver contraseña' id="ver_password" style="font-size:24px; color: #918D8D; cursor:pointer;"></i></div>
-                                        </div>
+                                        </select>
                                     </div>
                                 </div>
                             </div>
-
-
 
                             <div class="row">
                                 <div class="col-lg-6">
@@ -343,10 +378,11 @@ $arrayPrecios = array(
                                         </select>
                                     </div>
                                 </div>
-
                             </div>
 
 
+
+                            <br><br>
 
                             <div class="row d-flex justify-content-center">
                                 <?php

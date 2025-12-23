@@ -76,42 +76,47 @@ mysqli_set_charset($mysqli, 'utf8');
                             <table id="dtEmpresa" class="table table-striped">
                                 <thead>
                                     <tr>
+                                        <th>Ruta</th>
+                                        <th>Clave</th>
                                         <th>Nombre</th>
-                                        <th>Telefono</th>
-                                        <th>Correo</th>
+                                        <th>Día</th>
+                                        <th>Dirección</th>
                                     </tr>
                                 </thead>
                                 <tfoot style='display: table-header-group'>
                                     <tr>
+                                        <th>Ruta</th>
+                                        <th>Clave</th>
                                         <th>Nombre</th>
-                                        <th>Telefono</th>
-                                        <th>Correo</th>
+                                        <th>Día</th>
+                                        <th>Dirección</th>
                                     </tr>
                                 </tfoot>
                                 <tbody>
                                     <?php
-                                    $eusuario = "SELECT * FROM ct_clientes where estado=1";
+                                    $eusuario = "SELECT ctc.*,
+                                            ctr.clave as ruta
+                                        FROM ct_clientes ctc
+                                        LEFT JOIN ct_rutas ctr ON ctr.pk_ruta = ctc.fk_ruta
+                                        WHERE ctc.estado = 1";
 
                                     if (!$resultado = $mysqli->query($eusuario)) {
                                         echo "Lo sentimos, esta aplicación está experimentando problemas.";
                                         exit;
                                     }
 
-                                    while ($roweusuario = $resultado->fetch_assoc()) {
+                                    while ($row = $resultado->fetch_assoc()) {
 
-                                        if ($roweusuario['tipo'] == 1) {
-                                            $tipo = "Punto de venta";
-                                            $estilo = "badge-primary-integra";
-                                        } else if ($roweusuario['tipo'] == 2) {
-                                            $tipo = "Web";
-                                            $estilo = "badge-success-integra";
-                                        }
+                                        $arrayDias = array("Lunes", "Martes", "Miercoles", "Jueves", "Viernes", "Sábado", "Domingo");
+                                        $dia = $arrayDias[$row['dia_numero'] - 1];
 
                                         echo <<<HTML
                                             <tr class="odd gradeX">
-                                                <td><a style='text-decoration:none' href='editarCliente.php?id=$roweusuario[pk_cliente]'>$roweusuario[nombre]</a></td>
-                                                <td><a style='text-decoration:none' href='editarCliente.php?id=$roweusuario[pk_cliente]'>$roweusuario[telefono]</a></td>
-                                                <td><a style='text-decoration:none' href='editarCliente.php?id=$roweusuario[pk_cliente]'>$roweusuario[correo]</a></td>
+                                                <td><a style='text-decoration:none' href='editarCliente.php?id=$row[pk_cliente]'>$row[ruta]</a></td>
+                                                <td><a style='text-decoration:none' href='editarCliente.php?id=$row[pk_cliente]'>$row[clave]</a></td>
+                                                <td><a style='text-decoration:none' href='editarCliente.php?id=$row[pk_cliente]'>$row[nombre]</a></td>
+                                                <td><a style='text-decoration:none' href='editarCliente.php?id=$row[pk_cliente]'>$dia</a></td>
+                                                <td><a style='text-decoration:none' href='editarCliente.php?id=$row[pk_cliente]'>$row[direccion]</a></td>
                                             </tr>
                                         HTML;
                                     }
