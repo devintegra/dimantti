@@ -426,15 +426,25 @@ $avatar = $usuarios["imagen"];
             </li>
 
             <!--ALMACEN-->
-            <!-- <li class="nav-item">
-                <a class="nav-link" data-bs-toggle="collapse" href="#almacen" aria-expanded="false" aria-controls="ventas">
+            <li class="nav-item">
+                <a class="nav-link" data-bs-toggle="collapse" href="#almacen" aria-expanded="false" aria-controls="almacen">
                     <i class='bx bx-package left-panel-icons'></i>
                     <span class="menu-title">Almacén</span>
                     <i class="menu-arrow"></i>
                 </a>
                 <div class="collapse" id="almacen">
                     <ul class="nav flex-column sub-menu">
+                        <li class="nav-item"> <a class="nav-link" href="../portal/verPlantillas.php">ABC Plantillas</a></li>
+                    </ul>
+                </div>
+                <div class="collapse" id="almacen">
+                    <ul class="nav flex-column sub-menu">
                         <li class="nav-item"> <a class="nav-link" href="../portal/verExistencias.php">Existencias</a></li>
+                    </ul>
+                </div>
+                <div class="collapse" id="almacen">
+                    <ul class="nav flex-column sub-menu">
+                        <li class="nav-item"> <a class="nav-link" href="../portal/verAlmacenes.php">Almacénes móviles</a></li>
                     </ul>
                 </div>
                 <div class="collapse" id="almacen">
@@ -472,12 +482,7 @@ $avatar = $usuarios["imagen"];
                         <li class="nav-item"> <a class="nav-link" href="../portal/verTransferencias.php">Transferencias</a></li>
                     </ul>
                 </div>
-                <div class="collapse" id="almacen">
-                    <ul class="nav flex-column sub-menu">
-                        <li class="nav-item"> <a class="nav-link" href="../portal/verPrestamos.php">Prestamos</a></li>
-                    </ul>
-                </div>
-            </li> -->
+            </li>
 
             <!--PUNTO DE VENTA-->
             <!-- <li class="nav-item">
