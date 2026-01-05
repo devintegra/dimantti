@@ -477,11 +477,6 @@ $avatar = $usuarios["imagen"];
                         <li class="nav-item"> <a class="nav-link" href="../portal/verSalidasAlmacen.php">Salidas directas</a></li>
                     </ul>
                 </div>
-                <div class="collapse" id="almacen">
-                    <ul class="nav flex-column sub-menu">
-                        <li class="nav-item"> <a class="nav-link" href="../portal/verTransferencias.php">Transferencias</a></li>
-                    </ul>
-                </div>
             </li>
 
             <!--PUNTO DE VENTA-->
