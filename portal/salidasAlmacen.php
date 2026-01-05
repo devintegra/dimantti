@@ -32,7 +32,7 @@ if ($nivel != 1) {
 
 //PRODUCTOS
 #region
-$qproductos = "SELECT pk_producto, codigobarras, nombre, precio FROM ct_productos WHERE estado = 1";
+$qproductos = "SELECT pk_producto, clave, codigobarras, nombre, precio FROM ct_productos WHERE estado = 1";
 
 if (!$rproductos = $mysqli->query($qproductos)) {
     echo "Lo sentimos, esta aplicación está experimentando problemas. 1";
@@ -115,7 +115,7 @@ if (!$rmotivo = $mysqli->query($qmotivo)) {
                                             <select id="clave" class="select2 form-control select2-hidden-accessible" style="width: 100%;" multiple>
                                                 <?php
                                                 while ($productos = $rproductos->fetch_assoc()) {
-                                                    echo "<option value='$productos[pk_producto]'>$productos[codigobarras] | $productos[nombre] | $$productos[precio]</option>";
+                                                    echo "<option value='$productos[clave]'>$productos[codigobarras] | $productos[nombre] | $$productos[precio]</option>";
                                                 }
                                                 ?>
                                             </select>
