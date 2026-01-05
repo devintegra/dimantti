@@ -18,6 +18,7 @@ $costo = 0.00;
 
 
 $qproductos = "SELECT ctp.*,
+        (SELECT COALESCE(SUM(cantidad),0) FROM tr_existencias WHERE fk_producto = ctp.pk_producto AND estado = 1 AND cantidad > 0) as existencias,
         (SELECT imagen FROM rt_imagenes_productos WHERE fk_producto = ctp.pk_producto AND estado = 1) as imagen
     FROM ct_productos ctp
     WHERE ctp.pk_producto = $clave
@@ -41,6 +42,7 @@ if ($codigo == 200) {
     $nombre = $row["nombre"];
     $costo = $row["costo"];
     $codigobarras = $row["codigobarras"];
+    $existencias = $row["existencias"];
 
     //IMAGEN
     #region
@@ -65,6 +67,7 @@ $detalle = array(
     "clave" => $clave,
     "codigobarras" => $codigobarras,
     "pk_producto" => $pk_producto,
+    "existencias" => $existencias,
     "imagen" => $fondo
 );
 $general = array("codigo" => $codigo, "descripcion" => $descripcion, "objList" => $detalle);
