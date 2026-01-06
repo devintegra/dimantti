@@ -141,7 +141,7 @@ if (!$rproductos = $mysqli->query($qproductos)) {
                                                 <select id="clave" class="select2 form-control select2-hidden-accessible" style="width: 100%;" multiple>
                                                     <?php
                                                     while ($productos = $rproductos->fetch_assoc()) {
-                                                        echo "<option value='$productos[clave]'>$productos[codigobarras] | $productos[nombre] | $$productos[precio]</option>";
+                                                        echo "<option value='$productos[codigobarras]'>$productos[codigobarras] | $productos[nombre] | $$productos[precio]</option>";
                                                     }
                                                     ?>
                                                 </select>
