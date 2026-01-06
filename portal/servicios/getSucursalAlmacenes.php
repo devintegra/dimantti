@@ -12,8 +12,13 @@ if (isset($_GET['fk_sucursal']) && is_numeric($_GET['fk_sucursal'])) {
 }
 
 
+$flsucursal = ($fk_sucursal != 0) ? " AND rts.fk_sucursal = $fk_sucursal" : "";
 
-$qregistros = "SELECT * FROM rt_sucursales_almacenes WHERE fk_sucursal = $fk_sucursal AND estado = 1";
+$qregistros = "SELECT rts.*,
+    cts.nombre as sucursal
+FROM rt_sucursales_almacenes rts
+JOIN ct_sucursales cts ON cts.pk_sucursal = rts.fk_sucursal
+WHERE rts.estado = 1$flsucursal";
 
 if (!$get_registros = $mysqli->query($qregistros)) {
     $descripcion = "Error al obtener las existencias";

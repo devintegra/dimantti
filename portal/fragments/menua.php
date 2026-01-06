@@ -480,7 +480,7 @@ $avatar = $usuarios["imagen"];
             </li>
 
             <!--PUNTO DE VENTA-->
-            <!-- <li class="nav-item">
+            <li class="nav-item">
                 <a class="nav-link" data-bs-toggle="collapse" href="#ventas" aria-expanded="false" aria-controls="reportes">
                     <i class='bx bx-cart-alt left-panel-icons'></i>
                     <span class="menu-title">Punto de venta</span>
@@ -494,11 +494,6 @@ $avatar = $usuarios["imagen"];
                 <div class="collapse" id="ventas">
                     <ul class="nav flex-column sub-menu">
                         <li class="nav-item"> <a class="nav-link" href="../portal/verVentas.php">Historial de ventas</a></li>
-                    </ul>
-                </div>
-                <div class="collapse" id="ventas">
-                    <ul class="nav flex-column sub-menu">
-                        <li class="nav-item"> <a class="nav-link" href="../portal/verVentasWeb.php">Historial de ventas web</a></li>
                     </ul>
                 </div>
                 <div class="collapse" id="ventas">
@@ -531,7 +526,7 @@ $avatar = $usuarios["imagen"];
                         <li class="nav-item"> <a class="nav-link" href="../portal/verRetiros.php">Retiros de caja</a></li>
                     </ul>
                 </div>
-            </li> -->
+            </li>
 
             <!--REPORTES-->
             <!-- <li class="nav-item">

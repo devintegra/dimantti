@@ -40,24 +40,24 @@ while ($existencias = $rexistencias->fetch_assoc()) {
 
 //TRANSFERENCIAS
 #region
-$qtransferencias = "SELECT SUM(td.faltante) as cantidad
-    FROM tr_transferencias_detalle td, tr_transferencias t
-    WHERE td.fk_producto = $pk_producto
-    AND td.faltante > 0
-    AND td.estado = 1
-    AND t.pk_transferencia = td.fk_transferencia";
+// $qtransferencias = "SELECT SUM(td.faltante) as cantidad
+//     FROM tr_transferencias_detalle td, tr_transferencias t
+//     WHERE td.fk_producto = $pk_producto
+//     AND td.faltante > 0
+//     AND td.estado = 1
+//     AND t.pk_transferencia = td.fk_transferencia";
 
-if (!$rtransferencias = $mysqli->query($qtransferencias)) {
-    echo "Lo sentimos, esta aplicación está experimentando problemas. Error al obtener las transferencias";
-    exit;
-}
+// if (!$rtransferencias = $mysqli->query($qtransferencias)) {
+//     echo "Lo sentimos, esta aplicación está experimentando problemas. Error al obtener las transferencias";
+//     exit;
+// }
 
-$transferencia = $rtransferencias->fetch_assoc();
-$transferencia_cantidad = $transferencia["cantidad"];
+// $transferencia = $rtransferencias->fetch_assoc();
+// $transferencia_cantidad = $transferencia["cantidad"];
 
-if ($transferencia_cantidad) {
-    $cantidades .= "(EN TRANSFERENCIA: " . $transferencia_cantidad . ")\n";
-}
+// if ($transferencia_cantidad) {
+//     $cantidades .= "(EN TRANSFERENCIA: " . $transferencia_cantidad . ")\n";
+// }
 #endregion
 
 
