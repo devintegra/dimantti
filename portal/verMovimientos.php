@@ -104,7 +104,7 @@ if ($nivel != 1) {
                                         FROM tr_movimientos
                                         LEFT JOIN ct_productos ON ct_productos.pk_producto = tr_movimientos.fk_producto
                                         LEFT JOIN ct_sucursales ON ct_sucursales.pk_sucursal = tr_movimientos.fk_sucursal
-                                        LEFT JOIN rt_sucursales_almacenes ON rt_sucursales_almacenes.fk_sucursal = ct_sucursales.pk_sucursal
+                                        LEFT JOIN rt_sucursales_almacenes ON rt_sucursales_almacenes.pk_sucursal_almacen = tr_movimientos.fk_almacen
                                         WHERE tr_movimientos.estado = 1$flsucursal";
 
                                     if (!$resultado = $mysqli->query($qmovimientos)) {
