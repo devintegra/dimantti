@@ -21,17 +21,19 @@ $qproductos = "SELECT ctp.*,
         (SELECT COALESCE(SUM(cantidad),0) FROM tr_existencias WHERE fk_producto = ctp.pk_producto AND estado = 1 AND cantidad > 0) as existencias,
         (SELECT imagen FROM rt_imagenes_productos WHERE fk_producto = ctp.pk_producto AND estado = 1) as imagen
     FROM ct_productos ctp
-    WHERE ctp.clave = '$clave'
-    AND estado=1";
+    WHERE ctp.codigobarras = '$clave'
+    AND ctp.estado = 1";
 
 if (!$rproductos = $mysqli->query($qproductos)) {
     $codigo = 201;
+    $descripcion = "Lo sentimos, esta aplicación está experimentando problemas";
     echo "Lo sentimos, esta aplicación está experimentando problemas.";
     exit;
 }
 
 if ($rproductos->num_rows == 0) {
     $codigo = 201;
+    $descripcion = "Producto no encontrado";
 }
 
 if ($codigo == 200) {
