@@ -11,12 +11,15 @@ if (isset($_GET['pk_venta']) && is_numeric($_GET['pk_venta'])) {
 }
 
 
-$qproductos = "SELECT ct_productos.codigobarras,
+$qproductos = "SELECT tr_ventas_detalle.fk_venta,
+        tr_ventas_detalle.fk_producto,
+        ct_productos.codigobarras,
         ct_productos.nombre as descripcion,
         SUM(tr_ventas_detalle.cantidad) as cantidad,
         tr_ventas_detalle.unitario,
         SUM(tr_ventas_detalle.total) as total,
-        tr_ventas.descuento
+        tr_ventas.descuento,
+        (SELECT imagen FROM rt_imagenes_productos WHERE fk_producto = tr_ventas_detalle.fk_producto AND estado = 1 LIMIT 1) as imagen
     FROM ct_productos, tr_ventas, tr_ventas_detalle
     WHERE tr_ventas_detalle.fk_venta = $pk_venta
     AND tr_ventas.pk_venta = $pk_venta
