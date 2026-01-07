@@ -65,7 +65,7 @@ $(document).ready(function () {
     $("#entradas tbody tr").each(function () {
         var id = (this.id).split("*-*");
         var fk_producto = parseInt(id[0]);
-        var cantidad = parseInt($(this).find("td:eq(5) input[type='number']").val());
+        var cantidad = parseFloat($(this).find("td:eq(5) input[type='number']").val());
 
         productosAgregados.push({ fk_producto: fk_producto, cantidad: cantidad });
     });
@@ -324,9 +324,9 @@ $(document).on("click", ".eliminar", function () {
 
 $(document).on("input", ".cantidad", function () {
 
-    var cantidad = parseInt($(this).val());
+    var cantidad = parseFloat($(this).val());
     var precio = parseFloat($(this).closest("tr").find("td:eq(4) input").val().trim());
-    var total = precio * cantidad;
+    var total = parseFloat(precio * cantidad).toFixed(2);
 
     $(this).closest("tr").find("td:eq(6)").text("$" + total);
 
@@ -338,7 +338,7 @@ $(document).on("input", ".cantidad", function () {
 
     setTimeout(function () {
         actualizarTablaProductos($("#cliente").val(), productosAgregados);
-    }, 100)
+    }, 3000)
 
     getTotal();
 
@@ -349,7 +349,7 @@ $(document).on("input", ".precio", function () {
 
     var precio = $(this).val();
     var cantidad = $(this).closest("tr").find("td:eq(5) input[type='number']").val();
-    var total = precio * cantidad;
+    var total = parseFloat(precio * cantidad).toFixed(2);
 
     $(this).closest("tr").find("td:eq(6)").text("$" + total);
 
@@ -400,6 +400,8 @@ function actualizarTablaProductos(fk_cliente, productosAgregados) {
 
                 response.objList.forEach(element => {
 
+                    let total = parseFloat(element.total).toFixed(2);
+
                     let trHTML = `
                         <tr class='odd gradeX fp' id='${element.pk_producto}*-*${element.codigobarras}'>
                             <td>
@@ -417,7 +419,7 @@ function actualizarTablaProductos(fk_cliente, productosAgregados) {
                                 <input type='number' class='form-control cantidad' style='width: 140px;' min='1' value='${element.cantidad}'>
                             </td>
                             <td>
-                                $${element.total}
+                                $${total}
                             </td>
                         </tr>
                     `;
@@ -854,7 +856,7 @@ function getProductos() {
                     break;
 
                 case 5:
-                    cantidad = parseInt($(this).find("input[type='number']").val());
+                    cantidad = parseFloat($(this).find("input[type='number']").val());
                     break;
 
                 case 6:
@@ -889,7 +891,7 @@ function validarRegistro() {
 
     $("#entradas tbody tr").each(function () {
         var producto = $(this).find('td:eq(2)').text().trim();
-        var cantidad = parseInt($(this).find('td:eq(5) input[type="number"]').val());
+        var cantidad = parseFloat($(this).find('td:eq(5) input[type="number"]').val());
         if (cantidad < 1) {
             retorno = false;
             swal("Mensaje", `El producto ${producto} tiene cantidad de 0, favor de poner una cantidad mayor a 0 para continuar`, "info");

@@ -439,8 +439,8 @@ $(document).on('input', '.input-cantidad', function () {
     $(this).val(valorInput);
 
     if (valorInput != '') {
-        var existencia = parseInt($(this).closest('tr').find("td:eq(3)").text());
-        var existencia_real = existencia - parseInt(valorInput); //valorInput - existencia
+        var existencia = parseFloat($(this).closest('tr').find("td:eq(3)").text());
+        var existencia_real = existencia - parseFloat(valorInput); //valorInput - existencia
         $(this).closest('tr').find("td:eq(5)").text(existencia_real);
 
     } else {
@@ -457,8 +457,8 @@ $(document).on('input', '.input-cantidad', function () {
 $(document).on('click', '.disminuir', function () {
 
     var row = $(this).closest('tr');
-    var cantidad = parseInt($(this).closest('tr').find('td:eq(4)').find('input').val()) || 0;
-    var existencia = parseInt($(row).find("td:eq(3)").text());
+    var cantidad = parseFloat($(this).closest('tr').find('td:eq(4)').find('input').val()) || 0;
+    var existencia = parseFloat($(row).find("td:eq(3)").text());
     var existencia_real;
 
     cantidad--;
@@ -478,8 +478,8 @@ $(document).on('click', '.disminuir', function () {
 $(document).on('click', '.aumentar', function () {
 
     var row = $(this).closest('tr');
-    var cantidad = parseInt($(this).closest('tr').find('td:eq(4)').find('input').val()) || 0;
-    var existencia = parseInt($(row).find("td:eq(3)").text());
+    var cantidad = parseFloat($(this).closest('tr').find('td:eq(4)').find('input').val()) || 0;
+    var existencia = parseFloat($(row).find("td:eq(3)").text());
     var existencia_real;
 
     cantidad++;
@@ -499,7 +499,7 @@ $(document).on('click', '.aumentar', function () {
 $(document).on('click', '.ajustar', function () {
 
     var row = $(this).closest('tr');
-    var existencias = Math.abs(parseInt($(this).closest('tr').find('td:eq(3)').text()));
+    var existencias = Math.abs(parseFloat($(this).closest('tr').find('td:eq(3)').text()));
 
     $(this).closest('tr').find('td:eq(4)').find('input').val(existencias);
 
@@ -546,7 +546,7 @@ $("#ajuste_global").click(function () {
             $("#dtProductos tbody tr").each(function (index) {
 
                 var row = $(this);
-                var existencias = Math.abs(parseInt($(this).find('td:eq(3)').text()));
+                var existencias = Math.abs(parseFloat($(this).find('td:eq(3)').text()));
 
                 $(this).find('td:eq(4)').find('input').val(existencias);
                 $(this).find('td:eq(5)').text(0);

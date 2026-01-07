@@ -308,7 +308,7 @@ function getProductos() {
             switch (index2) {
 
                 case 2:
-                    clave = $(this).text().trim().slice("|")[0];
+                    clave = $(this).text().trim().split("|")[0];
                     break;
 
                 case 3:
@@ -318,7 +318,7 @@ function getProductos() {
                     break;
 
                 case 4:
-                    cantidad = parseInt($(this).find("input[type='number']").val());
+                    cantidad = parseFloat($(this).find("input[type='number']").val());
                     break;
 
                 case 5:

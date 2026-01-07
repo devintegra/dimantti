@@ -204,16 +204,22 @@ if ($codigo == 200) {
 
         //VENTAS DETALLE
         #region
-        for ($i = 0; $i < $value['cantidad']; $i++) {
-
-            $total_producto = $value['unitario'] * 1;
-
-            if (!$mysqli->query("INSERT INTO tr_ventas_detalle(fk_producto, serie, cantidad, faltante, unitario, total, fk_venta, descripcion, fk_almacen) values ($pk_producto, '', 1, 1, $value[unitario], $total_producto, $pk_venta, '$nombre_producto', $fk_almacen)")) {
-                $codigo = 201;
-                $descripcion = "Hubo un problema, porfavor vuelva a intentarlo!";
-            }
-            $pk_venta_detalle = $mysqli->insert_id;
+        $total_producto = $value['unitario'] * $value['cantidad'];
+        if (!$mysqli->query("INSERT INTO tr_ventas_detalle(fk_producto, serie, cantidad, faltante, unitario, total, fk_venta, descripcion, fk_almacen) values ($pk_producto, '', $value[cantidad], $value[cantidad], $value[unitario], $total_producto, $pk_venta, '$nombre_producto', $fk_almacen)")) {
+            $codigo = 201;
+            $descripcion = "Hubo un problema, porfavor vuelva a intentarlo!";
         }
+
+        // for ($i = 0; $i < $value['cantidad']; $i++) {
+
+        //     $total_producto = $value['unitario'] * 1;
+
+        //     if (!$mysqli->query("INSERT INTO tr_ventas_detalle(fk_producto, serie, cantidad, faltante, unitario, total, fk_venta, descripcion, fk_almacen) values ($pk_producto, '', 1, 1, $value[unitario], $total_producto, $pk_venta, '$nombre_producto', $fk_almacen)")) {
+        //         $codigo = 201;
+        //         $descripcion = "Hubo un problema, porfavor vuelva a intentarlo!";
+        //     }
+        //     $pk_venta_detalle = $mysqli->insert_id;
+        // }
         #endregion
 
 

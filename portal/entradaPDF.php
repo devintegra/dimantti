@@ -208,8 +208,9 @@ $tr_table = "";
 while ($row = $rentradasd->fetch_assoc()) {
 
     $cantidad_total += $row['cantidad'];
+    $faltante = number_format($row['faltante'], 2);
 
-    $descripcion = "(" . $row['clave'] . "). " . $row['fk_producto_nombre'] . ". FALTANTE: #" . $row['faltante'];
+    $descripcion = "(" . $row['clave'] . "). " . $row['fk_producto_nombre'] . ". FALTANTE: #" . $faltante;
 
     $tr_table .= <<<HTML
         <tr>

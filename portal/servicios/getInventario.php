@@ -131,8 +131,7 @@ $qproductodetalle = "SELECT ct_productos.pk_producto as pk_producto,
     WHERE tr_existencias.fk_producto = ct_productos.pk_producto
     AND ct_sucursales.pk_sucursal = tr_existencias.fk_sucursal
     AND tr_existencias.fk_sucursal = $fk_sucursal
-    AND rt_sucursales_almacenes.pk_sucursal_almacen = tr_existencias.fk_almacen
-    AND tr_existencias.cantidad > 0$filtro_almacenes$filtro_categorias$filtro_marcas$filtro_productos
+    AND rt_sucursales_almacenes.pk_sucursal_almacen = tr_existencias.fk_almacen$filtro_almacenes$filtro_categorias$filtro_marcas$filtro_productos
     GROUP BY tr_existencias.fk_producto";
 
 if (!$rproductodetalle = $mysqli->query($qproductodetalle)) {

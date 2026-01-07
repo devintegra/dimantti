@@ -124,7 +124,7 @@ function agregarProducto() {
         var imagen = $("#imagen").val();
         var cantidad = 1;
         var serie = $("#seried").val();
-        var solicitadas = $("#cantidad").val();
+        var solicitadas = parseFloat($("#cantidad").val()).toFixed(2);
         var unitario = $("#costod").val();
         var unitario_format = parseFloat(unitario).toFixed(2);
         var descripcion = clave + "|" + nombre;
@@ -138,8 +138,9 @@ function agregarProducto() {
         $("#entradas tbody tr").each(function () {
 
             if ((this.id).split("*-*")[0] == idpa[0]) {
-                if (parseInt($(this).find('td:eq(3) input').val()) + 1 > $("#cantidad").val()) {
-                    swal("Mensaje", "La cantidad escaneada sobrepasa las unidades a surtir (" + $("#cantidad").val() + ")", "info").then(function () {
+                let cantidadF = parseFloat($("#cantidad").val()).toFixed(2);
+                if (parseFloat($(this).find('td:eq(3) input').val()) + 1 > $("#cantidad").val()) {
+                    swal("Mensaje", "La cantidad escaneada sobrepasa las unidades a surtir (" + cantidadF + ")", "info").then(function () {
                         setTimeout(function () {
                             $('#clave').focus();
                         }, 100);
@@ -158,7 +159,8 @@ function agregarProducto() {
         });
 
         if (parseInt(cantidadProducto) + 1 > $("#cantidad").val()) {
-            swal("Mensaje", "La cantidad escaneada sobrepasa las unidades a surtir (" + $("#cantidad").val() + ")", "info").then(function () {
+            let cantidadF = parseFloat($("#cantidad").val()).toFixed(2);
+            swal("Mensaje", "La cantidad escaneada sobrepasa las unidades a surtir (" + cantidadF + ")", "info").then(function () {
                 setTimeout(function () {
                     $('#clave').focus();
                 }, 100);
@@ -319,7 +321,7 @@ function getProductos() {
             switch (index2) {
 
                 case 3:
-                    cantidad = parseInt($(this).find("input[type='number']").val());
+                    cantidad = parseFloat($(this).find("input[type='number']").val());
                     break;
                 case 4:
                     unitario = parseFloat($(this).find("input[type='number']").val());

@@ -48,6 +48,8 @@ $('.ver').click(function () {
                         actualizar_precio_chk = "";
                     }
 
+                    let faltante = parseFloat(element.faltante).toFixed(2);
+
                     let trHTML = `
                         <tr class="odd gradeX" data-id='${element.pk_compra_detalle}'>
                             <td>${element.cantidad}</td>
@@ -59,7 +61,7 @@ $('.ver').click(function () {
                             </td>
                             <td>${element.total}</td>
                             <td>${badge_estatus}</td>
-                            <td>${element.faltante}</td>
+                            <td>${faltante}</td>
                         </tr>
                     `;
 

@@ -19,7 +19,7 @@ $costo = 0.00;
 
 $qproductos = "SELECT ctp.*,
         (SELECT COALESCE(SUM(cantidad),0) FROM tr_existencias WHERE fk_producto = ctp.pk_producto AND estado = 1 AND cantidad > 0) as existencias,
-        (SELECT imagen FROM rt_imagenes_productos WHERE fk_producto = ctp.pk_producto AND estado = 1) as imagen
+        (SELECT imagen FROM rt_imagenes_productos WHERE fk_producto = ctp.pk_producto AND estado = 1 LIMIT 1) as imagen
     FROM ct_productos ctp
     WHERE ctp.codigobarras = '$clave'
     AND ctp.estado = 1";

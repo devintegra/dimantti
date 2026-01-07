@@ -67,7 +67,7 @@ $qproductos = "SELECT ct_productos.pk_producto as pk_producto,
         ct_productos.codigobarras as codigobarras,
         ct_productos.nombre as descripcion,
         tr_existencias.serie as serie,
-        (SELECT imagen FROM rt_imagenes_productos WHERE fk_producto = ct_productos.pk_producto AND estado = 1) as imagen
+        (SELECT imagen FROM rt_imagenes_productos WHERE fk_producto = ct_productos.pk_producto AND estado = 1 LIMIT 1) as imagen
     FROM ct_productos, tr_existencias, ct_sucursales, rt_sucursales_almacenes
     WHERE tr_existencias.fk_producto = ct_productos.pk_producto
     AND ct_sucursales.pk_sucursal = tr_existencias.fk_sucursal

@@ -281,12 +281,12 @@ $(document).on("input", ".cantidad", function () {
 
     var input = $(this);
 
-    if (parseInt($(this).val()) <= 0) {
+    if (parseFloat($(this).val()) <= 0) {
         swal('Mensaje', 'Ingrese una cantidad correcta', 'info');
         input.val(1);
     }
 
-    var cantidad = parseInt($(this).val());
+    var cantidad = parseFloat($(this).val());
     var precio = $(this).closest("tr").find("td:eq(4) input[type='text']").val().replace(/,/g, "");
     var total = parseFloat(precio * cantidad).toFixed(2);
 
@@ -344,7 +344,7 @@ function getProductos() {
                     break;
 
                 case 3:
-                    cantidad = parseInt($(this).find("input[type='number']").val());
+                    cantidad = parseFloat($(this).find("input[type='number']").val());
                     break;
 
                 case 4:
