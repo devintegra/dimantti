@@ -547,6 +547,11 @@ $avatar = $usuarios["imagen"];
                 </div>
                 <div class="collapse" id="reportes">
                     <ul class="nav flex-column sub-menu">
+                        <li class="nav-item"> <a class="nav-link" href="../portal/reporteVentasProductos.php">Reporte de ventas productos</a></li>
+                    </ul>
+                </div>
+                <div class="collapse" id="reportes">
+                    <ul class="nav flex-column sub-menu">
                         <li class="nav-item"> <a class="nav-link" href="../portal/reporteUtilidades.php">Reporte de utilidades</a></li>
                     </ul>
                 </div>
