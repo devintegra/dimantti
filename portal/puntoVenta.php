@@ -31,47 +31,10 @@ if ($nivel != 1) {
 mysqli_set_charset($mysqli, 'utf8');
 
 
-//DATOS DE LA COTIZACION (en caso de venir desde una cotización)
-#region
 $dias_credito = 0;
 $limite_credito = 0;
 $credito = 0;
 $pk_cotizacion = 0;
-
-if (isset($_GET['id']) && is_numeric($_GET['id'])) {
-    $pk_cotizacion = (int)$_GET['id'];
-
-    $qcotizacion = "SELECT tr_cotizaciones.*,
-        ct_sucursales.nombre as sucursal,
-        ct_clientes.nombre as cliente,
-        ct_clientes.correo,
-        ct_clientes.dias_credito,
-        ct_clientes.limite_credito,
-        ct_clientes.credito
-        FROM tr_cotizaciones, ct_sucursales, ct_clientes
-        WHERE tr_cotizaciones.pk_cotizacion = $pk_cotizacion
-        AND ct_sucursales.pk_sucursal = tr_cotizaciones.fk_sucursal
-        AND ct_clientes.pk_cliente = tr_cotizaciones.fk_cliente";
-
-    if (!$rcotizacion = $mysqli->query($qcotizacion)) {
-        echo "<br>Lo sentimos, esta aplicación está experimentando problemas.";
-        exit;
-    }
-
-    $cotizacion = $rcotizacion->fetch_assoc();
-    $folio = $cotizacion["folio"];
-    $fk_sucursal = $cotizacion["fk_sucursal"];
-    $fk_usuario = $cotizacion["fk_usuario"];
-    $fk_cliente = $cotizacion["fk_cliente"];
-    $cliente = $cotizacion["cliente"];
-    $dias_credito = $cotizacion["dias_credito"];
-    $limite_credito = $cotizacion["limite_credito"];
-    $credito = $cotizacion["credito"];
-    $correo = $cotizacion["correo"];
-    $fecha_vigencia = $cotizacion["fecha_vigencia"];
-    $total = $cotizacion["total"];
-}
-#endregion
 
 
 
@@ -287,68 +250,6 @@ if ($rsaldos->num_rows == 0) {
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    <?php
-                                    if ($pk_cotizacion) {
-
-                                        $qdetalle = "SELECT tr_cotizaciones_detalle.*,
-                                            ct_productos.clave,
-                                            ct_productos.nombre,
-                                            ct_productos.codigobarras,
-                                            ct_productos.descripcion,
-                                            ct_productos.precio
-                                        FROM tr_cotizaciones_detalle, ct_productos
-                                        WHERE tr_cotizaciones_detalle.fk_cotizacion = $pk_cotizacion
-                                        AND ct_productos.pk_producto = tr_cotizaciones_detalle.fk_producto";
-
-                                        if (!$rdetalle = $mysqli->query($qdetalle)) {
-                                            echo "Lo sentimos, esta aplicación está experimentando problemas.";
-                                            exit;
-                                        }
-
-                                        while ($detalle = $rdetalle->fetch_assoc()) {
-
-                                            //IMAGEN
-                                            #region
-                                            $eimagenes = "select rt_imagenes_productos.imagen as imagen from rt_imagenes_productos where fk_producto=$detalle[fk_producto] and estado=1";
-
-                                            if (!$rimagenes = $mysqli->query($eimagenes)) {
-                                                echo "Lo sentimos, esta aplicación está experimentando problemas.";
-                                                exit;
-                                            }
-
-                                            $imagenes = $rimagenes->fetch_assoc();
-
-                                            $imagen = $imagenes["imagen"];
-
-                                            $file = "servicios/productos/$imagen";
-
-                                            if (is_file($file)) {
-                                                $fondo = "<img style='border-radius: 7px; width:70px; height:70px; object-fit:cover;' loading='lazy' src='servicios/productos/$imagen'>";
-                                            } else {
-                                                $fondo = "<img style='border-radius: 7px; width:70px; height:70px; object-fit:cover;' loading='lazy' src='images/picture.png'>";
-                                            }
-                                            #endregion
-
-                                            echo "<tr class='odd gradeX fp' id='$detalle[fk_producto]*-*$detalle[codigobarras]'>
-                                                <td>
-                                                    <i class='fa fa-trash' onclick='eliminarProducto($detalle[fk_producto])' style='padding: 3px; background-color: red; color:white'></i>
-                                                </td>
-                                                <td>$fondo</td>
-                                                <td style='white-space:normal'>$detalle[codigobarras] - $detalle[nombre]</td>
-                                                <td>$$detalle[precio]</td>
-                                                <td>
-                                                    <input type='number' class='form-control precio' style='width: 140px;' min='1' value='$detalle[unitario]' disabled>
-                                                </td>
-                                                <td>
-                                                    <input type='number' class='form-control cantidad' min='1' value='$detalle[cantidad]'>
-                                                </td>
-                                                <td>
-                                                    $$detalle[total]
-                                                </td>
-                                            </tr>";
-                                        }
-                                    }
-                                    ?>
                                 </tbody>
                             </table>
                         </div>

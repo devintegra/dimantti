@@ -424,21 +424,6 @@ if ($codigo == 200) {
 
 
 
-//PASAR DE COTIZACION A VENTA DE SER NECESARIO
-if ($codigo == 200) {
-
-    if ($fk_cotizacion > 0) {
-
-        if (!$mysqli->query("UPDATE tr_cotizaciones SET estatus = 2 WHERE pk_cotizacion = $fk_cotizacion AND estado = 1")) {
-            $codigo = 201;
-            $descripcion = "Hubo un problema, porfavor vuelva a intentarlo!";
-        }
-    }
-}
-
-
-
-
 //CAMBIAR ESTATUS DE PRESTAMOS SI ES QUE LA VENTA VIENE DESDE UN PRESTAMO
 #region
 // if ($codigo == 200) {
