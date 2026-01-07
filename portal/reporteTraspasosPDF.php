@@ -99,7 +99,7 @@ if ($sucursal != 0) {
     $empresa_correo = $empresa["correo"];
 } else {
 
-    $empresa_nombre = "Tectron";
+    $empresa_nombre = "Posmovil";
     $empresa_id = "";
     $empresa_direccion = "Traspaso entre sucursales";
     $empresa_telefono = "";

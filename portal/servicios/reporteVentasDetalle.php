@@ -142,7 +142,7 @@ $objPHPExcel = new PHPExcel();
 $objPHPExcel->getProperties()
     ->setCreator("Integra Connective")
     ->setLastModifiedBy("Integra Connective")
-    ->setTitle("Reporte Tectron Ventas Detalle")
+    ->setTitle("Reporte Posmovil Ventas Detalle")
     ->setSubject("Ventas Detalle")
     ->setDescription("Ventas Detalle")
     ->setKeywords("Ventas Detalle")

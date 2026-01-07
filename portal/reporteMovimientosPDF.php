@@ -97,7 +97,7 @@ if ($sucursal != 0) {
         "$direccionex[2] $direccionex[3] \n";
 } else {
 
-    $empresa_nombre = "Tectron";
+    $empresa_nombre = "Posmovil";
     $empresa_id = "";
     $empresa_direccion = "Traspaso entre sucursales";
     $empresa_telefono = "";

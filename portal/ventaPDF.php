@@ -191,8 +191,8 @@ $pageLayout = array(80, $pageHeight);
 $pdf = new TCPDF('P', PDF_UNIT, $pageLayout, true, 'UTF-8', false);
 //$pdf = new TCPDF('P', PDF_UNIT, $pageLayout, false, 'ISO-8859-1', false);
 
-$pdf->SetCreator("Tectron");
-$pdf->SetAuthor('Tectron');
+$pdf->SetCreator("Posmovil");
+$pdf->SetAuthor('Posmovil');
 $pdf->SetTitle("VENTA #" . $id);
 
 $pdf->setPrintHeader(false);

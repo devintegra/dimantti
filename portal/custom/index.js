@@ -22,7 +22,7 @@ $(document).ready(function () {
 
         $.ajax({
             type: 'GET',
-            url: 'https://tectroncomputo.com.mx/portal/servicios/getGrafica.php',
+            url: 'https://posmovil.integracontrol.online/portal/servicios/getGrafica.php',
             dataType: 'json',
 
             beforeSend: function () {
