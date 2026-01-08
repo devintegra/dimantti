@@ -58,29 +58,34 @@
 
             success: function(response) {
 
-                for (let value of Object.values(response.objList)) {
+                if (response.objList.length > 0) {
 
-                    console.log(value.latitud + "," + value.longitud);
-                    var eltotal = "$" + value.total;
+                    for (let value of Object.values(response.objList)) {
 
-                    var pos = new google.maps.LatLng(value.latitud, value.longitud);
+                        var pos = new google.maps.LatLng(value.latitud, value.longitud);
 
-                    marker = new google.maps.Marker({
-                        position: pos,
-                        map: map,
-                        title: value.total,
-                        label: {
-                            text: eltotal
-                        }
-                    });
+                        marker = new google.maps.Marker({
+                            position: pos,
+                            map: map,
+                            title: value.total,
+                            label: {
+                                text: value.total
+                            }
+                        });
 
-                    marker.addListener('click', function() {
-                        infowindow.open(map, marker);
-                    });
+                        marker.addListener('click', function() {
+                            infowindow.open(map, marker);
+                        });
+
+                    }
+
+                    map.setCenter(pos);
+
+                } else {
+
+                    $('#mapa').html("<p>No hay entregas pendientes para hoy</p>");
 
                 }
-
-                map.setCenter(pos);
 
             },
             error: function(arg1, arg2, arg3) {

@@ -119,7 +119,7 @@ if (!$rtopproductos = $mysqli->query($qtopproductos)) {
                     <div class="d-sm-flex justify-content-between">
                         <h4 class="card-title">Entregas del día</h4>
                     </div>
-                    <div style="height: 500px">
+                    <div class="d-flex justify-content-center align-items-center" style="height: 500px">
                         <?php include $mapaRutaVentas; ?>
                     </div>
                 </div>
