@@ -3,7 +3,18 @@
 ?>
 
 
-<div id="mapa" style="width: 100%; height: 100%">
+<div class="col-12 col-lg-4 col-lg-12 grid-margin stretch-card">
+    <div class="card card-rounded" style="border-top: 4px solid #ff4040;">
+        <div class="card-body">
+            <div class="d-sm-flex justify-content-between">
+                <h4 class="card-title">Entregas del día</h4>
+            </div>
+            <div class="d-flex justify-content-center align-items-center" style="height: 500px">
+                <div id="mapa" style="width: 100%; height: 100%">
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
 
 
