@@ -114,7 +114,7 @@ if (!$rsucursales = $mysqli->query($qsucursales)) {
                             <div class="row">
                                 <div class="col-lg-6">
                                     <div class="form-group">
-                                        <label for="correo">Correo</label>
+                                        <label for="correo" class="d-flex align-items-center gap-2"> <i class="bx bx-envelope fs-5"></i>Correo</label>
                                         <input type="email" class="form-control" id="correo" name="correo" placeholder="Correo" autocomplete="off">
                                     </div>
                                 </div>
@@ -129,7 +129,7 @@ if (!$rsucursales = $mysqli->query($qsucursales)) {
                             <div class="row">
                                 <div class="col-lg-6">
                                     <div class="form-group">
-                                        <label for="pass">Contraseña</label>
+                                        <label for="pass" class="d-flex align-items-center gap-2"> <i class="bx bx-key fs-5"></i>Contraseña</label>
                                         <div class="d-flex justify-content-between align-items-center">
                                             <input type="password" class="form-control" id="pass" name="pass" placeholder="Contraseña">
                                             <div class="d-flex justify-content-center align-items-center"><i class='bx bx-info-circle' title='La contraseña debe contener al menos 5 caracteres' style="font-size:24px; color: #918D8D; cursor:pointer;"></i></div>
@@ -139,11 +139,26 @@ if (!$rsucursales = $mysqli->query($qsucursales)) {
                                 </div>
                                 <div class="col-lg-6">
                                     <div class="form-group">
-                                        <label for="passc">Confirmar contraseña</label>
+                                        <label for="passc" class="d-flex align-items-center gap-2"> <i class="bx bx-key fs-5"></i>Confirmar contraseña</label>
                                         <div class="d-flex justify-content-between align-items-center">
                                             <input type="password" class="form-control" id="passc" name="passc" placeholder="Contraseña">
                                             <div class="d-flex justify-content-center align-items-center"><i class='bx bx-low-vision' title='Ver contraseña' id="ver_passwordc" style="font-size:24px; color: #918D8D; cursor:pointer;"></i></div>
                                         </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="row d-none" id="contentNomina">
+                                <div class="col-lg-6">
+                                    <div class="form-group">
+                                        <label for="sueldo" class="d-flex align-items-center gap-2"> <i class="bx bx-money fs-5"></i> Sueldo semanal</label>
+                                        <input type="number" class="form-control" id="sueldo" name="sueldo" value="0" min="0" placeholder="0.00">
+                                    </div>
+                                </div>
+                                <div class="col-lg-6">
+                                    <div class="form-group">
+                                        <label for="comision">% de comisión por venta</label>
+                                        <input type="number" class="form-control" id="comision" name="comision" value="0" min="0" placeholder="0.00">
                                     </div>
                                 </div>
                             </div>
@@ -154,7 +169,7 @@ if (!$rsucursales = $mysqli->query($qsucursales)) {
                                 echo "<div class='row'>
                                             <div class='col-lg-6'>
                                                 <div class='form-group'>
-                                                    <label for='sucursal'>Sucursal</label>
+                                                    <label for='sucursal'class='d-flex align-items-center gap-2'> <i class='bx bx-store-alt fs-5'></i>Sucursal</label>
                                                     <select id='sucursal' class='form-control' disabled>
                                             ";
                                 while ($sucursales = $rsucursales->fetch_assoc()) {

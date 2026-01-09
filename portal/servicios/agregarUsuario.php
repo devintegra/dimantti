@@ -33,6 +33,14 @@ if (isset($_POST['avatar']) && is_string($_POST['avatar'])) {
     $avatar = $_POST['avatar'];
 }
 
+if (isset($_POST['sueldo']) && is_numeric($_POST['sueldo'])) {
+    $sueldo = (float)$_POST['sueldo'];
+}
+
+if (isset($_POST['comision']) && is_numeric($_POST['comision'])) {
+    $comision = (float)$_POST['comision'];
+}
+
 
 
 $eusuario = "SELECT * FROM ct_usuarios WHERE pk_usuario = '$pk_usuario'";
@@ -54,7 +62,7 @@ if ($nivel == 1) {
 
 
 if ($codigo == 200) {
-    if (!$mysqli->query("INSERT INTO ct_usuarios(pk_usuario, nombre, pass, correo, nivel, fk_sucursal, imagen) values ('$pk_usuario', '$nombre', '$pass', '$correo', $nivel, $fk_sucursal, '$avatar')")) {
+    if (!$mysqli->query("INSERT INTO ct_usuarios(pk_usuario, nombre, pass, correo, nivel, fk_sucursal, sueldo, comision, imagen) values ('$pk_usuario', '$nombre', '$pass', '$correo', $nivel, $fk_sucursal, $sueldo, $comision, '$avatar')")) {
         $codigo = 201;
         $descripcion = "Hubo un error al guardar al usuario.";
     }

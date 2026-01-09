@@ -41,6 +41,8 @@ $correo = $rowexistead["correo"];
 $pass = base64_decode($rowexistead["pass"]);
 $nivelu = $rowexistead["nivel"];
 $sucursal = $rowexistead["fk_sucursal"];
+$sueldo = $rowexistead["sueldo"];
+$comision = $rowexistead["comision"];
 $avatar_usuario = $rowexistead["imagen"];
 #endregion
 
@@ -183,6 +185,29 @@ $arrayUsuarios = array(
                                             ?>
                                             <div class="d-flex justify-content-center align-items-center"><i class='bx bx-low-vision' title='Ver contraseña' id="ver_passwordc" style="font-size:24px; color: #918D8D; cursor:pointer;"></i></div>
                                         </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="row d-none" id="contentNomina">
+                                <div class="col-lg-6">
+                                    <div class="form-group">
+                                        <label for="sueldo" class="d-flex align-items-center gap-2"> <i class="bx bx-money fs-5"></i> Sueldo semanal</label>
+                                        <?php
+                                        echo <<<HTML
+                                            <input type="number" class="form-control" id="sueldo" name="sueldo" value="$sueldo" min="0" placeholder="0.00">
+                                        HTML;
+                                        ?>
+                                    </div>
+                                </div>
+                                <div class="col-lg-6">
+                                    <div class="form-group">
+                                        <label for="comision">% de comisión por venta</label>
+                                        <?php
+                                        echo <<<HTML
+                                            <input type="number" class="form-control" id="comision" name="comision" value="$comision" min="0" placeholder="0.00">
+                                        HTML;
+                                        ?>
                                     </div>
                                 </div>
                             </div>

@@ -33,6 +33,13 @@ if (isset($_POST['avatar']) && is_string($_POST['avatar'])) {
     $avatar = $_POST['avatar'];
 }
 
+if (isset($_POST['sueldo']) && is_numeric($_POST['sueldo'])) {
+    $sueldo = (float)$_POST['sueldo'];
+}
+
+if (isset($_POST['comision']) && is_numeric($_POST['comision'])) {
+    $comision = (float)$_POST['comision'];
+}
 
 if ($nivel == 1) {
     $fk_sucursal = 0;
@@ -40,7 +47,7 @@ if ($nivel == 1) {
 
 
 
-if (!$mysqli->query("UPDATE ct_usuarios set nombre='$nombre', pass='$pass', correo='$correo', nivel=$nivel, fk_sucursal=$fk_sucursal, imagen='$avatar' where pk_usuario='$pk_usuario'")) {
+if (!$mysqli->query("UPDATE ct_usuarios set nombre='$nombre', pass='$pass', correo='$correo', nivel=$nivel, fk_sucursal=$fk_sucursal, sueldo=$sueldo, comision=$comision, imagen='$avatar' where pk_usuario='$pk_usuario'")) {
     $codigo = 201;
     $descripcion = "Error al guardar el registro";
 }
