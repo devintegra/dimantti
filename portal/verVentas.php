@@ -437,7 +437,6 @@ if (!$rpagos = $mysqli->query($qpagos)) {
         <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
         <script src="js/loading/loadingoverlay.min.js"></script>
         <script src="custom/verVentas.js"></script>
-        <script src="custom/facturarVenta.js"></script>
 </body>
 
 </html>
