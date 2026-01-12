@@ -357,6 +357,11 @@ $avatar = $usuarios["imagen"];
                         <li class="nav-item"> <a class="nav-link" href="../portal/verUsuarios.php">ABC Usuarios</a></li>
                     </ul>
                 </div>
+                <div class="collapse" id="usuarios">
+                    <ul class="nav flex-column sub-menu">
+                        <li class="nav-item"> <a class="nav-link" href="../portal/verPrestamos.php">Prestamos</a></li>
+                    </ul>
+                </div>
             </li>
 
             <!--SUCURSALES-->
