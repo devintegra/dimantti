@@ -96,7 +96,7 @@ if ($codigo == 200) {
         //CON DEVOLUCIÓN (retiro de caja)
         if ($tipo == 1) {
 
-            if (!$mysqli->query("INSERT INTO tr_retiros (fk_sucursal, fk_usuario, fk_retiro, monto, descripcion, fecha, hora, fk_pago) values ($fk_sucursal, '$fk_usuario_cancela', 1, $anticipo, 'Devolución por cancelación de venta', CURDATE(),'$hora_actual', $fk_pago)")) {
+            if (!$mysqli->query("INSERT INTO tr_retiros (fk_sucursal, fk_usuario, tipo, fk_retiro, monto, descripcion, fecha, hora, fk_pago) values ($fk_sucursal, '$fk_usuario_cancela', 2, $pk_venta, $anticipo, 'Devolución por cancelación de venta', CURDATE(),'$hora_actual', $fk_pago)")) {
                 $codigo = 201;
                 $descripcion = "Hubo un problema, porfavor vuelva a intentarlo!";
             }

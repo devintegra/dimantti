@@ -103,7 +103,7 @@ if ($codigo == 200) {
         $descripciond = "El gasto que desea efectuar ya fue realizado anteriormente para el mes actual, no puede ser realizado de nuevo";
     } else {
 
-        if (!$mysqli->query("INSERT INTO tr_retiros (fk_sucursal, fk_usuario, fk_retiro, monto, descripcion, fecha, hora, fk_pago) VALUES ($fk_sucursal, '$fk_usuario', $fk_tipo, $monto, '$descripcion', CURDATE(),'$hora_actual', $fk_pago)")) {
+        if (!$mysqli->query("INSERT INTO tr_retiros (fk_sucursal, fk_usuario, tipo, fk_retiro, monto, descripcion, fecha, hora, fk_pago) VALUES ($fk_sucursal, '$fk_usuario', 1, $fk_tipo, $monto, '$descripcion', CURDATE(),'$hora_actual', $fk_pago)")) {
             $codigo = 201;
             $descripciond = "Hubo un problema, verifique o intente de nuevo";
         }
