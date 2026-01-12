@@ -78,7 +78,7 @@ if ($tipo == 1) {
     $qabonos = "SELECT tr_abonos.*
         FROM tr_abonos, tr_ventas
         WHERE tr_abonos.fk_corte = 0
-        AND tr_abonos.origen = $tipo$filtro_abonos$filtro_usuario_abonos
+        AND tr_abonos.origen IN (4, $tipo)$filtro_abonos$filtro_usuario_abonos
         AND tr_abonos.fk_factura = tr_ventas.pk_venta
         AND tr_abonos.estado = 1";
 } else if ($tipo == 2) {
@@ -87,7 +87,7 @@ if ($tipo == 1) {
         LEFT JOIN tr_ventas ON tr_ventas.pk_venta = tr_abonos.fk_factura
         LEFT JOIN tr_ordenes ON tr_ordenes.fk_venta = tr_ventas.pk_venta
         WHERE tr_abonos.fk_corte = 0
-        AND tr_abonos.origen = $tipo$filtro_abonos$filtro_usuario_abonos
+        AND tr_abonos.origen IN (4, $tipo)$filtro_abonos$filtro_usuario_abonos
         AND tr_abonos.estado = 1";
 }
 

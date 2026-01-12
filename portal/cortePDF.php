@@ -276,7 +276,7 @@ if ($contrato_tipo == 1) { //Venta
     ct_clientes.nombre as cliente,
     tr_ventas.folio as folio
     FROM ct_sucursales, tr_abonos, tr_ventas, ct_clientes, ct_pagos
-    WHERE tr_abonos.origen = 1
+    WHERE tr_abonos.origen IN (1, 4)
         AND tr_abonos.estado = 1
         AND tr_abonos.fk_sucursal=ct_sucursales.pk_sucursal
         AND tr_abonos.fk_factura=tr_ventas.pk_venta
@@ -295,7 +295,7 @@ if ($contrato_tipo == 1) { //Venta
         ct_clientes.nombre as cliente,
         tr_ordenes.folio as folio
         FROM ct_sucursales, tr_ventas, tr_abonos, tr_ordenes, ct_clientes, ct_pagos
-        WHERE tr_abonos.origen = 2
+        WHERE tr_abonos.origen IN (2, 4)
             AND tr_abonos.estado = 1
             AND tr_abonos.fk_sucursal = ct_sucursales.pk_sucursal
             AND tr_abonos.fk_factura = tr_ventas.pk_venta
@@ -363,16 +363,17 @@ HTML;
 $registros_retiros = 0;
 
 $qretiros = "SELECT ct_sucursales.nombre as sucursal,
-            ct_retiros.nombre as motivo,
-            tr_retiros.descripcion as descripcion,
-            tr_retiros.fecha as fecha,
-            tr_retiros.monto as cantidad,
-            tr_retiros.fk_pago as pago
-            FROM ct_sucursales, ct_retiros, tr_retiros
-            WHERE tr_retiros.fk_sucursal=ct_sucursales.pk_sucursal
-                AND tr_retiros.fk_retiro=ct_retiros.pk_retiro$filtro_retiro$filtro_usuario_retiros
-                AND tr_retiros.fk_corte = $id
-                ORDER BY tr_retiros.fk_pago";
+        ct_retiros.nombre as motivo,
+        tr_retiros.descripcion as descripcion,
+        tr_retiros.fecha as fecha,
+        tr_retiros.monto as cantidad,
+        tr_retiros.fk_pago as pago
+    FROM tr_retiros
+    LEFT JOIN ct_sucursales ON ct_sucursales.pk_sucursal = tr_retiros.fk_sucursal
+    LEFT JOIN ct_retiros ON ct_retiros.pk_retiro = tr_retiros.fk_retiro
+    WHERE tr_retiros.fk_corte = $id
+    $filtro_retiro$filtro_usuario_retiros
+    ORDER BY tr_retiros.fk_pago";
 
 
 if (!$rretiros = $mysqli->query($qretiros)) {
