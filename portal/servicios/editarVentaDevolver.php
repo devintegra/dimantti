@@ -154,10 +154,10 @@ if ($codigo == 200) {
 //NOTA DE CREDITO/RETIRO
 if ($codigo == 200) {
 
-    if ($anticipo > 0) {
+    if ($total > 0) {
         if ($tipo == 1) { //Con devolución de dinero
 
-            if (!$mysqli->query("INSERT INTO tr_retiros (fk_sucursal, fk_usuario, tipo, fk_retiro, monto, descripcion, fecha, hora, fk_pago) VALUES ($fk_sucursal, '$fk_usuario', 3, $pk_venta, $anticipo, 'Devolución de venta', CURDATE(),'$hora_actual', $fk_pago)")) {
+            if (!$mysqli->query("INSERT INTO tr_retiros (fk_sucursal, fk_usuario, tipo, fk_retiro, monto, descripcion, fecha, hora, fk_pago) VALUES ($fk_sucursal, '$fk_usuario', 3, $pk_venta, $total, 'Devolución de venta', CURDATE(),'$hora_actual', $fk_pago)")) {
                 $codigo = 201;
                 $descripcion = "Hubo un problema, porfavor vuelva a intentarlo!";
             }
@@ -168,7 +168,7 @@ if ($codigo == 200) {
             }
         } else if ($tipo == 2) { //Sin devolución de dinero
 
-            if (!$mysqli->query("UPDATE tr_devoluciones SET saldo = $anticipo WHERE pk_devolucion = $pk_devolucion")) {
+            if (!$mysqli->query("UPDATE tr_devoluciones SET saldo = $total WHERE pk_devolucion = $pk_devolucion")) {
                 $codigo = 201;
                 $descripcion = "Hubo un problema, porfavor vuelva a intentarlo!";
             }
@@ -185,13 +185,14 @@ if ($codigo == 200) {
 
     $saldo_para_nota = abs($total - $anticipo);
 
-    if (!$mysqli->query("UPDATE ct_clientes SET credito = credito + $saldo_para_nota WHERE pk_cliente = $fk_cliente AND estado = 1")) {
+    if (!$mysqli->query("UPDATE ct_clientes SET credito = credito + $total WHERE pk_cliente = $fk_cliente AND estado = 1")) {
         $codigo = 201;
         $descripcion = "Hubo un problema, porfavor vuelva a intentarlo!";
     }
 
     if ($codigo == 200) {
-        if (!$mysqli->query("UPDATE tr_ventas SET saldo = saldo - $saldo_para_nota WHERE pk_venta = $pk_venta AND estado = 1")) {
+        $saldo_para_nota = ($saldo - $total) <= 0 ? 0 : $saldo - $total;
+        if (!$mysqli->query("UPDATE tr_ventas SET saldo = $saldo_para_nota WHERE pk_venta = $pk_venta AND estado = 1")) {
             $codigo = 201;
             $descripcion = "Hubo un problema, porfavor vuelva a intentarlo!";
         }
