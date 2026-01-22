@@ -9,8 +9,8 @@
             <div class="d-sm-flex justify-content-between">
                 <h4 class="card-title">Entregas del día</h4>
             </div>
-            <div class="d-flex justify-content-center align-items-center" style="height: 500px">
-                <div id="mapa" style="width: 100%; height: 100%">
+            <div class="d-flex justify-content-center align-items-center" style="height: auto;">
+                <div id="mapa" style="width: 100%;">
                 </div>
             </div>
         </div>
@@ -91,6 +91,7 @@
                     }
 
                     map.setCenter(pos);
+                    $("#mapa").css('height', '500px');
 
                 } else {
 
