@@ -1,6 +1,7 @@
 <?php
 header('Cache-control: private');
 include("servicios/conexioni.php");
+mysqli_set_charset($mysqli, 'utf8');
 @session_start();
 
 if (!isset($_SESSION['usuario'])) {
@@ -20,18 +21,17 @@ if ($nivel == 2) {
     $menu = "fragments/menub.php";
 }
 
-
 if ($nivel != 1) {
     header('Location: ../index.php');
 }
-
-mysqli_set_charset($mysqli, 'utf8');
 
 if (isset($_GET['id']) && is_string($_GET['id'])) {
     $pk_ruta = (int)$_GET['id'];
 }
 
 
+//DATOS
+#region
 $qruta = "SELECT * FROM ct_rutas WHERE pk_ruta = $pk_ruta";
 
 if (!$rruta = $mysqli->query($qruta)) {
@@ -40,8 +40,21 @@ if (!$rruta = $mysqli->query($qruta)) {
 }
 
 $rowr = $rruta->fetch_assoc();
+$fk_sucursal = $rowr["fk_sucursal"];
 $clave = $rowr["clave"];
 $nombre = $rowr["nombre"];
+#endregion
+
+
+//SUCURSALES
+#region
+$mysqli->next_result();
+if (!$get_sucursales = $mysqli->query("SELECT * FROM ct_sucursales WHERE estado = 1")) {
+    echo "Lo sentimos, esta aplicación está experimentando problemas. 1";
+    exit;
+}
+#endregion
+
 
 ?>
 
@@ -93,6 +106,28 @@ $nombre = $rowr["nombre"];
                         </div>
                         <form class="forms-sample" enctype="multipart/form-data" id="formuploadajax">
                             <div class="row">
+                                <?php if ($nivel == 1): ?>
+                                    <div class="col-lg-6">
+                                        <div class="form-group">
+                                            <label for="fk_sucursal" class="d-flex align-items-center gap-2"> <i class="bx bx-store-alt fs-5"></i> Sucursal</label>
+                                            <select class="form-control" id="fk_sucursal">
+                                                <option value="0">SELECCIONE</option>
+                                                <?php
+                                                while ($rows = $get_sucursales->fetch_assoc()) {
+                                                    if ($rows['pk_sucursal'] == $fk_sucursal) {
+                                                        echo "<option value='$rows[pk_sucursal]' selected>$rows[nombre]</option>";
+                                                    } else {
+                                                        echo "<option value='$rows[pk_sucursal]'>$rows[nombre]</option>";
+                                                    }
+                                                }
+                                                ?>
+                                            </select>
+                                        </div>
+                                    </div>
+                                <?php else: ?>
+                                    <input type="hidden" class="form-control" id="fk_sucursal" value="$pk_sucursal">
+                                <?php endif; ?>
+
                                 <div class="col-lg-6">
                                     <div class="form-group">
                                         <label for="clave">Clave</label>

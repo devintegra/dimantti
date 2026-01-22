@@ -21,10 +21,19 @@ if ($nivel == 2) {
     $menu = "fragments/menub.php";
 }
 
-
 if ($nivel != 1) {
     header('Location: ../index.php');
 }
+
+
+//SUCURSALES
+#region
+$mysqli->next_result();
+if (!$get_sucursales = $mysqli->query("SELECT * FROM ct_sucursales WHERE estado = 1")) {
+    echo "Lo sentimos, esta aplicación está experimentando problemas. 1";
+    exit;
+}
+#endregion
 
 ?>
 
@@ -76,16 +85,34 @@ if ($nivel != 1) {
                         <form class="forms-sample" enctype="multipart/form-data" id="formuploadajax">
 
                             <div class="row">
+                                <?php if ($nivel == 1): ?>
+                                    <div class="col-lg-6">
+                                        <div class="form-group">
+                                            <label for="fk_sucursal" class="d-flex align-items-center gap-2"> <i class="bx bx-store-alt fs-5"></i> Sucursal</label>
+                                            <select class="form-control" id="fk_sucursal">
+                                                <option value="0">SELECCIONE</option>
+                                                <?php
+                                                while ($rows = $get_sucursales->fetch_assoc()) {
+                                                    echo "<option value='$rows[pk_sucursal]'>$rows[nombre]</option>";
+                                                }
+                                                ?>
+                                            </select>
+                                        </div>
+                                    </div>
+                                <?php else: ?>
+                                    <input type="hidden" class="form-control" id="fk_sucursal" value="$pk_sucursal">
+                                <?php endif; ?>
+
                                 <div class="col-lg-6">
                                     <div class="form-group">
-                                        <label for="clave">Clave</label>
+                                        <label for="clave" class="d-flex align-items-center gap-2"> <i class="bx bx-key fs-5"></i> Clave</label>
                                         <input type="text" id="clave" name="clave" placeholder="Clave" class="form-control" autocomplete="off">
                                     </div>
                                 </div>
 
                                 <div class="col-lg-6">
                                     <div class="form-group">
-                                        <label for="nombre">Nombre</label>
+                                        <label for="nombre" class="d-flex align-items-center gap-2"> <i class="bx bx-text fs-5"></i> Nombre</label>
                                         <input type="text" id="nombre" name="nombre" placeholder="Nombre" class="form-control" autocomplete="off">
                                     </div>
                                 </div>

@@ -8,6 +8,10 @@ $codigo = 200;
 $descripcion = "";
 
 
+if (isset($_POST['fk_sucursal']) && is_numeric($_POST['fk_sucursal'])) {
+    $fk_sucursal = (int)$_POST['fk_sucursal'];
+}
+
 if (isset($_POST['clave']) && is_string($_POST['clave'])) {
     $clave = $_POST['clave'];
 }
@@ -18,7 +22,7 @@ if (isset($_POST['nombre']) && is_string($_POST['nombre'])) {
 
 
 
-if (!$mysqli->query("INSERT INTO ct_rutas (clave, nombre, fk_usuario, fecha_creacion, fecha_modificacion) VALUES ('$clave', '$nombre', '$fk_usuario', CURDATE(), CURDATE())")) {
+if (!$mysqli->query("INSERT INTO ct_rutas (fk_sucursal, clave, nombre, fk_usuario, fecha_creacion, fecha_modificacion) VALUES ($fk_sucursal, '$clave', '$nombre', '$fk_usuario', CURDATE(), CURDATE())")) {
     $codigo = 201;
     $descripcion = "Error al guardar el registro";
 }

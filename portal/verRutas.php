@@ -27,7 +27,11 @@ if ($nivel != 1) {
 }
 
 
-$qrutas = "SELECT * FROM ct_rutas WHERE estado = 1";
+$qrutas = "SELECT ctr.*,
+        cts.nombre as sucursal
+    FROM ct_rutas ctr
+    LEFT JOIN ct_sucursales cts ON cts.pk_sucursal = ctr.fk_sucursal
+    WHERE ctr.estado = 1";
 
 if (!$rrutas = $mysqli->query($qrutas)) {
     echo "Lo sentimos, esta aplicación está experimentando problemas.";
@@ -92,6 +96,7 @@ if (!$rrutas = $mysqli->query($qrutas)) {
                                         <tr>
                                             <th>Clave</th>
                                             <th>Nombre</th>
+                                            <th>Sucursal</th>
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -106,6 +111,9 @@ if (!$rrutas = $mysqli->query($qrutas)) {
                                                     </td>
                                                     <td>
                                                         <a href='editarRuta.php?id=$row[pk_ruta]'>$row[nombre]</a>
+                                                    </td>
+                                                    <td>
+                                                        <a href='editarRuta.php?id=$row[pk_ruta]'>$row[sucursal]</a>
                                                     </td>
                                                 </tr>
                                             HTML;

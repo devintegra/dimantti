@@ -17,6 +17,11 @@ function validar() {
 
     var retorno = true;
 
+    if ($('#fk_sucursal').val() == 0) {
+        retorno = false;
+        $('#fk_sucursal').css('background-color', '#ffdddd');
+    }
+
     if ($('#clave').val().length < 1) {
         retorno = false;
         $('#clave').css('background-color', '#ffdddd');
@@ -41,6 +46,7 @@ $("#guardar").click(function () {
         })
 
         var formData = new FormData(document.getElementById("formuploadajax"));
+        formData.append("fk_sucursal", $("#fk_sucursal").val());
         formData.append("clave", $("#clave").val());
         formData.append("nombre", $("#nombre").val());
 
