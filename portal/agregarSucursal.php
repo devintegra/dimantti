@@ -157,51 +157,53 @@ if ($nivel != 1) {
 
 
 
-                            <br>
-                            <div class="line-success-integra"></div><br>
-
-                            <div class="row d-flex flex-column">
-                                <h4 class="card-title col-lg-4" style="color: #2CA880; font-weight: bold;"><i class='bx bx-store-alt fs-5'></i>Almácenes</h4>
-                                <p class="fs-6">Agregar un nuevo almacén interno a la sucursal</p>
+                            <div id="contentAlmacenes" class="d-none">
                                 <br>
-                                <div class="row">
-                                    <div class="col-lg-4">
-                                        <div class="form-group">
-                                            <input type="text" class="form-control" id="almacensc" placeholder="Nombre del almacén" autocomplete="off">
+                                <div class="line-success-integra"></div><br>
+
+                                <div class="row d-flex flex-column">
+                                    <h4 class="card-title col-lg-4" style="color: #2CA880; font-weight: bold;"><i class='bx bx-store-alt fs-5'></i>Almácenes</h4>
+                                    <p class="fs-6">Agregar un nuevo almacén interno a la sucursal</p>
+                                    <br>
+                                    <div class="row">
+                                        <div class="col-lg-4">
+                                            <div class="form-group">
+                                                <input type="text" class="form-control" id="almacensc" placeholder="Nombre del almacén" autocomplete="off">
+                                            </div>
                                         </div>
-                                    </div>
-                                    <div class="col-lg-4">
-                                        <div class="form-group">
-                                            <input type="text" class="form-control" id="descripcion_almacen" placeholder="Descripción del almacén" autocomplete="off">
+                                        <div class="col-lg-4">
+                                            <div class="form-group">
+                                                <input type="text" class="form-control" id="descripcion_almacen" placeholder="Descripción del almacén" autocomplete="off">
+                                            </div>
                                         </div>
-                                    </div>
-                                    <div class="col-lg-4">
-                                        <div class="form-group">
-                                            <button id="agregar" type="button" class="btn btn-success-dast mx-2"><i class="fa fa-plus mx-2"></i>Agregar</button>
+                                        <div class="col-lg-4">
+                                            <div class="form-group">
+                                                <button id="agregar" type="button" class="btn btn-success-dast mx-2"><i class="fa fa-plus mx-2"></i>Agregar</button>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
-                            </div>
 
-                            <div class="table-responsive overflow-auto scroll-style" style="width: 102%;">
-                                <table id="entradasAlmacen" class="table table-striped">
-                                    <thead>
-                                        <tr>
-                                            <th></th>
-                                            <th>Nombre</th>
-                                            <th>Descripción del almácen</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
+                                <div class="table-responsive overflow-auto scroll-style" style="width: 102%;">
+                                    <table id="entradasAlmacen" class="table table-striped">
+                                        <thead>
+                                            <tr>
+                                                <th></th>
+                                                <th>Nombre</th>
+                                                <th>Descripción del almácen</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
 
-                                        <tr>
-                                            <td></td>
-                                            <td>Principal</td>
-                                            <td>Almacén generado por defecto</td>
-                                        </tr>
+                                            <tr>
+                                                <td></td>
+                                                <td>Principal</td>
+                                                <td>Almacén generado por defecto</td>
+                                            </tr>
 
-                                    </tbody>
-                                </table>
+                                        </tbody>
+                                    </table>
+                                </div>
                             </div>
 
                             <br><br>
