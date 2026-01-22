@@ -7,86 +7,13 @@ $(document).ready(function () {
         dateFormat: 'yy-mm-dd'
     });
 
-    if ($('#fk_sucursal').val() != 0) {
-        getAlmacenes();
-    }
-
 });
-
-
-//SUCURSAL
-//#region
-function getAlmacenes() {
-
-    var parametros = {
-        "fk_sucursal": $("#fk_sucursal").val()
-    };
-
-    $.ajax({
-
-        data: parametros,
-
-        url: 'servicios/getSucursalAlmacenes.php',
-
-        type: 'GET',
-
-        contentType: "application/x-www-form-urlencoded;charset=utf-8",
-
-        beforeSend: function () {
-
-        },
-
-        success: function (response) {
-
-            if (response.codigo == 200) {
-
-                $('#fk_almacen').empty();
-
-                let optionsHTML = "<option value='0'>Seleccione</option>";
-                response.objList.forEach(element => {
-
-                    optionsHTML += `<option value='${element.pk_sucursal_almacen}'>${element.nombre}</option>`;
-
-                });
-
-                $('#fk_almacen').append(optionsHTML);
-
-            } else {
-                swal("Error", "Hubo un problema, vuelva a intentarlo", "error").then(function () {
-                    location.reload();
-                });
-            }
-        },
-
-        error: function (arg1, arg2, arg3) {
-            console.log(arg3);
-        }
-    });
-
-}
-
-
-$(document).on('change', '#fk_sucursal', function () {
-    getAlmacenes();
-});
-//#endregion
-
 
 
 //GUARDAR
 //#region
 function validarGuardado() {
     var retorno = true;
-
-    if ($('#fk_sucursal').val() == 0) {
-        retorno = false;
-        $('#fk_sucursal').css('background-color', '#ffdddd');
-    }
-
-    if ($('#fk_almacen').val() == 0) {
-        retorno = false;
-        $('#fk_almacen').css('background-color', '#ffdddd');
-    }
 
     if ($('#plantilla').val() == 0) {
         retorno = false;
@@ -116,9 +43,12 @@ $('#guardar').click(function () {
 
     if (validarGuardado()) {
 
+        let fk_sucursal = $("#ruta option:selected").attr('data-fk-sucursal');
+        let fk_almacen = $("#ruta option:selected").attr('data-fk-almacen');
+
         var parametros = {
-            "fk_sucursal": $("#fk_sucursal").val(),
-            "fk_almacen": $("#fk_almacen").val(),
+            "fk_sucursal": fk_sucursal,
+            "fk_almacen": fk_almacen,
             "pk_plantilla": $("#plantilla").val(),
             "fk_ruta": $("#ruta").val(),
             "pk_usuario": $("#usuario").val(),

@@ -119,7 +119,7 @@ if ($codigo == 200) {
 //ENCABEZADO
 if ($codigo == 200) {
     $mysqli->next_result();
-    if (!$mysqli->query("INSERT INTO tr_almacen (fk_usuario, fecha, fk_ruta, estatus) VALUES ('$pk_usuario', '$fecha', $fk_ruta, 1)")) {
+    if (!$mysqli->query("INSERT INTO tr_almacen (fk_usuario, fecha, fk_ruta, fk_sucursal, estatus) VALUES ('$pk_usuario', '$fecha', $fk_ruta, $fk_sucursal, 1)")) {
         $codigo = 201;
         $descripcion = "Error al guardar el encabezado";
     }

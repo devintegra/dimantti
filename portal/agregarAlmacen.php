@@ -59,7 +59,11 @@ if (!$rvendedores = $mysqli->query($qvendedores)) {
 
 //RUTAS
 #region
-$qrutas = "SELECT * FROM ct_rutas WHERE estado = 1";
+$qrutas = "SELECT ctr.*,
+        IFNULL(rta.pk_sucursal_almacen, ctr.fk_sucursal) as fk_almacen
+    FROM ct_rutas ctr
+    LEFT JOIN rt_sucursales_almacenes rta ON rta.fk_sucursal = ctr.fk_sucursal
+    WHERE ctr.estado = 1";
 
 if (!$rrutas = $mysqli->query($qrutas)) {
     echo "Lo sentimos, esta aplicación está experimentando problemas.";
@@ -119,36 +123,6 @@ if (!$rrutas = $mysqli->query($qrutas)) {
                         <form class="forms-sample">
 
                             <div class="row">
-                                <?php if ($fk_sucursal == 0): ?>
-                                    <div class="col-lg-6">
-                                        <div class="form-group">
-                                            <label for="fk_sucursal" class="d-flex align-items-center gap-2"> <i class="bx bx-store-alt fs-4"></i> Sucursal de salida</label>
-                                            <select id="fk_sucursal" class="form-control">
-                                                <option value="0">Seleccione</option>
-                                                <?php
-                                                while ($rows = $rsucursales->fetch_assoc()) {
-                                                    echo "<option value='$rows[pk_sucursal]'>$rows[nombre]</option>";
-                                                }
-                                                ?>
-                                            </select>
-                                        </div>
-                                    </div>
-                                <?php else: ?>
-                                    <?php
-                                    echo "<input type='hidden' class='form-control' id='fk_sucursal' value='$fk_sucursal'>";
-                                    ?>
-                                <?php endif; ?>
-                                <div class="col-lg-6">
-                                    <div class="form-group">
-                                        <label for="fk_almacen" class="d-flex align-items-center gap-2"> <i class="bx bx-store-alt fs-4"></i> Almacén de salida</label>
-                                        <select class="form-control" id="fk_almacen">
-                                            <option value="0">Seleccione</option>
-                                        </select>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div class="row">
                                 <div class="col-lg-6">
                                     <div class="form-group">
                                         <label for="plantilla" class="d-flex align-items-center gap-2"> <i class="bx bx-area fs-4"></i> Plantilla</label>
@@ -166,10 +140,10 @@ if (!$rrutas = $mysqli->query($qrutas)) {
                                     <div class="form-group">
                                         <label for="ruta" class="d-flex align-items-center gap-2"> <i class="bx bx-trip fs-4"></i>Ruta</label>
                                         <select id="ruta" class="form-control">
-                                            <option value="0">Seleccione</option>
+                                            <option value="0" data-fk-sucursal="0" data-fk-almacen="0">Seleccione</option>
                                             <?php
                                             while ($ruta = $rrutas->fetch_assoc()) {
-                                                echo "<option value='$ruta[pk_ruta]'>$ruta[nombre]</option>";
+                                                echo "<option value='$ruta[pk_ruta]' data-fk-sucursal='$ruta[fk_sucursal]' data-fk-almacen='$ruta[fk_almacen]'>$ruta[nombre]</option>";
                                             }
                                             ?>
                                         </select>
