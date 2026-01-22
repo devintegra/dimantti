@@ -68,42 +68,50 @@ if ($nivel != 1) {
                             <i class='bx bx-credit-card-alt' style="font-size:32px"></i>
                         </div>
                         <div class="table-responsive overflow-hidden">
-                            <?php
-                            $qpago = "select * from ct_pagos where estado=1";
+                            <table id='dtOrigenes' class='table table-striped text-center'>
+                                <thead>
+                                    <tr>
+                                        <th>
+                                            Disponible en ruta
+                                        </th>
+                                        <th>
+                                            Descripción del pago
+                                        </th>
+                                        <th>
+                                            Comisión
+                                        </th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <?php
+                                    $qpago = "SELECT * FROM ct_pagos WHERE estado = 1";
 
-                            echo "
-                                <table id='dtOrigenes' class='table table-striped text-center'>
-                                    <thead>
-                                        <tr>
-                                            <th>
-                                                Descripción del pago
-                                            </th>
-                                            <th>
-                                                Comisión
-                                            </th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>";
-                            if (!$resultado = $mysqli->query($qpago)) {
-                                echo "Lo sentimos, esta aplicación está experimentando problemas.";
-                                exit;
-                            }
-                            while ($rpago = $resultado->fetch_assoc()) {
-                                echo "
-                                        <tr>
-                                            <td>
-                                                <a style='text-decoration:none;' href='editarPago.php?id=$rpago[pk_pago]'>$rpago[nombre]</a>
-                                            </td>
-                                            <td>
-                                                <a style='text-decoration:none;' href='editarPago.php?id=$rpago[pk_pago]'>$rpago[comision]%</a>
-                                            </td>
-                                        </tr>";
-                            }
-                            echo "
-                                    </tbody>
-                                </table>
-                            ";
-                            ?>
+                                    if (!$resultado = $mysqli->query($qpago)) {
+                                        echo "Lo sentimos, esta aplicación está experimentando problemas.";
+                                        exit;
+                                    }
+
+                                    while ($row = $resultado->fetch_assoc()) {
+
+                                        $checked = $row["ruta"] == 1 ? "checked" : "";
+
+                                        echo <<<HTML
+                                            <tr data-id="$row[pk_pago]">
+                                                <td>
+                                                    <input type="checkbox" class="chkRuta" style="width: 20px; height: 20px;" $checked>
+                                                </td>
+                                                <td>
+                                                    <a style='text-decoration:none;' href='editarPago.php?id=$row[pk_pago]'>$row[nombre]</a>
+                                                </td>
+                                                <td>
+                                                    <a style='text-decoration:none;' href='editarPago.php?id=$row[pk_pago]'>$row[comision]%</a>
+                                                </td>
+                                            </tr>
+                                        HTML;
+                                    }
+                                    ?>
+                                </tbody>
+                            </table>
                         </div>
                     </div>
                 </div>
@@ -121,6 +129,7 @@ if ($nivel != 1) {
     <script src="assets/lib/data-table/dataTables.bootstrap.min.js"></script>
     <script src="assets/lib/data-table/dataTables.buttons.min.js"></script>
     <script src="assets/lib/data-table/datatables-init.js"></script>
+    <script src="custom/verPagos.js"></script>
 
     <script>
         $('#dtOrigenes').DataTable({
