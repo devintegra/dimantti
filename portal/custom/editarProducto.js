@@ -401,7 +401,7 @@ $(document).on("input", ".utilidad", function () {
     var costo = parseFloat($("#costo").val().replace(/,/g, ""));
     var utilidad = costo * (valor / 100);
     var precio = (costo + utilidad).toFixed(2);
-    $("#precio" + id + "").val(currencyMX(precio));
+    $("#precio" + id + "").val(precio);
 
 });
 
@@ -438,7 +438,7 @@ $(document).on('blur', '.precio', function () {
 
 
 $(document).on("input", "#costo, .precio", function () {
-    $(this).val(currencyMX($(this).val()));
+    //$(this).val(currencyMX($(this).val()));
 });
 
 
