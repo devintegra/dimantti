@@ -836,7 +836,7 @@ if ($rsaldos->num_rows == 0) {
     <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
     <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
-    <script src="custom/puntoVenta.js"></script>
+    <script src="custom/puntoVenta.js?v=<?= time(); ?>"></script>
 
 </body>
 

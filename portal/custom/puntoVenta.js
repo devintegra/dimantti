@@ -39,7 +39,7 @@ $(document).ready(function () {
             cache: true
         },
         placeholder: "Buscar productos...",
-        minimumInputLength: 5,
+        minimumInputLength: 3,
         allowClear: true,
         escapeMarkup: function (markup) { return markup; },
         templateResult: function (data) {
