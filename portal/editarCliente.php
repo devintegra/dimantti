@@ -60,7 +60,13 @@ $fk_categoria = $row["fk_categoria_cliente"];
 $cp = $row["cp"];
 $rfc = $row["rfc"];
 $fk_regimen_fiscal = $row["fk_regimen_fiscal"];
-$dia = $row["dia_numero"];
+$lunes = $row["lunes"];
+$martes = $row["martes"];
+$miercoles = $row["miercoles"];
+$jueves = $row["jueves"];
+$viernes = $row["viernes"];
+$sabado = $row["sabado"];
+$domingo = $row["domingo"];
 $clave_regimen = $row["regimen"];
 $direccion = $row["direccion"];
 $latitud = $row["latitud"];
@@ -110,13 +116,13 @@ if (!$rrutas = $mysqli->query($qrutas)) {
 //DIAS
 #region
 $arrayDias = array(
-    array('id' => 1, 'nombre' => 'Lunes'),
-    array('id' => 2, 'nombre' => 'Martes'),
-    array('id' => 3, 'nombre' => 'Miercoles'),
-    array('id' => 4, 'nombre' => 'Jueves'),
-    array('id' => 5, 'nombre' => 'Viernes'),
-    array('id' => 6, 'nombre' => 'Sábado'),
-    array('id' => 7, 'nombre' => 'Domingo')
+    array('id' => 'lunes', 'nombre' => 'Lunes', 'valor' => $lunes),
+    array('id' => 'martes', 'nombre' => 'Martes', 'valor' => $martes),
+    array('id' => 'miercoles', 'nombre' => 'Miércoles', 'valor' => $miercoles),
+    array('id' => 'jueves', 'nombre' => 'Jueves', 'valor' => $jueves),
+    array('id' => 'viernes', 'nombre' => 'Viernes', 'valor' => $viernes),
+    array('id' => 'sabado', 'nombre' => 'Sábado', 'valor' => $sabado),
+    array('id' => 'domingo', 'nombre' => 'Domingo', 'valor' => $domingo),
 );
 #endregion
 
@@ -261,18 +267,17 @@ $arrayDias = array(
                                 <div class="col-lg-6">
                                     <div class="form-group">
                                         <label for="dia">Día</label>
-                                        <select class='form-control' id='dia'>
-                                            <option value='0'>Seleccione</option>
+                                        <div class="d-flex align-items-center gap-2 flex-wrap">
                                             <?php
                                             foreach ($arrayDias as $rowd) {
-                                                if ($rowd['id'] == $dia) {
-                                                    echo "<option value='$rowd[id]' selected>$rowd[nombre]</option>";
-                                                } else {
-                                                    echo "<option value='$rowd[id]'>$rowd[nombre]</option>";
-                                                }
+                                                $checked = $rowd['valor'] == 1 ? "checked" : "";
+                                                echo <<<HTML
+                                                    <input type="checkbox" id="$rowd[id]" class="chkDia" style="width: 20px; height: 20px;" $checked>
+                                                    <label class="mb-0">$rowd[nombre]</label>
+                                                HTML;
                                             }
                                             ?>
-                                        </select>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
@@ -419,7 +424,7 @@ $arrayDias = array(
     <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
     <script type="text/javascript" src="https://maps.google.com/maps/api/js?key=AIzaSyAyzxxx9sOTmkGCHGgrK_Xy86eQxB-AxuI&libraries=places"></script>
     <script src="custom/numberFormats.js"></script>
-    <script src="custom/editarCliente.js"></script>
+    <script src="custom/editarCliente.js?v=<?= time(); ?>"></script>
 </body>
 
 </html>

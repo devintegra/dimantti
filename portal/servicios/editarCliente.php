@@ -59,8 +59,32 @@ if (isset($_POST['fk_ruta']) && is_numeric($_POST['fk_ruta'])) {
     $fk_ruta = (int)$_POST['fk_ruta'];
 }
 
-if (isset($_POST['dia']) && is_numeric($_POST['dia'])) {
-    $dia = (int)$_POST['dia'];
+if (isset($_POST['lunes']) && is_numeric($_POST['lunes'])) {
+    $lunes = (int)$_POST['lunes'];
+}
+
+if (isset($_POST['martes']) && is_numeric($_POST['martes'])) {
+    $martes = (int)$_POST['martes'];
+}
+
+if (isset($_POST['miercoles']) && is_numeric($_POST['miercoles'])) {
+    $miercoles = (int)$_POST['miercoles'];
+}
+
+if (isset($_POST['jueves']) && is_numeric($_POST['jueves'])) {
+    $jueves = (int)$_POST['jueves'];
+}
+
+if (isset($_POST['viernes']) && is_numeric($_POST['viernes'])) {
+    $viernes = (int)$_POST['viernes'];
+}
+
+if (isset($_POST['sabado']) && is_numeric($_POST['sabado'])) {
+    $sabado = (int)$_POST['sabado'];
+}
+
+if (isset($_POST['domingo']) && is_numeric($_POST['domingo'])) {
+    $domingo = (int)$_POST['domingo'];
 }
 
 if (isset($_POST['latitud']) && is_string($_POST['latitud'])) {
@@ -77,12 +101,10 @@ if (isset($_POST['direccion']) && is_string($_POST['direccion'])) {
 
 $fk_regimen_fiscal ? $fk_regimen_fiscal = $fk_regimen_fiscal : $fk_regimen_fiscal = 0;
 
-$arrayDias = array("Lunes", "Martes", "Miercoles", "Jueves", "Viernes", "Sábado", "Domingo");
-$diaNombre = $arrayDias[$dia - 1];
 
 
 
-if (!$mysqli->query("UPDATE ct_clientes SET nombre='$nombre', telefono='$telefono', correo='$correo', dias_credito=$dias_credito, limite_credito=$limite_credito, credito=$credito, abonos=$abonos, fk_categoria_cliente=$fk_categoria, cp='$cp', rfc='$rfc', fk_regimen_fiscal=$fk_regimen_fiscal, fk_ruta = $fk_ruta, dia_numero = $dia, dia = '$diaNombre', direccion = '$direccion', latitud = '$latitud', longitud = '$longitud' WHERE pk_cliente=$pk_cliente")) {
+if (!$mysqli->query("UPDATE ct_clientes SET nombre='$nombre', telefono='$telefono', correo='$correo', dias_credito=$dias_credito, limite_credito=$limite_credito, credito=$credito, abonos=$abonos, fk_categoria_cliente=$fk_categoria, cp='$cp', rfc='$rfc', fk_regimen_fiscal=$fk_regimen_fiscal, fk_ruta = $fk_ruta, direccion = '$direccion', latitud = '$latitud', longitud = '$longitud', lunes = $lunes, martes = $martes, miercoles = $miercoles, jueves = $jueves, viernes = $viernes, sabado = $sabado, domingo = $domingo WHERE pk_cliente=$pk_cliente")) {
     $codigo = 201;
     $descripcion = "Error al guardar el registro";
 }

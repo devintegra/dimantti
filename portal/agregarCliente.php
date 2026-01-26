@@ -46,6 +46,21 @@ if (!$rrutas = $mysqli->query($qrutas)) {
 }
 #endregion
 
+
+//DIAS
+#region
+$arrayDias = array(
+    array('id' => 'lunes', 'nombre' => 'Lunes'),
+    array('id' => 'martes', 'nombre' => 'Martes'),
+    array('id' => 'miercoles', 'nombre' => 'Miércoles'),
+    array('id' => 'jueves', 'nombre' => 'Jueves'),
+    array('id' => 'viernes', 'nombre' => 'Viernes'),
+    array('id' => 'sabado', 'nombre' => 'Sábado'),
+    array('id' => 'domingo', 'nombre' => 'Domingo'),
+);
+#endregion
+
+
 ?>
 <!doctype html>
 
@@ -168,16 +183,16 @@ if (!$rrutas = $mysqli->query($qrutas)) {
                                 <div class="col-lg-6">
                                     <div class="form-group">
                                         <label for="dia">Día</label>
-                                        <select class="form-control" id="dia">
-                                            <option value="0">Seleccione</option>
-                                            <option value="1">Lunes</option>
-                                            <option value="2">Martes</option>
-                                            <option value="3">Miercoles</option>
-                                            <option value="4">Jueves</option>
-                                            <option value="5">Viernes</option>
-                                            <option value="6">Sábado</option>
-                                            <option value="7">Domingo</option>
-                                        </select>
+                                        <div class="d-flex align-items-center gap-2 flex-wrap">
+                                            <?php
+                                            foreach ($arrayDias as $rowd) {
+                                                echo <<<HTML
+                                                    <input type="checkbox" id="$rowd[id]" class="chkDia" style="width: 20px; height: 20px;">
+                                                    <label class="mb-0">$rowd[nombre]</label>
+                                                HTML;
+                                            }
+                                            ?>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
@@ -284,7 +299,7 @@ if (!$rrutas = $mysqli->query($qrutas)) {
     <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
     <script type="text/javascript" src="https://maps.google.com/maps/api/js?key=AIzaSyAyzxxx9sOTmkGCHGgrK_Xy86eQxB-AxuI&libraries=places"></script>
     <script src="custom/numberFormats.js"></script>
-    <script src="custom/agregarCliente.js"></script>
+    <script src="custom/agregarCliente.js?v=<?= time(); ?>"></script>
 
 </body>
 

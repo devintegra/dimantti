@@ -107,15 +107,22 @@ mysqli_set_charset($mysqli, 'utf8');
 
                                     while ($row = $resultado->fetch_assoc()) {
 
-                                        $arrayDias = array("Lunes", "Martes", "Miercoles", "Jueves", "Viernes", "Sábado", "Domingo");
-                                        $dia = $arrayDias[$row['dia_numero'] - 1];
+                                        $arrayDias = [];
+                                        $row['lunes'] == 1 && array_push($arrayDias, "Lunes");
+                                        $row['martes'] == 1 && array_push($arrayDias, "Martes");
+                                        $row['miercoles'] == 1 && array_push($arrayDias, "Miércoles");
+                                        $row['jueves'] == 1 && array_push($arrayDias, "Jueves");
+                                        $row['viernes'] == 1 && array_push($arrayDias, "Viernes");
+                                        $row['sabado'] == 1 && array_push($arrayDias, "Sábado");
+                                        $row['domingo'] == 1 && array_push($arrayDias, "Domingo");
+                                        $dias = implode(", ", $arrayDias);
 
                                         echo <<<HTML
                                             <tr class="odd gradeX">
                                                 <td><a style='text-decoration:none' href='editarCliente.php?id=$row[pk_cliente]'>$row[ruta]</a></td>
                                                 <td><a style='text-decoration:none' href='editarCliente.php?id=$row[pk_cliente]'>$row[clave]</a></td>
                                                 <td><a style='text-decoration:none' href='editarCliente.php?id=$row[pk_cliente]'>$row[nombre]</a></td>
-                                                <td><a style='text-decoration:none' href='editarCliente.php?id=$row[pk_cliente]'>$dia</a></td>
+                                                <td><a style='text-decoration:none' href='editarCliente.php?id=$row[pk_cliente]'>$dias</a></td>
                                                 <td><a style='text-decoration:none' href='editarCliente.php?id=$row[pk_cliente]'>$row[direccion]</a></td>
                                             </tr>
                                         HTML;

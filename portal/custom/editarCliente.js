@@ -187,9 +187,9 @@ function validar() {
         $('#fk_ruta').css('background-color', '#ffdddd');
     }
 
-    if ($('#dia').val() == 0) {
+    if ($('.chkDia:checked').length == 0) {
         retorno = false;
-        $('#dia').css('background-color', '#ffdddd');
+        swal('Mensaje', 'Selecciona por lo menos un día', 'info');
     }
 
     if ($('#abonos').val() == 0) {
@@ -226,7 +226,13 @@ $('#guardar').click(function () {
 
     if (validar()) {
 
-        var pass = btoa($("#pass").val());
+        let lunes = $('#lunes').is(':checked') ? 1 : 0;
+        let martes = $('#martes').is(':checked') ? 1 : 0;
+        let miercoles = $('#miercoles').is(':checked') ? 1 : 0;
+        let jueves = $('#jueves').is(':checked') ? 1 : 0;
+        let viernes = $('#viernes').is(':checked') ? 1 : 0;
+        let sabado = $('#sabado').is(':checked') ? 1 : 0;
+        let domingo = $('#domingo').is(':checked') ? 1 : 0;
 
         var parametros = {
             "pk_cliente": $("#pk_cliente").val(),
@@ -237,7 +243,13 @@ $('#guardar').click(function () {
             "rfc": $("#rfc").val(),
             "fk_regimen_fiscal": $("#regimen_fiscal").val(),
             "fk_ruta": $("#fk_ruta").val(),
-            "dia": $("#dia").val(),
+            "lunes": lunes,
+            "martes": martes,
+            "miercoles": miercoles,
+            "jueves": jueves,
+            "viernes": viernes,
+            "sabado": sabado,
+            "domingo": domingo,
             "direccion": $("#direccion").val(),
             "latitud": latitud,
             "longitud": longitud,
