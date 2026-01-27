@@ -212,7 +212,7 @@ function validar() {
         }
     }
 
-    if (parseFloat($("#credito").val()) > parseFloat($("#limite_credito").val())) {
+    if (parseFloat($("#credito").val().replace(/,/g, "")) > parseFloat($("#limite_credito").val().replace(/,/g, ""))) {
         retorno = false;
         swal('Mensaje', 'El crédito disponible no puede ser mayor al límite del crédito', 'info');
     }
