@@ -16,7 +16,7 @@ if ($nivel == 1) {
 }
 
 if ($nivel == 2) {
-    $tipo = "Chofer";
+    $tipo = "Vendedor";
     $menu = "fragments/menub.php";
 }
 
@@ -35,20 +35,13 @@ if (isset($_GET['id']) && is_string($_GET['id'])) {
 
 //DATOS
 #region
-$eusuario = "SELECT ctc.*,
-        ctr.clave as regimen
-    FROM ct_clientes ctc
-    LEFT JOIN ct_regimenes_fiscales ctr ON ctr.pk_regimen_fiscal = ctc.fk_regimen_fiscal
-    WHERE ctc.pk_cliente = $pk_cliente";
-
-if (!$resultado = $mysqli->query($eusuario)) {
+$mysqli->next_result();
+if (!$resultado = $mysqli->query("CALL sp_get_cliente($pk_cliente)")) {
     echo "<br>Lo sentimos, esta aplicación está experimentando problemas.";
     exit;
 }
 
 $row = $resultado->fetch_assoc();
-$fk_ruta = $row["fk_ruta"];
-$clave = $row["clave"];
 $nombre = $row["nombre"];
 $telefono = $row["telefono"];
 $correo = $row["correo"];
@@ -60,13 +53,6 @@ $fk_categoria = $row["fk_categoria_cliente"];
 $cp = $row["cp"];
 $rfc = $row["rfc"];
 $fk_regimen_fiscal = $row["fk_regimen_fiscal"];
-$lunes = $row["lunes"];
-$martes = $row["martes"];
-$miercoles = $row["miercoles"];
-$jueves = $row["jueves"];
-$viernes = $row["viernes"];
-$sabado = $row["sabado"];
-$domingo = $row["domingo"];
 $clave_regimen = $row["regimen"];
 $direccion = $row["direccion"];
 $latitud = $row["latitud"];
@@ -84,47 +70,13 @@ if ($nombre == "Cliente general") {
 #region
 $qregimen = "SELECT * FROM ct_regimenes_fiscales where estado=1";
 
+$mysqli->next_result();
 if (!$rregimen = $mysqli->query($qregimen)) {
     echo "Lo sentimos, esta aplicación está experimentando problemas.2";
     exit;
 }
 #endregion
 
-
-//LISTAS DE PRECIOS
-#region
-$arrayPrecios = array(
-    array('id' => 1, 'nombre' => 'Precio N°1'),
-    array('id' => 2, 'nombre' => 'Precio N°2'),
-    array('id' => 3, 'nombre' => 'Precio N°3'),
-    array('id' => 4, 'nombre' => 'Precio N°4')
-);
-#endregion
-
-
-//RUTAS
-#region
-$qrutas = "SELECT * FROM ct_rutas where estado=1";
-
-if (!$rrutas = $mysqli->query($qrutas)) {
-    echo "Lo sentimos, esta aplicación está experimentando problemas.";
-    exit;
-}
-#endregion
-
-
-//DIAS
-#region
-$arrayDias = array(
-    array('id' => 'lunes', 'nombre' => 'Lunes', 'valor' => $lunes),
-    array('id' => 'martes', 'nombre' => 'Martes', 'valor' => $martes),
-    array('id' => 'miercoles', 'nombre' => 'Miércoles', 'valor' => $miercoles),
-    array('id' => 'jueves', 'nombre' => 'Jueves', 'valor' => $jueves),
-    array('id' => 'viernes', 'nombre' => 'Viernes', 'valor' => $viernes),
-    array('id' => 'sabado', 'nombre' => 'Sábado', 'valor' => $sabado),
-    array('id' => 'domingo', 'nombre' => 'Domingo', 'valor' => $domingo),
-);
-#endregion
 
 
 ?>
@@ -248,43 +200,6 @@ $arrayDias = array(
                             <div class="row">
                                 <div class="col-lg-6">
                                     <div class="form-group">
-                                        <label for="fk_ruta">Ruta</label>
-                                        <select class="form-control" id="fk_ruta">
-                                            <option value="0">Seleccione</option>
-                                            <?php
-                                            while ($rowr = $rrutas->fetch_assoc()) {
-                                                if ($rowr['pk_ruta'] == $fk_ruta) {
-                                                    echo "<option value='$rowr[pk_ruta]' selected>$rowr[nombre]</option>";
-                                                } else {
-                                                    echo "<option value='$rowr[pk_ruta]'>$rowr[nombre]</option>";
-                                                }
-                                            }
-                                            ?>
-                                        </select>
-                                    </div>
-                                </div>
-
-                                <div class="col-lg-6">
-                                    <div class="form-group">
-                                        <label for="dia">Día</label>
-                                        <div class="d-flex align-items-center gap-2 flex-wrap">
-                                            <?php
-                                            foreach ($arrayDias as $rowd) {
-                                                $checked = $rowd['valor'] == 1 ? "checked" : "";
-                                                echo <<<HTML
-                                                    <input type="checkbox" id="$rowd[id]" class="chkDia" style="width: 20px; height: 20px;" $checked>
-                                                    <label class="mb-0">$rowd[nombre]</label>
-                                                HTML;
-                                            }
-                                            ?>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div class="row">
-                                <div class="col-lg-6">
-                                    <div class="form-group">
                                         <label for="direccion">Dirección</label>
                                         <?php
                                         echo "<input type='text' id='direccion' name='direccion' placeholder='Dirección' class='form-control' value='$direccion'>";
@@ -366,28 +281,9 @@ $arrayDias = array(
 
                             </div>
 
-                            <div class="row">
-                                <div class="col-lg-6">
-                                    <div class="form-group">
-                                        <label for="categoria">Lista de precios asignada</label>
-                                        <select class='form-control dato' id='categoria'>
-                                            <?php
-                                            foreach ($arrayPrecios as $rowp) {
-                                                if ($rowp['id'] == $fk_categoria) {
-                                                    echo "<option value='$rowp[id]' selected>$rowp[nombre]</option>";
-                                                } else {
-                                                    echo "<option value='$rowp[id]'>$rowp[nombre]</option>";
-                                                }
-                                            }
-                                            ?>
-                                        </select>
-                                    </div>
-                                </div>
-                            </div>
-
-
 
                             <br><br>
+
 
                             <div class="row d-flex justify-content-center">
                                 <?php

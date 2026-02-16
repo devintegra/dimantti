@@ -15,7 +15,7 @@ if ($nivel == 1) {
 }
 
 if ($nivel == 2) {
-    $tipo = "Chofer";
+    $tipo = "Vendedor";
     $menu = "fragments/menub.php";
 }
 
@@ -76,53 +76,32 @@ mysqli_set_charset($mysqli, 'utf8');
                             <table id="dtEmpresa" class="table table-striped">
                                 <thead>
                                     <tr>
-                                        <th>Ruta</th>
-                                        <th>Clave</th>
                                         <th>Nombre</th>
-                                        <th>Día</th>
+                                        <th>Teléfono</th>
                                         <th>Dirección</th>
                                     </tr>
                                 </thead>
                                 <tfoot style='display: table-header-group'>
                                     <tr>
-                                        <th>Ruta</th>
-                                        <th>Clave</th>
                                         <th>Nombre</th>
-                                        <th>Día</th>
+                                        <th>Teléfono</th>
                                         <th>Dirección</th>
                                     </tr>
                                 </tfoot>
                                 <tbody>
                                     <?php
-                                    $eusuario = "SELECT ctc.*,
-                                            ctr.clave as ruta
-                                        FROM ct_clientes ctc
-                                        LEFT JOIN ct_rutas ctr ON ctr.pk_ruta = ctc.fk_ruta
-                                        WHERE ctc.estado = 1";
 
-                                    if (!$resultado = $mysqli->query($eusuario)) {
+                                    if (!$resultado = $mysqli->query("CALL sp_get_clientes()")) {
                                         echo "Lo sentimos, esta aplicación está experimentando problemas.";
                                         exit;
                                     }
 
                                     while ($row = $resultado->fetch_assoc()) {
 
-                                        $arrayDias = [];
-                                        $row['lunes'] == 1 && array_push($arrayDias, "Lunes");
-                                        $row['martes'] == 1 && array_push($arrayDias, "Martes");
-                                        $row['miercoles'] == 1 && array_push($arrayDias, "Miércoles");
-                                        $row['jueves'] == 1 && array_push($arrayDias, "Jueves");
-                                        $row['viernes'] == 1 && array_push($arrayDias, "Viernes");
-                                        $row['sabado'] == 1 && array_push($arrayDias, "Sábado");
-                                        $row['domingo'] == 1 && array_push($arrayDias, "Domingo");
-                                        $dias = implode(", ", $arrayDias);
-
                                         echo <<<HTML
                                             <tr class="odd gradeX">
-                                                <td><a style='text-decoration:none' href='editarCliente.php?id=$row[pk_cliente]'>$row[ruta]</a></td>
-                                                <td><a style='text-decoration:none' href='editarCliente.php?id=$row[pk_cliente]'>$row[clave]</a></td>
                                                 <td><a style='text-decoration:none' href='editarCliente.php?id=$row[pk_cliente]'>$row[nombre]</a></td>
-                                                <td><a style='text-decoration:none' href='editarCliente.php?id=$row[pk_cliente]'>$dias</a></td>
+                                                <td><a style='text-decoration:none' href='editarCliente.php?id=$row[pk_cliente]'>$row[telefono]</a></td>
                                                 <td><a style='text-decoration:none' href='editarCliente.php?id=$row[pk_cliente]'>$row[direccion]</a></td>
                                             </tr>
                                         HTML;

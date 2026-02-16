@@ -15,7 +15,7 @@ if ($nivel == 1) {
 }
 
 if ($nivel == 2) {
-    $tipo = "Chofer";
+    $tipo = "Vendedor";
     $menu = "fragments/menub.php";
 }
 
@@ -33,31 +33,6 @@ if (!$rregimen = $mysqli->query($qregimen)) {
     echo "Lo sentimos, esta aplicación está experimentando problemas.";
     exit;
 }
-#endregion
-
-
-//RUTAS
-#region
-$qrutas = "SELECT * FROM ct_rutas where estado=1";
-
-if (!$rrutas = $mysqli->query($qrutas)) {
-    echo "Lo sentimos, esta aplicación está experimentando problemas.";
-    exit;
-}
-#endregion
-
-
-//DIAS
-#region
-$arrayDias = array(
-    array('id' => 'lunes', 'nombre' => 'Lunes'),
-    array('id' => 'martes', 'nombre' => 'Martes'),
-    array('id' => 'miercoles', 'nombre' => 'Miércoles'),
-    array('id' => 'jueves', 'nombre' => 'Jueves'),
-    array('id' => 'viernes', 'nombre' => 'Viernes'),
-    array('id' => 'sabado', 'nombre' => 'Sábado'),
-    array('id' => 'domingo', 'nombre' => 'Domingo'),
-);
 #endregion
 
 
@@ -168,38 +143,6 @@ $arrayDias = array(
                             <div class="row">
                                 <div class="col-lg-6">
                                     <div class="form-group">
-                                        <label for="ruta">Ruta</label>
-                                        <select class="form-control" id="fk_ruta">
-                                            <option value="0">Seleccione</option>
-                                            <?php
-                                            while ($rowr = $rrutas->fetch_assoc()) {
-                                                echo "<option value='$rowr[pk_ruta]'>$rowr[clave]</option>";
-                                            }
-                                            ?>
-                                        </select>
-                                    </div>
-                                </div>
-
-                                <div class="col-lg-6">
-                                    <div class="form-group">
-                                        <label for="dia">Día</label>
-                                        <div class="d-flex align-items-center gap-2 flex-wrap">
-                                            <?php
-                                            foreach ($arrayDias as $rowd) {
-                                                echo <<<HTML
-                                                    <input type="checkbox" id="$rowd[id]" class="chkDia" style="width: 20px; height: 20px;">
-                                                    <label class="mb-0">$rowd[nombre]</label>
-                                                HTML;
-                                            }
-                                            ?>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div class="row">
-                                <div class="col-lg-6">
-                                    <div class="form-group">
                                         <label for="direccion">Dirección</label>
                                         <input type="text" class="form-control" id="direccion" name="direccion" placeholder="Dirección" autocomplete="off">
                                     </div>
@@ -258,25 +201,9 @@ $arrayDias = array(
                                 </div>
                             </div>
 
-                            <div class="row">
-
-                                <div class="col-lg-6">
-                                    <div class="form-group">
-                                        <label for="categoria">Lista de precios asignada</label>
-                                        <select class="form-control" id="categoria">
-                                            <option value="1">Precio N°1</option>
-                                            <option value="2">Precio N°2</option>
-                                            <option value="3">Precio N°3</option>
-                                            <option value="4">Precio N°4</option>
-                                        </select>
-                                    </div>
-                                </div>
-                                <p style="font-size: 12px;">*Si no se selecciona una lista de precios, se asignará por defecto el Precio N°1</p>
-                            </div>
-
-
 
                             <br><br>
+
 
                             <button id="guardar" type="button" class="btn btn-primary-dast mx-2"><i class="fa fa-save mx-2"></i>Guardar</button>
 
@@ -293,7 +220,6 @@ $arrayDias = array(
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.3/umd/popper.min.js"></script>
     <script src="assets/plugins.js"></script>
     <script src="assets/main.js"></script>
-
     <script src="custom/jquery.maskedinput.js"></script>
     <script src="assets/loading/loadingoverlay.js"></script>
     <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>

@@ -51,38 +51,6 @@ if (isset($_POST['fk_regimen_fiscal']) && is_numeric($_POST['fk_regimen_fiscal']
     $fk_regimen_fiscal = (int)$_POST['fk_regimen_fiscal'];
 }
 
-if (isset($_POST['fk_ruta']) && is_numeric($_POST['fk_ruta'])) {
-    $fk_ruta = (int)$_POST['fk_ruta'];
-}
-
-if (isset($_POST['lunes']) && is_numeric($_POST['lunes'])) {
-    $lunes = (int)$_POST['lunes'];
-}
-
-if (isset($_POST['martes']) && is_numeric($_POST['martes'])) {
-    $martes = (int)$_POST['martes'];
-}
-
-if (isset($_POST['miercoles']) && is_numeric($_POST['miercoles'])) {
-    $miercoles = (int)$_POST['miercoles'];
-}
-
-if (isset($_POST['jueves']) && is_numeric($_POST['jueves'])) {
-    $jueves = (int)$_POST['jueves'];
-}
-
-if (isset($_POST['viernes']) && is_numeric($_POST['viernes'])) {
-    $viernes = (int)$_POST['viernes'];
-}
-
-if (isset($_POST['sabado']) && is_numeric($_POST['sabado'])) {
-    $sabado = (int)$_POST['sabado'];
-}
-
-if (isset($_POST['domingo']) && is_numeric($_POST['domingo'])) {
-    $domingo = (int)$_POST['domingo'];
-}
-
 if (isset($_POST['tipo']) && is_numeric($_POST['tipo'])) {
     $tipo = (int)$_POST['tipo'];
 }
@@ -104,22 +72,8 @@ $id_file = $ahora->getTimestamp();
 
 
 
-//RUTA
-#region
-if (!$rruta = $mysqli->query("SELECT * FROM ct_rutas WHERE pk_ruta = $fk_ruta AND estado = 1")) {
-    $codigo = 201;
-    $descripcion = "Error al insertar el encabezado";
-}
 
-$rowr = $rruta->fetch_assoc();
-$ruta = $rowr["clave"];
-$clave = "R" . $ruta . $id_file;
-#endregion
-
-
-
-
-if (!$mysqli->query("INSERT INTO ct_clientes(clave, nombre, telefono, fk_sucursal, correo, dias_credito, limite_credito, credito, abonos, fk_categoria_cliente, cp, rfc, fk_regimen_fiscal, tipo, direccion, latitud, longitud, fk_ruta, lunes, martes, miercoles, jueves, viernes, sabado, domingo) values ('$clave', '$nombre', '$telefono', 1, '$correo', $dias_credito, $limite_credito, $credito, $abonos, $fk_categoria, '$cp', '$rfc', $fk_regimen_fiscal, $tipo, '$direccion', '$latitud', '$longitud', $fk_ruta, $lunes, $martes, $miercoles, $jueves, $viernes, $sabado, $domingo)")) {
+if (!$mysqli->query("CALL sp_set_cliente('$nombre', '$telefono', 1, '$correo', $dias_credito, $limite_credito, $credito, $abonos, $fk_categoria, '$cp', '$rfc', $fk_regimen_fiscal, $tipo, '$direccion', '$latitud', '$longitud')")) {
     $codigo = 201;
     $descripcion = "Error al guardar el registro";
 }

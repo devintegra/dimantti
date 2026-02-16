@@ -149,9 +149,9 @@ function geocodeResult(results, status) {
 //GUARDAR
 //#region
 function validar() {
+
     var retorno = true;
     var regex = /[\w-\.]{2,}@([\w-]{2,}\.)*([\w-]{2,}\.)[\w-]{2,4}/;
-
 
     if ($('#nombre').val().length < 2) {
         retorno = false;
@@ -163,16 +163,6 @@ function validar() {
             retorno = false;
             $('#correo').css('background-color', '#ffdddd');
         }
-    }
-
-    if ($('#fk_ruta').val() == 0) {
-        retorno = false;
-        $('#fk_ruta').css('background-color', '#ffdddd');
-    }
-
-    if ($('.chkDia:checked').length == 0) {
-        retorno = false;
-        swal('Mensaje', 'Selecciona por lo menos un día', 'info');
     }
 
     if ($('#abonos').val() == 0) {
@@ -215,13 +205,6 @@ $('#guardar').click(function () {
 
         latitud = mu.getPosition().lat();
         longitud = mu.getPosition().lng();
-        let lunes = $('#lunes').is(':checked') ? 1 : 0;
-        let martes = $('#martes').is(':checked') ? 1 : 0;
-        let miercoles = $('#miercoles').is(':checked') ? 1 : 0;
-        let jueves = $('#jueves').is(':checked') ? 1 : 0;
-        let viernes = $('#viernes').is(':checked') ? 1 : 0;
-        let sabado = $('#sabado').is(':checked') ? 1 : 0;
-        let domingo = $('#domingo').is(':checked') ? 1 : 0;
 
         var parametros = {
             "nombre": $("#nombre").val(),
@@ -231,14 +214,6 @@ $('#guardar').click(function () {
             "rfc": $("#rfc").val(),
             "tipo": 1,
             "fk_regimen_fiscal": $("#regimen_fiscal").val(),
-            "fk_ruta": $("#fk_ruta").val(),
-            "lunes": lunes,
-            "martes": martes,
-            "miercoles": miercoles,
-            "jueves": jueves,
-            "viernes": viernes,
-            "sabado": sabado,
-            "domingo": domingo,
             "direccion": $("#direccion").val(),
             "latitud": latitud,
             "longitud": longitud,
@@ -246,7 +221,7 @@ $('#guardar').click(function () {
             "limite_credito": $("#limite_credito").val().replace(/,/g, ""),
             "credito": $("#credito").val().replace(/,/g, ""),
             "abonos": $("#abonos").val(),
-            "fk_categoria": $("#categoria").val()
+            "fk_categoria": 1
         };
 
         $.ajax({
@@ -313,9 +288,4 @@ function creditoInputDisabled(option) {
         $("#credito").attr('disabled', 'disabled');
     }
 }
-
-
-$("#credito, #limite_credito").on("input", function () {
-    $(this).val(currencyMX($(this).val()));
-});
 //#endregion
