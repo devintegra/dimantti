@@ -72,9 +72,6 @@ if ($nivel != 1) {
                                 <thead>
                                     <tr>
                                         <th>
-                                            Disponible en ruta
-                                        </th>
-                                        <th>
                                             Descripción del pago
                                         </th>
                                         <th>
@@ -93,13 +90,8 @@ if ($nivel != 1) {
 
                                     while ($row = $resultado->fetch_assoc()) {
 
-                                        $checked = $row["ruta"] == 1 ? "checked" : "";
-
                                         echo <<<HTML
                                             <tr data-id="$row[pk_pago]">
-                                                <td>
-                                                    <input type="checkbox" class="chkRuta" style="width: 20px; height: 20px;" $checked>
-                                                </td>
                                                 <td>
                                                     <a style='text-decoration:none;' href='editarPago.php?id=$row[pk_pago]'>$row[nombre]</a>
                                                 </td>
