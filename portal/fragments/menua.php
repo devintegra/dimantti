@@ -381,18 +381,13 @@ $avatar = $usuarios["imagen"];
             <!--CLIENTES-->
             <li class="nav-item">
                 <a class="nav-link" data-bs-toggle="collapse" href="#clientes" aria-expanded="false" aria-controls="charts">
-                    <i class='bx bx-map left-panel-icons'></i>
-                    <span class="menu-title">Clientes y Rutas</span>
+                    <i class='bx bx-user left-panel-icons'></i>
+                    <span class="menu-title">Clientes</span>
                     <i class="menu-arrow"></i>
                 </a>
                 <div class="collapse" id="clientes">
                     <ul class="nav flex-column sub-menu">
                         <li class="nav-item"> <a class="nav-link" href="../portal/verClientes.php">ABC Clientes</a></li>
-                    </ul>
-                </div>
-                <div class="collapse" id="clientes">
-                    <ul class="nav flex-column sub-menu">
-                        <li class="nav-item"> <a class="nav-link" href="../portal/verRutas.php">ABC Rutas</a></li>
                     </ul>
                 </div>
             </li>
@@ -423,11 +418,6 @@ $avatar = $usuarios["imagen"];
                         <li class="nav-item"> <a class="nav-link" href="../portal/verProductos.php">ABC Productos</a></li>
                     </ul>
                 </div>
-                <div class="collapse" id="productos">
-                    <ul class="nav flex-column sub-menu">
-                        <li class="nav-item"> <a class="nav-link" href="../portal/verPresentaciones.php">ABC Presentaciones</a></li>
-                    </ul>
-                </div>
             </li>
 
             <!--ALMACEN-->
@@ -439,17 +429,7 @@ $avatar = $usuarios["imagen"];
                 </a>
                 <div class="collapse" id="almacen">
                     <ul class="nav flex-column sub-menu">
-                        <li class="nav-item"> <a class="nav-link" href="../portal/verPlantillas.php">ABC Plantillas</a></li>
-                    </ul>
-                </div>
-                <div class="collapse" id="almacen">
-                    <ul class="nav flex-column sub-menu">
                         <li class="nav-item"> <a class="nav-link" href="../portal/verExistencias.php">Existencias</a></li>
-                    </ul>
-                </div>
-                <div class="collapse" id="almacen">
-                    <ul class="nav flex-column sub-menu">
-                        <li class="nav-item"> <a class="nav-link" href="../portal/verAlmacenes.php">Almacénes móviles</a></li>
                     </ul>
                 </div>
                 <div class="collapse" id="almacen">
@@ -499,11 +479,6 @@ $avatar = $usuarios["imagen"];
                 <div class="collapse" id="ventas">
                     <ul class="nav flex-column sub-menu">
                         <li class="nav-item"> <a class="nav-link" href="../portal/verVentas.php">Historial de ventas</a></li>
-                    </ul>
-                </div>
-                <div class="collapse" id="ventas">
-                    <ul class="nav flex-column sub-menu">
-                        <li class="nav-item"> <a class="nav-link" href="../portal/verVentasMovil.php">Historial de ventas móvil</a></li>
                     </ul>
                 </div>
                 <div class="collapse" id="ventas">
