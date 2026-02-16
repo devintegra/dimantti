@@ -95,7 +95,7 @@ if (!$rsucursales = $mysqli->query($qsucursales)) {
                                         <select class='form-control' id='tipo'>
                                             <option value='0'>SELECCIONE</option>
                                             <option value='1'>Administrador</option>
-                                            <option value='2'>Chofer</option>
+                                            <option value='2'>Vendedor</option>
                                         </select>
 
                                         <?php

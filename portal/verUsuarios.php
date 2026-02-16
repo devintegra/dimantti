@@ -98,7 +98,7 @@ if ($nivel == 1) {
                                                 $tipou = "<p class='badge-success-integra'>Administrador</p>";
                                                 break;
                                             case 2:
-                                                $tipou = "<p class='badge-primary-integra'>Chofer</p>";
+                                                $tipou = "<p class='badge-primary-integra'>Vendedor</p>";
                                                 break;
                                         }
 

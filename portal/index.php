@@ -20,29 +20,13 @@ if ($nivel == 1) {
 
 if ($nivel == 2) {
     $pk_sucursal = $_SESSION["pk_sucursal"];
-    $tipo = "Admin Sucursal";
+    $tipo = "Vendedor";
     $menu = "fragments/menub.php";
     $panel = "fragments/panelb.php";
     $dashboard = "fragments/dashboardb.php";
 }
 
-if ($nivel == 3) {
-    $pk_sucursal = $_SESSION["pk_sucursal"];
-    $tipo = "Técnico";
-    $menu = "fragments/menuc.php";
-    $panel = "fragments/panelc.php";
-    $dashboard = "fragments/dashboardc.php";
-}
-
-if ($nivel == 4) {
-    $pk_sucursal = $_SESSION["pk_sucursal"];
-    $tipo = "Vendedor";
-    $menu = "fragments/menud.php";
-    $panel = "fragments/paneld.php";
-    $dashboard = "fragments/dashboardd.php";
-}
-
-if ($nivel != 1 && $nivel != 2 && $nivel != 3 && $nivel != 4) {
+if ($nivel != 1 && $nivel != 2) {
     header('Location: ../index.php');
 }
 
