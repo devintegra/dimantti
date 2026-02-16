@@ -1,8 +1,6 @@
 <?php
 
-$mapaRutaVentas = "fragments/mapaRutaVentas.php";
 $ventasSemana = "fragments/ventasSemana.php";
-$ventasOrigen = "fragments/ventasOrigen.php";
 $ventasCompras = "fragments/ventasCompras.php";
 $ventasSucursal = "fragments/ventasSucursal.php";
 $topClientes = "fragments/topClientes.php";
@@ -14,9 +12,7 @@ $topProductos = "fragments/topProductos.php";
 <div class="col-lg-8 col-12 d-flex flex-column" id="ventas_dia">
     <div class="row">
         <?php
-        include $mapaRutaVentas;
         include $ventasSemana;
-        include $ventasOrigen;
         include $ventasCompras;
         include $ventasSucursal;
         include $topClientes;
