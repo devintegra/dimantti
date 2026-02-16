@@ -30,17 +30,17 @@ $factura_fk_cliente = $factura["fk_cliente"];
 $factura_descripcion = $factura["descripcion"];
 $factura_fecha = $factura["fecha"];
 $factura_total = $factura["total"];
-$factura_pdf = "https://posmovil.integracontrol.online/portal/servicios/facturas/$uuid.pdf";
+$factura_pdf = "https://dimantti.integracontrol.online/portal/servicios/facturas/$uuid.pdf";
 
 if (is_file('facturas_xml/' . $uuid . '.xml')) {
-    $factura_xml = "https://posmovil.integracontrol.online/portal/servicios/facturas_xml/$uuid.xml";
+    $factura_xml = "https://dimantti.integracontrol.online/portal/servicios/facturas_xml/$uuid.xml";
 } else {
     $xml_name = $uuid . '.xml';
     if (!file_put_contents("facturas_xml/" . $xml_name, $factura['factura_xml'])) {
         $codigo = 201;
         $descripcion = "Hubo un error al guardar el XML de la factura.";
     }
-    $factura_xml = "https://posmovil.integracontrol.online/portal/servicios/facturas_xml/$uuid.xml";
+    $factura_xml = "https://dimantti.integracontrol.online/portal/servicios/facturas_xml/$uuid.xml";
 }
 
 
@@ -86,10 +86,10 @@ $host = "mail.integradesarrollo.com";
 $puerto = "465";
 $correoe = "notificaciones@integradesarrollo.com";
 $pass = "Notificaciones2022!";
-$leyenda = "Posmovil - Facturación";
-$tema = "Posmovil. Su factura fue generada.";
+$leyenda = "Dimantti - Facturación";
+$tema = "Dimantti. Su factura fue generada.";
 $para = $cliente_correo;
-$titulom = "Posmovil - Factura";
+$titulom = "Dimantti - Factura";
 
 
 $txtInfo = "<html
@@ -383,7 +383,7 @@ $txtInfo = "<html
 
                                         <tr style='border-collapse:collapse;'>
                                         <td align='center' style='padding:0;Margin:0;'>
-                                            <img src='https://posmovil.integracontrol.online/portal/images/user-sbg.png'
+                                            <img src='https://dimantti.integracontrol.online/portal/images/user-sbg.png'
                                             style='display:block;border:0;outline:none;text-decoration:none;-ms-interpolation-mode:bicubic; width: 50%'
                                             alt='Logo' title='Logo'>
                                         </td>
@@ -554,7 +554,7 @@ $txtInfo = "<html
                                             style='mso-table-lspace:0pt;mso-table-rspace:0pt;border-collapse:collapse;border-spacing:0px;'>
                                             <tr style='border-collapse:collapse;'>
                                                 <td align='center' style='padding:0;Margin:0;padding-bottom:5px;'> <img
-                                                    src='https://posmovil.integracontrol.online/portal/images/user-sbg.png'
+                                                    src='https://dimantti.integracontrol.online/portal/images/user-sbg.png'
                                                     alt='Logo'
                                                     style='display:block;border:0;outline:none;text-decoration:none;-ms-interpolation-mode:bicubic;'
                                                     title='Logo' width='150'></td>

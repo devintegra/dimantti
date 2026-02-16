@@ -158,7 +158,7 @@ $objPHPExcel->getActiveSheet()->getStyle('A1')->applyFromArray($styleArrayTitle)
 $objPHPExcel->getActiveSheet()->getStyle('A2:A3')->applyFromArray($styleArrayHeaders);
 
 
-$objPHPExcel->getActiveSheet()->setCellValue('A1', "POSMOVIL. Integra Connective");
+$objPHPExcel->getActiveSheet()->setCellValue('A1', "DIMANTTI. Integra Connective");
 
 
 $objPHPExcel->getActiveSheet()->getStyle('A3:J3')->applyFromArray($styleArrayHeaders);

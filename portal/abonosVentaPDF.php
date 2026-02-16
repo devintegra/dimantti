@@ -90,8 +90,8 @@ $page_height = ($total_registros + 11) * 10 + 140;
 $pageLayout = array(80, $page_height);
 $pdf = new TCPDF('P', PDF_UNIT, $pageLayout, true, 'UTF-8', false);
 
-$pdf->SetCreator("POSMOVIL");
-$pdf->SetAuthor('POSMOVIL');
+$pdf->SetCreator("DIMANTTI");
+$pdf->SetAuthor('DIMANTTI');
 $pdf->SetTitle("ABONOS VENTA #" . $id);
 
 $pdf->setPrintHeader(false);

@@ -39,7 +39,7 @@
 
             $.ajax({
                 type: 'GET',
-                url: 'https://posmovil.integracontrol.online/portal/servicios/getGrafica.php',
+                url: 'https://dimantti.integracontrol.online/portal/servicios/getGrafica.php',
                 dataType: 'json',
 
                 beforeSend: function() {

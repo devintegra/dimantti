@@ -144,7 +144,7 @@ $styleArrayHeadersTable = array(
 );
 
 $objPHPExcel->getActiveSheet()->getStyle('A1')->applyFromArray($styleArrayTitle);
-$objPHPExcel->getActiveSheet()->setCellValue('A1', "POSMOVIL. Integra Desarrollo");
+$objPHPExcel->getActiveSheet()->setCellValue('A1', "DIMANTTI. Integra Desarrollo");
 
 
 $objPHPExcel->getActiveSheet()->getStyle('A3:K3')->applyFromArray($styleArrayHeaders);

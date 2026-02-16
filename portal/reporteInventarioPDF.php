@@ -105,7 +105,7 @@ if ($sucursal != 0) {
     $empresa_correo = $empresa["correo"];
 } else {
 
-    $empresa_nombre = "Posmovil";
+    $empresa_nombre = "Dimantti";
     $empresa_id = "";
     $empresa_direccion = "Todas las sucursales";
     $empresa_telefono = "";
@@ -123,8 +123,8 @@ if ($sucursal != 0) {
 $pageLayout = array(216, 279);
 $pdf = new TCPDF('L', PDF_UNIT, $pageLayout, true, 'UTF-8', false);
 
-$pdf->SetCreator("POSMOVIL");
-$pdf->SetAuthor('POSMOVIL');
+$pdf->SetCreator("DIMANTTI");
+$pdf->SetAuthor('DIMANTTI');
 $pdf->SetTitle("REPORTE INVENTARIO");
 
 $pdf->setPrintHeader(false);

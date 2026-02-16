@@ -13,7 +13,7 @@
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <title>Posmovil - Consola de administración</title>
+    <title>Dimantti - Consola de administración</title>
     <meta name="description" content="Consola de administraciòn Dast">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
@@ -29,7 +29,7 @@
     <div class="container">
         <div class="content-main">
             <div class="content-logo">
-                <img src="portal/images/logotipo.png" alt="Integra Connective">
+                <img src="portal/images/logotipo.png" alt="Dimantti Logotipo">
                 <h1 class="titulo">MANAGEMENT</h1>
             </div>
             <div class="content-form">

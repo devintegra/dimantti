@@ -163,7 +163,7 @@ if ($codigo == 200) {
 
         "ReceptorEmailCCO" => "",
 
-        "EmailMensaje" => "Envío y generación de factura desde Posmovil. Integra Connective"
+        "EmailMensaje" => "Envío y generación de factura desde Dimantti. Integra Connective"
 
     );
 

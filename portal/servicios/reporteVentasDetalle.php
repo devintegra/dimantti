@@ -142,7 +142,7 @@ $objPHPExcel = new PHPExcel();
 $objPHPExcel->getProperties()
     ->setCreator("Integra Connective")
     ->setLastModifiedBy("Integra Connective")
-    ->setTitle("Reporte Posmovil Ventas Detalle")
+    ->setTitle("Reporte Dimantti Ventas Detalle")
     ->setSubject("Ventas Detalle")
     ->setDescription("Ventas Detalle")
     ->setKeywords("Ventas Detalle")
@@ -217,7 +217,7 @@ $objPHPExcel->getActiveSheet()->getStyle('A1')->applyFromArray($styleArrayTitle)
 $objPHPExcel->getActiveSheet()->getStyle('A2:A3')->applyFromArray($styleArrayHeaders);
 
 
-$objPHPExcel->getActiveSheet()->setCellValue('A1', "POSMOVIL. Integra Desarrollo");
+$objPHPExcel->getActiveSheet()->setCellValue('A1', "DIMANTTI. Integra Desarrollo");
 
 $nivel == 1 ? $columnLetter = 'M' : $columnLetter = 'L';
 

@@ -104,7 +104,7 @@ $objPHPExcel = new PHPExcel();
 $objPHPExcel->getProperties()
     ->setCreator("Integra Connective")
     ->setLastModifiedBy("Integra Connective")
-    ->setTitle("Reporte Posmovil Ventas")
+    ->setTitle("Reporte Dimantti Ventas")
     ->setSubject("Ventas")
     ->setDescription("Ventas")
     ->setKeywords("Ventas")
@@ -165,7 +165,7 @@ $objPHPExcel->getActiveSheet()->getStyle('A1')->applyFromArray($styleArrayTitle)
 $objPHPExcel->getActiveSheet()->getStyle('A2:A3')->applyFromArray($styleArrayHeaders);
 
 
-$objPHPExcel->getActiveSheet()->setCellValue('A1', "POSMOVIL. Integra Connective");
+$objPHPExcel->getActiveSheet()->setCellValue('A1', "DIMANTTI. Integra Connective");
 
 
 $objPHPExcel->getActiveSheet()->getStyle('A3:P3')->applyFromArray($styleArrayHeaders);

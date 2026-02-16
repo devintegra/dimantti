@@ -27,7 +27,7 @@ if ($rinventario->num_rows > 0) {
 
     $qinventario = "SELECT `AUTO_INCREMENT` AS pk_inventario
             FROM  INFORMATION_SCHEMA.TABLES
-            WHERE TABLE_SCHEMA = 'rober248_posmovil'
+            WHERE TABLE_SCHEMA = 'rober248_dimantti'
             AND   TABLE_NAME   = 'tr_inventario'";
 
 

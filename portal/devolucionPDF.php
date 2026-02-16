@@ -113,8 +113,8 @@ $page_height = ($total_registros + 11) * 10 + 170;
 $pageLayout = array(80, $page_height);
 $pdf = new TCPDF('P', PDF_UNIT, $pageLayout, true, 'UTF-8', false);
 
-$pdf->SetCreator("POSMOVIL");
-$pdf->SetAuthor('POSMOVIL');
+$pdf->SetCreator("DIMANTTI");
+$pdf->SetAuthor('DIMANTTI');
 $pdf->SetTitle("DEVOLUCION #" . $id);
 
 $pdf->setPrintHeader(false);
@@ -160,7 +160,7 @@ $parrafo_header = <<<HTML
 
 //CODIGO QR
 #region
-$url = "https://posmovil.integracontrol.online/portal/devolucionPDF.php?id=$id";
+$url = "https://dimantti.integracontrol.online/portal/devolucionPDF.php?id=$id";
 $qr_filename = "devolucion_qr.png";
 QRcode::png($url, $qr_filename);
 #endregion

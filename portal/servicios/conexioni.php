@@ -1,6 +1,6 @@
 <?php
 
-$mysqli = new mysqli('162.241.61.149', 'rober248_posmovil', 'Posmovil2025!', 'rober248_posmovil');
+$mysqli = new mysqli('162.241.61.149', 'rober248_dimantti', 'Dimantti2026!', 'rober248_dimantti');
 
 if ($mysqli->connect_errno) {
 

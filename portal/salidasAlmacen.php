@@ -57,7 +57,7 @@ if (!$rmotivo = $mysqli->query($qmotivo)) {
     <!-- Required meta tags -->
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <title>Posmovil - Consola de administración </title>
+    <title>Dimantti - Consola de administración </title>
     <!-- plugins:css -->
     <link rel="stylesheet" href="vendors/feather/feather.css">
     <link rel="stylesheet" href="vendors/mdi/css/materialdesignicons.min.css">

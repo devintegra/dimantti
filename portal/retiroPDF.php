@@ -78,8 +78,8 @@ $motivo_nombre = $motivos["nombre"];
 $pageLayout = array(80, 120);
 $pdf = new TCPDF('P', PDF_UNIT, $pageLayout, true, 'UTF-8', false);
 
-$pdf->SetCreator("POSMOVIL");
-$pdf->SetAuthor('POSMOVIL');
+$pdf->SetCreator("DIMANTTI");
+$pdf->SetAuthor('DIMANTTI');
 $pdf->SetTitle("RETIRO DE CAJA #" . $id);
 
 $pdf->setPrintHeader(false);
@@ -125,7 +125,7 @@ $parrafo_header = <<<HTML
 
 //CODIGO QR
 #region
-$url = "https://posmovil.integracontrol.online/portal/retiroPDF.php?id=$id";
+$url = "https://dimantti.integracontrol.online/portal/retiroPDF.php?id=$id";
 $qr_filename = "compra_qr.png";
 QRcode::png($url, $qr_filename);
 #endregion

@@ -73,8 +73,8 @@ if ($inventario_almacenes) {
 $pageLayout = array(216, 279);
 $pdf = new TCPDF('P', PDF_UNIT, $pageLayout, true, 'UTF-8', false);
 
-$pdf->SetCreator("POSMOVIL");
-$pdf->SetAuthor('POSMOVIL');
+$pdf->SetCreator("DIMANTTI");
+$pdf->SetAuthor('DIMANTTI');
 $pdf->SetTitle("REGISTRO DE INVENTARIO #" . $id);
 
 $pdf->setPrintHeader(false);

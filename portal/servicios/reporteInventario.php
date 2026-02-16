@@ -151,7 +151,7 @@ $styleArrayHeadersTable = array(
 );
 
 $objPHPExcel->getActiveSheet()->getStyle('A1')->applyFromArray($styleArrayTitle);
-$objPHPExcel->getActiveSheet()->setCellValue('A1', "POSMOVIL. Integra Connective");
+$objPHPExcel->getActiveSheet()->setCellValue('A1', "DIMANTTI. Integra Connective");
 
 $objPHPExcel->getActiveSheet()->getStyle('A3:H3')->applyFromArray($styleArrayHeaders);
 $objPHPExcel->getActiveSheet()->getStyle('A3:H3')->getFill()->setFillType(\PHPExcel_Style_Fill::FILL_SOLID)->getStartColor()->setRGB('000000');

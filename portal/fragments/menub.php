@@ -96,7 +96,7 @@ $sucursal_nombre = $usuarios["sucursal"];
         </div>
         <div>
             <a class="navbar-brand brand-logo" href="index.php">
-                <h3 class="welcome-text">Posmovil</h3>
+                <h3 class="welcome-text">Dimantti</h3>
             </a>
             <a class="navbar-brand brand-logo-mini" href="index.php">
                 <img src="../portal/images/user.jpg" alt="logo" />

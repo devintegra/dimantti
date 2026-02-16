@@ -191,8 +191,8 @@ $pageLayout = array(80, $pageHeight);
 $pdf = new TCPDF('P', PDF_UNIT, $pageLayout, true, 'UTF-8', false);
 //$pdf = new TCPDF('P', PDF_UNIT, $pageLayout, false, 'ISO-8859-1', false);
 
-$pdf->SetCreator("Posmovil");
-$pdf->SetAuthor('Posmovil');
+$pdf->SetCreator("Dimantti");
+$pdf->SetAuthor('Dimantti');
 $pdf->SetTitle("VENTA #" . $id);
 
 $pdf->setPrintHeader(false);
@@ -280,7 +280,7 @@ if ($entrada_tipo != 2) {
 
 //QR
 #region
-$url = "https://posmovil.integracontrol.online/portal/ventaPDF.php?id=$id&ph=";
+$url = "https://dimantti.integracontrol.online/portal/ventaPDF.php?id=$id&ph=";
 QRcode::png($url, "qrcode.png");
 #endregion
 
