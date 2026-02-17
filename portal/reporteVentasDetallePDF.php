@@ -521,9 +521,9 @@ if ($tipo_venta == 0 || $tipo_venta == 1) {
 
 
 $pdf->addCantidades($productos, 125, 468, 20);
-$pdf->addCantidades("$" . $importe_total, 190, 468, 22);
+$pdf->addCantidades("$" . number_format($importe_total, 2), 180, 468, 22);
 if ($nivel == 1) {
-    $pdf->addCantidades("$" . $utilidad_total, 212, 468, 22);
+    $pdf->addCantidades("$" . number_format($utilidad_total, 2), 212, 468, 22);
 }
 
 
