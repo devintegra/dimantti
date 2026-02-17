@@ -26,10 +26,12 @@ if ($agrupar == 2) {
 
 
 $qproductos = "SELECT ct_productos.*,
-        ct_categorias.nombre as categoria
-    FROM ct_productos, ct_categorias
+        ct_categorias.nombre as categoria,
+        ct_metales.precio as precio_gramaje
+    FROM ct_productos, ct_categorias, ct_metales
     WHERE ct_productos.estado = 1
-    AND ct_categorias.pk_categoria = ct_productos.fk_categoria$flagrupar";
+    AND ct_categorias.pk_categoria = ct_productos.fk_categoria
+    AND ct_metales.pk_metal = ct_productos.fk_metal$flagrupar";
 
 if (!$rproductos = $mysqli->query($qproductos)) {
     echo "Lo sentimos, esta aplicación está experimentando problemas.";
@@ -60,10 +62,8 @@ $objPHPExcel->setActiveSheetIndex(0)
     ->setCellValue('A3', 'Código de barras')
     ->setCellValue('B3', 'Producto')
     ->setCellValue('C3', 'Categoría')
-    ->setCellValue('D3', 'Precio 1')
-    ->setCellValue('E3', 'Precio 2')
-    ->setCellValue('F3', 'Precio 3')
-    ->setCellValue('G3', 'Precio 4');
+    ->setCellValue('D3', 'Precio')
+    ->setCellValue('E3', 'Tipo de precio');
 
 
 
@@ -100,8 +100,8 @@ $objPHPExcel->getActiveSheet()->getStyle('A1')->applyFromArray($styleArrayTitle)
 $objPHPExcel->getActiveSheet()->setCellValue('A1', "DIMANTTI. Integra Desarrollo");
 
 
-$objPHPExcel->getActiveSheet()->getStyle('A3:G3')->applyFromArray($styleArrayHeaders);
-$objPHPExcel->getActiveSheet()->getStyle('A3:G3')->getFill()->setFillType(\PHPExcel_Style_Fill::FILL_SOLID)->getStartColor()->setRGB('000000');
+$objPHPExcel->getActiveSheet()->getStyle('A3:E3')->applyFromArray($styleArrayHeaders);
+$objPHPExcel->getActiveSheet()->getStyle('A3:E3')->getFill()->setFillType(\PHPExcel_Style_Fill::FILL_SOLID)->getStartColor()->setRGB('000000');
 
 $prevId = null; // Variable para almacenar el id del registro anterior
 
@@ -114,21 +114,18 @@ while ($row = $rproductos->fetch_assoc()) {
     }
 
     if ($prevId !== null && $currentId !== $prevId) {
-        $objPHPExcel->getActiveSheet()->getStyle('A' . $paso . ':G' . $paso)->getFill()->setFillType(\PHPExcel_Style_Fill::FILL_SOLID)->getStartColor()->setRGB('F5F5F1');
+        $objPHPExcel->getActiveSheet()->getStyle('A' . $paso . ':E' . $paso)->getFill()->setFillType(\PHPExcel_Style_Fill::FILL_SOLID)->getStartColor()->setRGB('F5F5F1');
         $paso++;
     }
+
+    $tipo_precio = ($row["tipo_precio"] == 1) ? "Precio fijo" : "Precio dinámico";
+    $precio = ($row["tipo_precio"] == 1) ? round($row["precio"]) : round($row["precio_gramaje"] * $row["gramaje"]);
 
     $objPHPExcel->getActiveSheet()->setCellValue('A' . $paso, $row["codigobarras"]);
     $objPHPExcel->getActiveSheet()->setCellValue('B' . $paso, $row["nombre"]);
     $objPHPExcel->getActiveSheet()->setCellValue('C' . $paso, $row["categoria"]);
-    $objPHPExcel->getActiveSheet()->setCellValue('D' . $paso, "$" . number_format($row["precio"], 2));
-    $objPHPExcel->getActiveSheet()->setCellValue('E' . $paso, "$" . number_format($row["precio2"], 2));
-    $objPHPExcel->getActiveSheet()->setCellValue('F' . $paso, "$" . number_format($row["precio3"], 2));
-    $objPHPExcel->getActiveSheet()->setCellValue('G' . $paso, "$" . number_format($row["precio4"], 2));
-
-    $objPHPExcel->getActiveSheet()->getCell("A" . $paso)->setDataType(PHPExcel_Cell_DataType::TYPE_STRING2);
-    $objPHPExcel->getActiveSheet()->getCell("G" . $paso)->setDataType(PHPExcel_Cell_DataType::TYPE_STRING2);
-    $objPHPExcel->getActiveSheet()->getCell("G" . $paso)->getHyperlink()->setUrl(strip_tags($enlace));
+    $objPHPExcel->getActiveSheet()->setCellValue('D' . $paso, "$" . number_format($precio, 2));
+    $objPHPExcel->getActiveSheet()->setCellValue('E' . $paso, $tipo_precio);
 
     $prevId = $currentId;
 
@@ -143,12 +140,12 @@ $objPHPExcel->getActiveSheet()->setTitle('Reporte lista de precios');
 $objPHPExcel->setActiveSheetIndex(0);
 
 
-foreach (range('C', 'G') as $columnID) {
+foreach (range('C', 'E') as $columnID) {
     $objPHPExcel->getActiveSheet()->getColumnDimension($columnID)
         ->setAutoSize(true);
 }
 
-$objPHPExcel->getActiveSheet()->getStyle('D4:I' . $paso)->getAlignment()->setHorizontal(PHPExcel_Style_Alignment::HORIZONTAL_RIGHT);
+$objPHPExcel->getActiveSheet()->getStyle('D4:D' . $paso)->getAlignment()->setHorizontal(PHPExcel_Style_Alignment::HORIZONTAL_RIGHT);
 
 
 // Se modifican los encabezados del HTTP para indicar que se envia un archivo de Excel.

@@ -107,7 +107,7 @@ if (!$rcategorias = $mysqli->query($qcategoria)) {
                                     <div class="row">
                                         <div class="col-sm-12 col-lg-4">
                                             <div class="form-group">
-                                                <label for="text-input" class=" form-control-label"><i class='bx bx-calendar fs-5'></i>Agrupar por</label>
+                                                <label for="text-input" class=" form-control-label">Agrupar por</label>
                                                 <select class="form-control" id="agrupar">
                                                     <option value="0">Seleccione</option>
                                                     <option value="2">Por categoría</option>
@@ -119,7 +119,7 @@ if (!$rcategorias = $mysqli->query($qcategoria)) {
                                     <div class="row d-none filter-box" id="filterCategorias" style="background-color: #fff;">
                                         <div class="col-sm-12 col-lg-12">
                                             <div class="form-group">
-                                                <label for="categorias"><i class='bx bx-bowl-rice fs-5' style="margin-bottom: 16px;"></i>Categorías</label>
+                                                <label for="categorias"><i class='bx bx-shopping-bag fs-5' style="margin-bottom: 16px;"></i>Categorías</label>
                                                 <div class='d-flex flex-wrap'>
                                                     <?php
                                                     echo "<div class='form-check form-check-success mx-4'>
