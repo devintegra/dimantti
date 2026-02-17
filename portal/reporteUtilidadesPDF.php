@@ -424,8 +424,8 @@ if ($tipo == 0 || $tipo == 1) {
 
 
 
-$pdf->addCantidades("$" . $total_final, 240, 468, 22);
-$pdf->addCantidades("$" . $total_utilidad, 262, 468, 22);
+$pdf->addCantidades("$" . number_format($total_final, 2), 230, 468, 22);
+$pdf->addCantidades("$" . number_format($total_utilidad, 2), 262, 468, 22);
 
 
 $ny = $y + 9;
