@@ -74,8 +74,8 @@ mysqli_set_charset($mysqli, 'utf8');
                                 <div class="form-group">
                                     <label for="tipo_inventario" class="d-flex align-items-center gap-2"><i class='bx bx-filter fs-4'></i> Tipo de inventario</label>
                                     <select class="form-control" id="tipo_inventario">
-                                        <option value="0">Todas</option>
-                                        <option value="1" selected>Inventario mínimo</option>
+                                        <option value="0" selected>Todas</option>
+                                        <option value="1">Inventario mínimo</option>
                                         <option value="2">Inventario máximo</option>
                                     </select>
                                 </div>
