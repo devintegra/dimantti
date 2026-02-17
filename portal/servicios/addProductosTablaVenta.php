@@ -34,22 +34,6 @@ if (!is_array($decoded)) {
 
 
 
-//OBTENER LA CATEGORÍA DEL CLIENTE
-#region
-$fk_cliente = $decoded['fk_cliente'];
-
-$qcliente = "SELECT * FROM ct_clientes WHERE pk_cliente = $fk_cliente AND estado = 1";
-
-if (!$rcliente = $mysqli->query($qcliente)) {
-    echo "Lo sentimos, esta aplicación está experimentando problemas. 1";
-    exit;
-}
-
-$cliente = $rcliente->fetch_assoc();
-$fk_categoria = $cliente["fk_categoria_cliente"];
-#endregion
-
-
 
 
 //REGISTROS
@@ -58,11 +42,13 @@ $registros = array();
 
 foreach ($decoded['productos'] as $key => $value) {
 
-    $qproductos = "SELECT pk_producto, codigobarras, nombre, descripcion, precio, precio2, precio3, precio4,
-            (SELECT imagen FROM rt_imagenes_productos WHERE fk_producto = ct_productos.pk_producto and estado = 1 LIMIT 1) as imagen
-        FROM ct_productos
-        WHERE ct_productos.pk_producto = $value[fk_producto]
-        AND ct_productos.estado = 1";
+    $qproductos = "SELECT p.pk_producto, p.codigobarras, p.nombre, p.descripcion, p.precio, p.tipo_precio, p.gramaje,
+            m.precio as precio_gramaje,
+            (SELECT imagen FROM rt_imagenes_productos WHERE fk_producto = p.pk_producto and estado = 1 LIMIT 1) as imagen
+        FROM ct_productos p
+        LEFT JOIN ct_metales m ON m.pk_metal = p.fk_metal
+        WHERE p.pk_producto = $value[fk_producto]
+        AND p.estado = 1";
 
     if (!$rproductos = $mysqli->query($qproductos)) {
         echo "Lo sentimos, esta aplicación está experimentando problemas. 1";
@@ -74,32 +60,14 @@ foreach ($decoded['productos'] as $key => $value) {
     $codigobarras = $producto["codigobarras"];
     $nombre = $producto["nombre"];
     $descripcion = $producto["descripcion"];
+    $tipo_precio = $producto["tipo_precio"];
+    $gramaje = $producto["gramaje"];
+    $precio_gramaje = $producto["precio_gramaje"];
     $imagen = $producto["imagen"];
     $file = "productos/$imagen";
     $pathImage = is_file($file) ? "servicios/productos/$imagen" : "images/picture.png";
 
-    switch ($fk_categoria) {
-        case 1:
-            $precio = round($producto["precio"]);
-            break;
-
-        case 2:
-            $precio = round($producto["precio2"]);
-            break;
-
-        case 3:
-            $precio = round($producto["precio3"]);
-            break;
-
-        case 4:
-            $precio = round($producto["precio4"]);
-            break;
-
-        default:
-            $precio = round($producto["precio"]);
-            break;
-    }
-
+    $precio = ($tipo_precio == 1) ? round($producto["precio"]) : round($precio_gramaje * $gramaje);
     $cantidad = $value["cantidad"];
     $total = $precio * $cantidad;
 
@@ -109,9 +77,9 @@ foreach ($decoded['productos'] as $key => $value) {
         "codigobarras" => $codigobarras,
         "nombre" => $nombre,
         "imagen" => $pathImage,
-        "precio" => $precio,
+        "precio" => number_format($precio, 2),
         "cantidad" => $cantidad,
-        "total" => $total
+        "total" => number_format($total, 2)
     );
 }
 #endregion
