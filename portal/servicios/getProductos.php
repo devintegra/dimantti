@@ -42,7 +42,7 @@ $flnombre = "";
 $flcategoria = "";
 
 if ($search_value != '') {
-    $flsearch = " AND (p.clave LIKE '%$search_value%' OR p.nombre LIKE '%$search_value%' OR ctp.descripcion LIKE '%$search_value%' OR ctc.nombre LIKE '%$search_value%' OR p.costo LIKE '%$search_value%' OR p.precio LIKE '%$search_value%')";
+    $flsearch = " AND (p.clave LIKE '%$search_value%' OR p.nombre LIKE '%$search_value%' OR ctm.nombre LIKE '%$search_value%' OR ctc.nombre LIKE '%$search_value%' OR p.costo LIKE '%$search_value%' OR p.precio LIKE '%$search_value%')";
 }
 
 if (!empty($column_search[0])) {
@@ -58,7 +58,7 @@ if (!empty($column_search[2])) {
 }
 
 if (!empty($column_search[3])) {
-    $flpresentacion = " AND ctp.descripcion LIKE '%" . $column_search[3] . "%'";
+    $flpresentacion = " AND ctm.nombre LIKE '%" . $column_search[3] . "%'";
 }
 #endregion
 
@@ -66,15 +66,16 @@ if (!empty($column_search[3])) {
 $qproductos = "SELECT p.pk_producto,
         p.clave,
         p.nombre as producto,
-        ctp.descripcion as presentacion,
+        ctm.nombre as metal,
         ctc.nombre as categoria,
         p.costo,
         p.precio,
+        p.codigobarras,
         (SELECT COALESCE(SUM(faltante), 0) FROM tr_transferencias_detalle tfd WHERE tfd.fk_producto = p.pk_producto AND tfd.faltante > 0 AND tfd.estado = 1) as transferencias,
         (SELECT imagen FROM rt_imagenes_productos WHERE fk_producto = p.pk_producto AND estado = 1 LIMIT 1) as imagen,
         p.estado
     FROM ct_productos p
-    LEFT JOIN ct_presentaciones ctp ON ctp.pk_presentacion = p.fk_presentacion
+    LEFT JOIN ct_metales ctm ON ctm.pk_metal = p.fk_metal
     LEFT JOIN ct_categorias ctc ON ctc.pk_categoria = p.fk_categoria
     $flestado $flsearch $flclave $flpresentacion $flnombre $flcategoria
     ORDER BY p.pk_producto ASC
@@ -128,7 +129,7 @@ while ($row = $rproductos->fetch_assoc()) {
     //BOTONES
     #region
     $btn_editar = $nivel <= 2 ? "<a href='editarProducto.php?id=$row[pk_producto]' class='btn-editar-dast' title='Editar'><i class='bx bx-edit-alt'></i></a>" : "";
-    $btn_barcode = "<a target='_blank' class='btn-entregar-dast' href='codigobarrasProductoPDF.php?id=$row[pk_producto]' title='Código de barras'><i class='bx bx-barcode'></i></a>";
+    $btn_barcode = "<a target='_blank' class='btn-entregar-dast' href='codigoQRProducto.php?id=$row[codigobarras]' title='Código QR'><i class='bx bx-barcode'></i></a>";
     $btn_acciones = $btn_editar . $btn_barcode;
     #endregion
 
@@ -141,7 +142,7 @@ while ($row = $rproductos->fetch_assoc()) {
         "imagen" => $imagen_label,
         "clave" => $row['clave'],
         "nombre" => $row['producto'],
-        "presentacion" => $row['presentacion'],
+        "metal" => $row['metal'],
         "categoria" => $row['categoria'],
         "costo" => "$" . (float)$row['costo'],
         "precio" => "$" . (float)$row['precio'],

@@ -12,9 +12,8 @@ if (isset($_POST['pk_producto']) && is_numeric($_POST['pk_producto'])) {
 
 
 //VALIDAR QUE NO TENGA EXISTENCIAS
-$qexistencias = "SELECT SUM(IFNULL(cantidad,0)) as existencias FROM tr_existencias WHERE fk_producto = $pk_producto AND estado = 1;";
-
-if (!$rexistencias = $mysqli->query($qexistencias)) {
+$mysqli->next_result();
+if (!$rexistencias = $mysqli->query("CALL sp_get_existencias_producto($pk_producto)")) {
     echo "<br>Lo sentimos, esta aplicación está experimentando problemas.";
     exit;
 }
@@ -30,7 +29,8 @@ if ($existencias_producto > 0) {
 
 
 if ($codigo == 200) {
-    if (!$mysqli->query("UPDATE ct_productos SET estado = 0 WHERE pk_producto = $pk_producto")) {
+    $mysqli->next_result();
+    if (!$mysqli->query("CALL sp_delete_producto($pk_producto)")) {
         $codigo = 201;
         $descripcion = "Hubo un problema, verifique o intente de nuevo";
     }

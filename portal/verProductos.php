@@ -15,7 +15,7 @@ if ($nivel == 1) {
 }
 
 if ($nivel == 2) {
-    $tipo = "Chofer";
+    $tipo = "Vendedor";
     $menu = "fragments/menub.php";
 }
 
@@ -116,10 +116,9 @@ mysqli_set_charset($mysqli, 'utf8');
                                         <th>Clave</th>
                                         <th>Nombre</th>
                                         <th>Categoría</th>
-                                        <th>Presentación</th>
+                                        <th>Metal</th>
                                         <th>Existencias</th>
                                         <th>Costo</th>
-                                        <th>Precio</th>
                                         <th>Acciones</th>
                                     </tr>
                                 </thead>
@@ -129,8 +128,7 @@ mysqli_set_charset($mysqli, 'utf8');
                                         <th>Clave</th>
                                         <th>Nombre</th>
                                         <th>Categoría</th>
-                                        <th>Presentación</th>
-                                        <th></th>
+                                        <th>Metal</th>
                                         <th></th>
                                         <th></th>
                                         <th></th>

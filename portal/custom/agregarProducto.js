@@ -51,9 +51,9 @@ function validar() {
         $('#nombre').css('background-color', '#ffdddd');
     }
 
-    if ($('#fk_presentacion').val() == 0) {
+    if ($('#fk_metal').val() == 0) {
         retorno = false;
-        $('#fk_presentacion').css('background-color', '#ffdddd');
+        $('#fk_metal').css('background-color', '#ffdddd');
     }
 
     if ($('#fk_categoria').val() == 0) {
@@ -66,9 +66,21 @@ function validar() {
         $('#costo').css('background-color', '#ffdddd');
     }
 
-    if ($('#precio1').val().length < 1) {
+    if ($('input[name="rdPrecio"]:checked').length == 0) {
         retorno = false;
-        $('#precio1').css('background-color', '#ffdddd');
+        swal('Mensaje', 'Selecciona un tipo de precio', 'info');
+    }
+
+    if ($('input[name="rdPrecio"]:checked').val() == 1) {
+        if ($('#precio1').val().length == 0 || $('#precio1').val() == 0) {
+            retorno = false;
+            $('#precio1').css('background-color', '#ffdddd');
+        }
+    } else {
+        if ($('#gramaje').val().length == 0 || $('#gramaje').val() == 0) {
+            retorno = false;
+            $('#gramaje').css('background-color', '#ffdddd');
+        }
     }
 
     if ($('#inventario').val() == 2) {
@@ -99,18 +111,14 @@ $(document).on("click", "#guardar", function () {
         var parametros = {
             "nombre": $("#nombre").val(),
             "codigo_barras": $("#codigo_barras").val(),
-            "fk_presentacion": $("#fk_presentacion").val() ?? 0,
+            "fk_metal": $("#fk_metal").val() ?? 0,
             "fk_categoria": $("#fk_categoria").val() ?? 0,
             "descripcion": $("#descripcion").val(),
             "costo": $("#costo").val().replace(/,/g, "") ?? 0,
+            "tipo_precio": $("input[name='rdPrecio']:checked").val(),
             "precio": $("#precio1").val().replace(/,/g, "") ?? 0,
-            "precio2": $("#precio2").val().replace(/,/g, "") ?? 0,
-            "precio3": $("#precio3").val().replace(/,/g, "") ?? 0,
-            "precio4": $("#precio4").val().replace(/,/g, "") ?? 0,
             "utilidad": $("#utilidad_1").val() ?? 0,
-            "utilidad2": $("#utilidad_2").val() ?? 0,
-            "utilidad3": $("#utilidad_3").val() ?? 0,
-            "utilidad4": $("#utilidad_4").val() ?? 0,
+            "gramaje": $("#gramaje").val() ?? 0,
             "inventario": $("#inventario").val() ?? 1,
             "inventariomin": $("#inventariomin").val() ?? 0,
             "inventariomax": $("#inventariomax").val() ?? 0,
@@ -257,8 +265,21 @@ $(document).on("blur", "#costo", function () {
 });
 
 
-$(document).on("input", "#costo, .precio", function () {
-    //$(this).val(currencyMX($(this).val()));
+$(document).on('change', 'input[name="rdPrecio"]', function () {
+
+    let tipoPrecio = $(this).val();
+
+    if (tipoPrecio == 1) {
+        $('.contentPrecioFijo').removeClass('d-none');
+        $('.contentPrecioDinamico').addClass('d-none');
+    } else if (tipoPrecio == 2) {
+        $('.contentPrecioFijo').addClass('d-none');
+        $('.contentPrecioDinamico').removeClass('d-none');
+    } else {
+        $('.contentPrecioFijo').addClass('d-none');
+        $('.contentPrecioDinamico').addClass('d-none');
+    }
+
 });
 
 

@@ -17,7 +17,7 @@ if ($nivel == 1) {
 }
 
 if ($nivel == 2) {
-    $tipo = "Chofer";
+    $tipo = "Vendedor";
     $menu = "fragments/menuc.php";
 }
 
@@ -35,29 +35,24 @@ if (isset($_GET['id']) && is_string($_GET['id'])) {
 
 //PRODUCTO
 #region
-$qproducto = "SELECT * FROM ct_productos WHERE pk_producto = $pk_producto";
-
-if (!$rproducto = $mysqli->query($qproducto)) {
+$mysqli->next_result();
+if (!$rsp_get_producto = $mysqli->query("CALL sp_get_producto($pk_producto)")) {
     echo "<br>Lo sentimos, esta aplicación está experimentando problemas.";
     exit;
 }
 
-$row = $rproducto->fetch_assoc();
+$row = $rsp_get_producto->fetch_assoc();
 $nombre = $row["nombre"];
 $clave = $row["clave"];
 $codigobarras = $row["codigobarras"];
-$fk_presentacion = $row["fk_presentacion"];
+$fk_metal = $row["fk_metal"];
 $fk_categoria = $row["fk_categoria"];
 $descripcion = $row["descripcion"];
 $costo = $row["costo"];
+$tipo_precio = $row["tipo_precio"];
 $precio = $row["precio"];
-$precio2 = $row["precio2"];
-$precio3 = $row["precio3"];
-$precio4 = $row["precio4"];
 $utilidad = $row["utilidad"];
-$utilidad2 = $row["utilidad2"];
-$utilidad3 = $row["utilidad3"];
-$utilidad4 = $row["utilidad4"];
+$gramaje = $row["gramaje"];
 $inventario = $row["inventario"];
 $inventariomin = $row["inventariomin"];
 $inventariomax = $row["inventariomax"];
@@ -69,9 +64,8 @@ $clave_unidad_sat = $row["clave_unidad_sat"];
 
 //IMAGENES
 #region
-$qimagenes = "SELECT * FROM rt_imagenes_productos WHERE fk_producto = $pk_producto AND estado=1";
-
-if (!$rimagenes = $mysqli->query($qimagenes)) {
+$mysqli->next_result();
+if (!$rimagenes = $mysqli->query("CALL sp_get_producto_imagenes($pk_producto)")) {
     echo "Lo sentimos, esta aplicación está experimentando problemas.";
     exit;
 }
@@ -83,9 +77,8 @@ $imagenes_totales = $rimagenes->num_rows;
 
 //CATEGORIAS
 #region
-$qcategorias = "SELECT * FROM ct_categorias WHERE estado = 1 order by nombre";
-
-if (!$rcategorias = $mysqli->query($qcategorias)) {
+$mysqli->next_result();
+if (!$rcategorias = $mysqli->query("CALL sp_get_categorias()")) {
     echo "Lo sentimos, esta aplicación está experimentando problemas";
     exit;
 }
@@ -93,11 +86,10 @@ if (!$rcategorias = $mysqli->query($qcategorias)) {
 
 
 
-//PRESENTACIONES
+//METALES
 #region
-$qpresentacion = "SELECT * FROM ct_presentaciones WHERE estado = 1 order by descripcion";
-
-if (!$rpresentaciones = $mysqli->query($qpresentacion)) {
+$mysqli->next_result();
+if (!$rsp_get_metales = $mysqli->query("CALL sp_get_metales()")) {
     echo "Lo sentimos, esta aplicación está experimentando problemas";
     exit;
 }
@@ -107,9 +99,8 @@ if (!$rpresentaciones = $mysqli->query($qpresentacion)) {
 
 //UNIDADES SAT
 #region
-$qunidadessat = "SELECT * FROM ct_unidades_sat WHERE estado = 1 order by nombre";
-
-if (!$runidadessat = $mysqli->query($qunidadessat)) {
+$mysqli->next_result();
+if (!$runidadessat = $mysqli->query("CALL sp_get_unidades_sat()")) {
     echo "Lo sentimos, esta aplicación está experimentando problemas";
     exit;
 }
@@ -240,15 +231,15 @@ $arrayInventario = array(
                                 <div class="row">
                                     <div class="col-lg-6">
                                         <div class="form-group">
-                                            <label for="fk_presentacion">Presentación</label>
-                                            <select class='form-control' id='fk_presentacion'>
+                                            <label for="fk_metal">Metal</label>
+                                            <select class='form-control' id='fk_metal'>
                                                 <option value='0'>Seleccione</option>
                                                 <?php
-                                                while ($rowp = $rpresentaciones->fetch_assoc()) {
-                                                    if ($rowp['pk_presentacion'] == $fk_presentacion) {
-                                                        echo "<option value='$rowp[pk_presentacion]' selected>$rowp[descripcion]</option>";
+                                                while ($rowm = $rsp_get_metales->fetch_assoc()) {
+                                                    if ($rowm['pk_metal'] == $fk_metal) {
+                                                        echo "<option value='$rowm[pk_metal]' selected>$rowm[nombre]</option>";
                                                     } else {
-                                                        echo "<option value='$rowp[pk_presentacion]'>$rowp[descripcion]</option>";
+                                                        echo "<option value='$rowm[pk_metal]'>$rowm[nombre]</option>";
                                                     }
                                                 }
                                                 ?>
@@ -304,79 +295,54 @@ $arrayInventario = array(
                                             ?>
                                         </div>
                                     </div>
-                                </div>
 
-                                <div class="row">
                                     <div class="col-lg-3">
                                         <div class="form-group">
-                                            <label for="precio1">Precio 1 $</label>
+                                            <label for="fk_unidad">Tipo de precio</label>
+
+                                            <div class="d-flex align-items-center gap-4">
+                                                <div>
+                                                    <?php
+                                                    $checked = $tipo_precio == 1 ? "checked" : "";
+                                                    echo "<input type='radio' id='rdPrecioFijo' name='rdPrecio' value='1' style='width: 20px; height: 20px;' $checked>";
+                                                    ?>
+                                                    <label class="mb-0" for="rdPrecioFijo">Precio fijo</label>
+                                                </div>
+
+                                                <div>
+                                                    <?php
+                                                    $checked = $tipo_precio == 2 ? "checked" : "";
+                                                    echo "<input type='radio' id='rdPrecioDinamico' name='rdPrecio' value='2' style='width: 20px; height: 20px;' $checked>";
+                                                    ?>
+                                                    <label class="mb-0" for="rdPrecioDinamico">Precio dinámico</label>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-lg-3 contentPrecioFijo d-none">
+                                        <div class="form-group">
+                                            <label for="precio1">Precio $</label>
                                             <?php
                                             echo "<input type='number' id='precio1' name='precio1' placeholder='Precio N°1' class='form-control' value='$precio'>";
                                             ?>
                                         </div>
                                     </div>
 
-                                    <div class="col-lg-3">
+                                    <div class="col-lg-3 contentPrecioFijo d-none">
                                         <div class="form-group">
-                                            <label for="utilidad_1">Utilidad 1 %</label>
+                                            <label for="utilidad_1">Utilidad %</label>
                                             <?php
                                             echo "<input type='number' class='form-control utilidad' id='utilidad_1' name='utilidad' value='$utilidad' min='0' placeholder='Utilidad N°1'>";
                                             ?>
                                         </div>
                                     </div>
 
-                                    <div class="col-lg-3">
+                                    <div class="col-lg-3 contentPrecioDinamico d-none">
                                         <div class="form-group">
-                                            <label for="precio2">Precio 2 $</label>
+                                            <label for="gramaje">Gramaje</label>
                                             <?php
-                                            echo "<input type='number' id='precio2' name='precio2' placeholder='Precio N°2' class='form-control' value='$precio2'>";
-                                            ?>
-                                        </div>
-                                    </div>
-
-                                    <div class="col-lg-3">
-                                        <div class="form-group">
-                                            <label for="utilidad_2">Utilidad 2 %</label>
-                                            <?php
-                                            echo "<input type='number' class='form-control utilidad' id='utilidad_2' name='utilidad' value='$utilidad2' min='0' placeholder='Utilidad N°2'>";
-                                            ?>
-                                        </div>
-                                    </div>
-                                </div>
-
-                                <div class="row">
-                                    <div class="col-lg-3">
-                                        <div class="form-group">
-                                            <label for="precio3">Precio 3 $</label>
-                                            <?php
-                                            echo "<input type='number' id='precio3' name='precio3' placeholder='Precio N°3' class='form-control' value='$precio3'>";
-                                            ?>
-                                        </div>
-                                    </div>
-
-                                    <div class="col-lg-3">
-                                        <div class="form-group">
-                                            <label for="utilidad_3">Utilidad 3 %</label>
-                                            <?php
-                                            echo "<input type='number' class='form-control utilidad' id='utilidad_3' name='utilidad' value='$utilidad3' min='0' placeholder='Utilidad N°3'>";
-                                            ?>
-                                        </div>
-                                    </div>
-
-                                    <div class="col-lg-3">
-                                        <div class="form-group">
-                                            <label for="precio4">Precio 4 $</label>
-                                            <?php
-                                            echo "<input type='number' id='precio4' name='precio4' placeholder='Precio N°4' class='form-control' value='$precio4'>";
-                                            ?>
-                                        </div>
-                                    </div>
-
-                                    <div class="col-lg-3">
-                                        <div class="form-group">
-                                            <label for="utilidad_4">Utilidad 4 %</label>
-                                            <?php
-                                            echo "<input type='number' class='form-control utilidad' id='utilidad_4' name='utilidad' value='$utilidad4' min='0' placeholder='Utilidad N°4'>";
+                                            echo "<input type='number' class='form-control' id='gramaje' name='gramaje' value='$gramaje' min='0' placeholder='Ej.340gr'>";
                                             ?>
                                         </div>
                                     </div>

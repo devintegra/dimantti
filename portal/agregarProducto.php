@@ -27,9 +27,8 @@ if ($nivel != 1) {
 
 //CATEGORIAS
 #region
-$qcategorias = "SELECT * FROM ct_categorias WHERE estado = 1 order by nombre";
-
-if (!$rcategorias = $mysqli->query($qcategorias)) {
+$mysqli->next_result();
+if (!$rcategorias = $mysqli->query("CALL sp_get_categorias()")) {
     echo "Lo sentimos, esta aplicación está experimentando problemas";
     exit;
 }
@@ -37,11 +36,10 @@ if (!$rcategorias = $mysqli->query($qcategorias)) {
 
 
 
-//PRESENTACIONES
+//METALES
 #region
-$qpresentacion = "SELECT * FROM ct_presentaciones WHERE estado = 1 order by descripcion";
-
-if (!$rpresentaciones = $mysqli->query($qpresentacion)) {
+$mysqli->next_result();
+if (!$rsp_get_metales = $mysqli->query("CALL sp_get_metales()")) {
     echo "Lo sentimos, esta aplicación está experimentando problemas";
     exit;
 }
@@ -51,9 +49,8 @@ if (!$rpresentaciones = $mysqli->query($qpresentacion)) {
 
 //UNIDADES SAT
 #region
-$qunidadessat = "SELECT * FROM ct_unidades_sat WHERE estado = 1 order by nombre";
-
-if (!$runidadessat = $mysqli->query($qunidadessat)) {
+$mysqli->next_result();
+if (!$runidadessat = $mysqli->query("CALL sp_get_unidades_sat()")) {
     echo "Lo sentimos, esta aplicación está experimentando problemas";
     exit;
 }
@@ -148,12 +145,12 @@ if (!$runidadessat = $mysqli->query($qunidadessat)) {
                                 <div class="row">
                                     <div class="col-lg-6">
                                         <div class="form-group">
-                                            <label for="fk_presentacion">Presentación</label>
-                                            <select class='form-control' id='fk_presentacion'>
+                                            <label for="fk_metal">Tipo de metal</label>
+                                            <select class='form-control' id='fk_metal'>
                                                 <option value="0">Seleccione</option>
                                                 <?php
-                                                while ($rowp = $rpresentaciones->fetch_assoc()) {
-                                                    echo "<option value='$rowp[pk_presentacion]'>$rowp[descripcion]</option>";
+                                                while ($rowm = $rsp_get_metales->fetch_assoc()) {
+                                                    echo "<option value='$rowm[pk_metal]'>$rowm[nombre]</option>";
                                                 }
                                                 ?>
                                             </select>
@@ -200,67 +197,49 @@ if (!$runidadessat = $mysqli->query($qunidadessat)) {
                                             <input type="number" class="form-control" id="costo" name="costo" placeholder="$0.00">
                                         </div>
                                     </div>
-                                </div>
 
-                                <div class="row">
                                     <div class="col-lg-3">
                                         <div class="form-group">
-                                            <label for="precio">Precio 1 $</label>
+                                            <label for="fk_unidad">Tipo de precio</label>
+
+                                            <div class="d-flex align-items-center gap-4">
+                                                <div>
+                                                    <input type="radio" id="rdPrecioFijo" name="rdPrecio" value="1" style="width: 20px; height: 20px;">
+                                                    <label class="mb-0" for="rdPrecioFijo">Precio fijo</label>
+                                                </div>
+
+                                                <div>
+                                                    <input type="radio" id="rdPrecioDinamico" name="rdPrecio" value="2" style="width: 20px; height: 20px;">
+                                                    <label class="mb-0" for="rdPrecioDinamico">Precio dinámico</label>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-lg-3 contentPrecioFijo d-none">
+                                        <div class="form-group">
+                                            <label for="precio">Precio $</label>
                                             <input type="number" class="form-control" id="precio1" name="precio1" value="0" min="0" placeholder="Precio N°1">
                                         </div>
                                     </div>
 
-                                    <div class="col-lg-3">
+                                    <div class="col-lg-3 contentPrecioFijo d-none">
                                         <div class="form-group">
-                                            <label for="precio">Utilidad 1 %</label>
+                                            <label for="precio">Utilidad %</label>
                                             <input type="number" class="form-control utilidad" id="utilidad_1" name="utilidad" value="0" min="0" placeholder="Utilidad N°1">
                                         </div>
                                     </div>
 
-                                    <div class="col-lg-3">
+                                    <div class="col-lg-3 contentPrecioDinamico d-none">
                                         <div class="form-group">
-                                            <label for="precio2">Precio 2 $</label>
-                                            <input type="number" class="form-control" id="precio2" name="precio2" value="0" min="0" placeholder="Precio N°2">
-                                        </div>
-                                    </div>
-
-                                    <div class="col-lg-3">
-                                        <div class="form-group">
-                                            <label for="precio">Utilidad 2 %</label>
-                                            <input type="number" class="form-control utilidad" id="utilidad_2" name="utilidad2" value="0" min="0" placeholder="Utilidad N°2">
+                                            <label for="gramaje">Gramaje</label>
+                                            <input type="number" class="form-control" id="gramaje" name="gramaje" value="0" min="0" placeholder="Ej.340gr">
                                         </div>
                                     </div>
                                 </div>
 
-                                <div class="row">
-                                    <div class="col-lg-3">
-                                        <div class="form-group">
-                                            <label for="precio3">Precio 3 $</label>
-                                            <input type="number" class="form-control" id="precio3" name="precio3" value="0" min="0" placeholder="Precio N°3">
-                                        </div>
-                                    </div>
+                                <span class="badge-primary-integra contentPrecioDinamico d-none">El precio de venta será calculado a partir del costo actual del metal seleccionado</span>
 
-                                    <div class="col-lg-3">
-                                        <div class="form-group">
-                                            <label for="precio">Utilidad 3 %</label>
-                                            <input type="number" class="form-control utilidad" id="utilidad_3" name="utilidad3" value="0" min="0" placeholder="Utilidad N°3">
-                                        </div>
-                                    </div>
-
-                                    <div class="col-lg-3">
-                                        <div class="form-group">
-                                            <label for="precio4">Precio 4 $</label>
-                                            <input type="number" class="form-control" id="precio4" name="precio4" value="0" min="0" placeholder="Precio N°4">
-                                        </div>
-                                    </div>
-
-                                    <div class="col-lg-3">
-                                        <div class="form-group">
-                                            <label for="precio">Utilidad 4 %</label>
-                                            <input type="number" class="form-control utilidad" id="utilidad_4" name="utilidad4" value="0" min="0" placeholder="Utilidad N°4">
-                                        </div>
-                                    </div>
-                                </div>
                             </div>
 
 

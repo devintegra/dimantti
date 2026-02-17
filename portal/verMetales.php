@@ -81,6 +81,7 @@ if ($nivel != 1) {
                                 <table id='dtEmpresa' class='table table-striped text-center'>
                                     <thead>
                                         <tr>
+                                            <th>ID</th>
                                             <th>Tipo de metal</th>
                                             <th>Costo</th>
                                             <th>Precio x gr</th>
@@ -98,6 +99,9 @@ if ($nivel != 1) {
 
                                             echo <<<HTML
                                                 <tr class='odd gradeX'>
+                                                    <td>
+                                                        <a href='editarMetal.php?id=$row[pk_metal]'>$row[pk_metal]</a>
+                                                    </td>
                                                     <td>
                                                         <a href='editarMetal.php?id=$row[pk_metal]'>$row[nombre]</a>
                                                     </td>

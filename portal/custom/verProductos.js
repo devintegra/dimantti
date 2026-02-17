@@ -46,10 +46,9 @@ function getProductos() {
                 { data: 'clave' },
                 { data: 'nombre' },
                 { data: 'categoria' },
-                { data: 'presentacion' },
+                { data: 'metal' },
                 { data: 'existencias' },
                 { data: 'costo' },
-                { data: 'precio' },
                 { data: 'acciones' }
             ],
             columnDefs: [{

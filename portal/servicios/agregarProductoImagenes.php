@@ -41,7 +41,7 @@ if (!empty($_FILES['file']['name'])) {
         if (move_uploaded_file($_FILES['file']['tmp_name'][$i], $destination)) {
 
             $mysqli->next_result();
-            if (!$mysqli->query("INSERT INTO rt_imagenes_productos(fk_producto, imagen, orden) VALUES($pk_producto, '$nombre_archivo', $paso)")) {
+            if (!$mysqli->query("CALL sp_set_producto_imagen($pk_producto, '$nombre_archivo', $paso)")) {
                 $codigo = 201;
                 $descripcion = "Error al actualizar la imagen en BD." . $mysqli->error;
             }

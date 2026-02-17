@@ -24,25 +24,25 @@ for ($row = 2; $row <= $highestRow; $row++) {
     if ($stylecode == "s") {
 
         $nombre = trim($sheet->getCell('A' . $row)->getValue());
-        $codigobarras = trim($sheet->getCell('B' . $row)->getValue());
-        $fk_presentacion = trim($sheet->getCell('C' . $row)->getValue()) ?? 0;
+        $codigo_barras = trim($sheet->getCell('B' . $row)->getValue());
+        $fk_metal = trim($sheet->getCell('C' . $row)->getValue()) ?? 0;
         $fk_categoria = trim($sheet->getCell('D' . $row)->getValue()) ?? 0;
         $descripcion = trim($sheet->getCell('E' . $row)->getValue());
         $costo = trim($sheet->getCell('F' . $row)->getValue()) ?? 0;
-        $precio = trim($sheet->getCell('G' . $row)->getValue()) ?? 0;
-        $precio2 = trim($sheet->getCell('H' . $row)->getValue()) ?? 0;
-        $precio3 = trim($sheet->getCell('I' . $row)->getValue()) ?? 0;
-        $precio4 = trim($sheet->getCell('J' . $row)->getValue()) ?? 0;
-        $inventario = trim($sheet->getCell('K' . $row)->getValue()) ?? 2;
-        $inventariomin = trim($sheet->getCell('L' . $row)->getValue()) ?? 0;
-        $inventariomax = trim($sheet->getCell('M' . $row)->getValue()) ?? 0;
-        $clave_sat = trim($sheet->getCell('N' . $row)->getValue());
-        $unidad_sat = trim($sheet->getCell('O' . $row)->getValue());
+        $tipo_precio = trim($sheet->getCell('G' . $row)->getValue()) ?? 0;
+        $precio = trim($sheet->getCell('H' . $row)->getValue()) ?? 0;
+        $gramaje = trim($sheet->getCell('I' . $row)->getValue()) ?? 0;
+        $inventario = trim($sheet->getCell('J' . $row)->getValue()) ?? 2;
+        $inventariomin = trim($sheet->getCell('K' . $row)->getValue()) ?? 0;
+        $inventariomax = trim($sheet->getCell('L' . $row)->getValue()) ?? 0;
+        $clave_producto_sat = trim($sheet->getCell('M' . $row)->getValue());
+        $clave_unidad_sat = trim($sheet->getCell('N' . $row)->getValue());
 
 
         //VERIFICAR SI EXISTE
+        #region
         $mysqli->next_result();
-        if (!$rsp_get_producto = $mysqli->query("SELECT * FROM ct_productos WHERE clave = '$codigobarras' AND estado = 1")) {
+        if (!$rsp_get_producto = $mysqli->query("CALL sp_get_producto_by_clave('$codigo_barras')")) {
             echo "Lo sentimos, esta aplicación está experimentando problemas.";
             exit;
         }
@@ -52,35 +52,22 @@ for ($row = 2; $row <= $highestRow; $row++) {
         } else {
             $rowi = $rsp_get_producto->fetch_assoc();
             $pk_producto = $rowi['pk_producto'];
+            $precio_anterior = $rowi['precio_anterior'];
+            $utilidad = $rowi['utilidad'];
         }
+        #endregion
 
 
 
         //GUARDAR
         if ($pk_producto == 0) {
             $mysqli->next_result();
-            if (!$mysqli->query("INSERT INTO ct_productos (nombre, clave, descripcion, costo, inventario, inventariomin, inventariomax, clave_producto_sat, clave_unidad_sat, fk_presentacion, fk_categoria, precio, precio2, precio3, precio4, precio_anterior, precio_anterior2, precio_anterior3, precio_anterior4, utilidad, utilidad2, utilidad3, utilidad4, codigobarras) VALUES ('$nombre', '$codigobarras', '$descripcion', $costo, $inventario, $inventariomin, $inventariomax, '$clave_sat', '$unidad_sat', $fk_presentacion, $fk_categoria, $precio, $precio2, $precio3, $precio4, $precio, $precio2, $precio3, $precio4, 0, 0, 0, 0, '$codigobarras')")) {
+            if (!$mysqli->query("CALL sp_set_producto('$nombre', '$codigo_barras', '$descripcion', $fk_metal, $fk_categoria, $costo, $tipo_precio, $precio, 0, $gramaje, $inventario, $inventariomin, $inventariomax, '$clave_producto_sat', '$clave_unidad_sat')")) {
                 array_push($registrosNoImportados, $nombre);
             }
         } else {
-            if (!$mysqli->query(
-                "UPDATE ct_productos
-                SET nombre = '$nombre',
-                descripcion = '$descripcion',
-                fk_presentacion = $fk_presentacion,
-                fk_categoria = $fk_categoria,
-                costo = $costo,
-                precio = $precio,
-                precio2 = $precio2,
-                precio3 = $precio3,
-                precio4 = $precio4,
-                inventario = $inventario,
-                inventariomin = $inventariomin,
-                inventariomax = $inventariomax,
-                clave_producto_sat = '$clave_sat',
-                clave_unidad_sat = '$unidad_sat'
-                WHERE pk_producto = $pk_producto"
-            )) {
+            $mysqli->next_result();
+            if (!$mysqli->query("CALL sp_update_producto($pk_producto, '$nombre', '$descripcion', $fk_metal, $fk_categoria, $costo, $tipo_precio, $precio, $precio_anterior, $utilidad, $gramaje, $inventario, $inventariomin, $inventariomax, '$clave_producto_sat', '$clave_unidad_sat')")) {
                 array_push($registrosNoImportados, $nombre);
             }
         }
