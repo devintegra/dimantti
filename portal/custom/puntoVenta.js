@@ -99,7 +99,7 @@ function getTotal() {
 
             switch (index2) {
                 case 6:
-                    subtotal = subtotal + parseFloat($(this).text().trim().slice(1));
+                    subtotal = subtotal + parseFloat($(this).text().trim().slice(1).replace(/,/g, ""));
                     break;
             }
 
@@ -325,7 +325,7 @@ $(document).on("click", ".eliminar", function () {
 $(document).on("input", ".cantidad", function () {
 
     var cantidad = parseFloat($(this).val());
-    var precio = parseFloat($(this).closest("tr").find("td:eq(4) input").val().trim());
+    var precio = parseFloat($(this).closest("tr").find("td:eq(4) input").val().trim().replace(/,/g, ""));
     var total = parseFloat(precio * cantidad).toFixed(2);
 
     $(this).closest("tr").find("td:eq(6)").text("$" + total);
@@ -347,7 +347,7 @@ $(document).on("input", ".cantidad", function () {
 
 $(document).on("input", ".precio", function () {
 
-    var precio = $(this).val();
+    var precio = $(this).val().replace(/,/g, "");
     var cantidad = $(this).closest("tr").find("td:eq(5) input[type='number']").val();
     var total = parseFloat(precio * cantidad).toFixed(2);
 
@@ -413,13 +413,13 @@ function actualizarTablaProductos(fk_cliente, productosAgregados) {
                             <td style='white-space:normal'>${element.codigobarras} - ${element.nombre}</td>
                             <td>$${element.precio}</td>
                             <td>
-                                <input type='number' class='form-control precio' style='width: 140px;' min='1' value='${element.precio}' disabled>
+                                <input type='number' class='form-control precio' style='width: 140px;' min='1' value='${element.precio.replace(/,/g, "")}' disabled>
                             </td>
                             <td>
                                 <input type='number' class='form-control cantidad' style='width: 140px;' min='1' value='${element.cantidad}'>
                             </td>
                             <td>
-                                $${total}
+                                $${element.total}
                             </td>
                         </tr>
                     `;
