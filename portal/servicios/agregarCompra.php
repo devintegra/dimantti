@@ -71,7 +71,8 @@ $fk_sucursal = $rowsucursal["fk_sucursal"];
 //TIPO DE PAGO - SALDO
 #region
 $saldo = $total - $monto_pago;
-if ($saldo == 0) {
+if ($saldo <= 0) {
+    $saldo = ($saldo < 0) ? 0 : $saldo;
     $tipo_pago = 1; //total
 } else if ($saldo > 0 && $saldo < $total) {
     $tipo_pago = 2; //parcial
@@ -87,12 +88,14 @@ if ($saldo == 0) {
 
 //ENCABEZADO
 #region
-if (!$mysqli->query("INSERT INTO tr_compras (fk_proveedor, fk_usuario, fecha, hora, fecha_inicio, fecha_limite, total, saldo, fk_pago, tipo_pago, tipo, factura, aprobado, fk_sucursal, fk_almacen, observaciones) VALUES ($fk_proveedor, '$fk_usuario', CURDATE(), '$hora_actual', '$inicio', '$fin', $total, $saldo, $fk_pago, $tipo_pago, $tipo, '$factura', 0, $fk_sucursal, $fk_almacen, '$observaciones')")) {
+$mysqli->next_result();
+if (!$rsp_set_compra = $mysqli->query("CALL sp_set_compra($fk_proveedor, '$fk_usuario', '$inicio', '$fin', $total, $saldo, $fk_pago, $tipo_pago, $tipo, '$factura', $fk_sucursal, $fk_almacen, '$observaciones')")) {
     $codigo = 201;
     $descripcion = "Error al guardar el encabezado de la compra.";
 }
 
-$pk_compra = $mysqli->insert_id;
+$row = $rsp_set_compra->fetch_assoc();
+$pk_compra = $row["pk_compra"];
 #endregion
 
 
@@ -106,9 +109,8 @@ if ($codigo == 200) {
 
         //DATOS DEL PRODUCTO
         #region
-        $qdatos = "SELECT * FROM ct_productos WHERE pk_producto = '$value[fk_producto]' AND estado = 1";
-
-        if (!$rdatos = $mysqli->query($qdatos)) {
+        $mysqli->next_result();
+        if (!$rdatos = $mysqli->query("CALL sp_get_producto($value[fk_producto])")) {
             echo "<br>Lo sentimos, esta aplicación está experimentando problemas.2";
             exit;
         }
@@ -123,15 +125,21 @@ if ($codigo == 200) {
         #endregion
 
 
-        if (!$mysqli->query("INSERT INTO tr_compras_detalle(fk_compra, fk_producto, fk_producto_nombre, cantidad, unitario, total, faltante) VALUES ($pk_compra, $pk_producto, '$nombre_producto', $value[cantidad], $value[unitario], $value[total], $value[cantidad])")) {
+        //DETALLE
+        $mysqli->next_result();
+        if (!$mysqli->query("CALL sp_set_compra_detalle($pk_compra, $pk_producto, '$nombre_producto', $value[cantidad], $value[unitario], $value[total])")) {
             $codigo = 201;
             $descripcion = "Error al guardar el detalle de la compra";
         }
 
+
+        //COSTO DEL PRODUCTO
+        $mysqli->next_result();
         if (!$mysqli->query("UPDATE ct_productos SET costo = $value[unitario] WHERE pk_producto = $pk_producto")) {
             $codigo = 201;
             $descripcion = "Error al actualizar el costo del producto";
         }
+
 
         //UTILIDADES
         #region
@@ -141,6 +149,7 @@ if ($codigo == 200) {
         $nuevo_precio_4 = "";
         if ($utilidad1) {
             $nuevo_precio_1 = $value['unitario'] + ($value['unitario'] * ($utilidad1 / 100));
+            $mysqli->next_result();
             if (!$mysqli->query("UPDATE ct_productos SET precio = $nuevo_precio_1 WHERE pk_producto = $pk_producto")) {
                 $codigo = 201;
                 $descripcion = "Error al actualizar el precio 1 del producto";
@@ -148,6 +157,7 @@ if ($codigo == 200) {
         }
         if ($utilidad2) {
             $nuevo_precio_2 = $value['unitario'] + ($value['unitario'] * ($utilidad2 / 100));
+            $mysqli->next_result();
             if (!$mysqli->query("UPDATE ct_productos SET precio2 = $nuevo_precio_2 WHERE pk_producto = $pk_producto")) {
                 $codigo = 201;
                 $descripcion = "Error al actualizar el precio 2 del producto";
@@ -155,6 +165,7 @@ if ($codigo == 200) {
         }
         if ($utilidad3) {
             $nuevo_precio_3 = $value['unitario'] + ($value['unitario'] * ($utilidad3 / 100));
+            $mysqli->next_result();
             if (!$mysqli->query("UPDATE ct_productos SET precio3 = $nuevo_precio_3 WHERE pk_producto = $pk_producto")) {
                 $codigo = 201;
                 $descripcion = "Error al actualizar el precio 3 del producto";
@@ -162,6 +173,7 @@ if ($codigo == 200) {
         }
         if ($utilidad3) {
             $nuevo_precio_4 = $value['unitario'] + ($value['unitario'] * ($utilidad4 / 100));
+            $mysqli->next_result();
             if (!$mysqli->query("UPDATE ct_productos SET precio4 = $nuevo_precio_4 WHERE pk_producto = $pk_producto")) {
                 $codigo = 201;
                 $descripcion = "Error al actualizar el precio 4 del producto";
@@ -177,7 +189,8 @@ if ($codigo == 200) {
 //ABONOS
 if ($monto_pago > 0) {
     if ($codigo == 200) {
-        if (!$mysqli->query("INSERT INTO tr_cargos (tipo, fk_documento, fk_sucursal, cantidad, fecha, hora, fk_usuario, saldo, fk_pago) VALUES (1, $pk_compra, $fk_sucursal, $monto_pago, CURDATE(), '$hora_actual', '$fk_usuario', $saldo, $fk_pago)")) {
+        $mysqli->next_result();
+        if (!$mysqli->query("CALL sp_set_cargo(1, $fk_sucursal, $pk_compra, $monto_pago, '$fk_usuario', $saldo, $fk_pago)")) {
             $codigo = 201;
             $descripcion = "Error al guardar el cargo de la compra";
         }
