@@ -552,7 +552,7 @@ $(document).on("click", ".cancelar", function () {
     var cliente = $(this).closest('tr').find('td:eq(3)').text().trim();
     var fecha = $(this).closest('tr').find('td:eq(1)').text().trim();
     var total = ($(this).closest('tr').find('td:eq(10) p').text().trim().slice(1));
-    var anticipo = parseFloat($(this).closest('tr').find('td:eq(10) input[type="hidden"]').val()).toFixed(2);
+    var anticipo = parseFloat($(this).closest('tr').find('td:eq(10) input[type="hidden"]').val().replace(/,/g, "")).toFixed(2);
 
     $("#cancelarModal #fk_venta").val(fk_venta);
     $("#cliente_txt").text(cliente);
