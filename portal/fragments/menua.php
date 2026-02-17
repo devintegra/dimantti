@@ -565,11 +565,6 @@ $avatar = $usuarios["imagen"];
                         <li class="nav-item"> <a class="nav-link" href="../portal/reportePrecios.php">Reporte de lista de precios</a></li>
                     </ul>
                 </div>
-                <div class="collapse" id="reportes">
-                    <ul class="nav flex-column sub-menu">
-                        <li class="nav-item"> <a class="nav-link" href="../portal/reporteListaPrecios.php">Reporte de precios a clientes</a></li>
-                    </ul>
-                </div>
             </li>
 
             <!--CERRAR SESION-->
