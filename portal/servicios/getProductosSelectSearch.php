@@ -10,7 +10,7 @@ if (isset($_GET['busqueda']) && is_string($_GET['busqueda'])) {
 }
 
 
-$qproductos = "SELECT pk_producto, codigobarras, nombre, precio
+$qproductos = "SELECT pk_producto, codigobarras, nombre, costo, precio, tipo_precio
     FROM ct_productos
     WHERE estado = 1
     AND (codigobarras LIKE '%$busqueda%' OR nombre LIKE '%$busqueda%' OR descripcion LIKE '%$busqueda%' OR precio LIKE '%$busqueda%')";
@@ -22,7 +22,7 @@ if (!$rproductos = $mysqli->query($qproductos)) {
 
 while ($productos = $rproductos->fetch_assoc()) {
 
-    $productos_precio = round($productos['precio']);
+    $productos_precio = ($productos["tipo_precio"] == 1) ? round($productos['precio']) : round($productos["costo"]);
 
     $descripcion = $productos['codigobarras'] . '|' . $productos['nombre'] . '| $' . $productos_precio;
 
