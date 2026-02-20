@@ -513,6 +513,30 @@ $avatar = $usuarios["imagen"];
                 </div>
             </li>
 
+            <!--ORDENES-->
+            <li class="nav-item">
+                <a class="nav-link" data-bs-toggle="collapse" href="#ordenes" aria-expanded="false" aria-controls="charts">
+                    <i class='bx bx-cog left-panel-icons'></i>
+                    <span class="menu-title">Ordenes</span>
+                    <i class="menu-arrow"></i>
+                </a>
+                <div class="collapse" id="ordenes">
+                    <ul class="nav flex-column sub-menu">
+                        <li class="nav-item"> <a class="nav-link" href="../portal/verOrdenes.php">Ver ordenes</a></li>
+                    </ul>
+                </div>
+                <div class="collapse" id="ordenes">
+                    <ul class="nav flex-column sub-menu">
+                        <li class="nav-item"> <a class="nav-link" href="../portal/verOrdenesCurso.php">Ver en curso</a></li>
+                    </ul>
+                </div>
+                <div class="collapse" id="ordenes">
+                    <ul class="nav flex-column sub-menu">
+                        <li class="nav-item"> <a class="nav-link" href="../portal/verOrdenesPago.php">Abonar</a></li>
+                    </ul>
+                </div>
+            </li>
+
             <!--REPORTES-->
             <li class="nav-item">
                 <a class="nav-link" data-bs-toggle="collapse" href="#reportes" aria-expanded="false" aria-controls="sitios">

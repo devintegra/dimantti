@@ -1,0 +1,103 @@
+* {
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+}
+
+@import url("https://fonts.googleapis.com/css2?family=Abril+Fatface&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Montserrat&display=swap");
+
+body {
+    font-family: "Montserrat", sans-serif;
+    /* font-family: "Abril Fatface", cursive; */
+    color: #444444;
+    background-color: #f7f7f7;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+
+header {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    padding: 20px;
+    gap: 10px;
+}
+
+header>img {
+    width: 15%;
+}
+
+header>h1 {
+    font-size: 20px;
+}
+
+#content-main {
+    width: 75%;
+    background-color: #fff;
+    border-radius: 20px;
+    margin-bottom: 50px;
+    box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
+}
+
+#content-info {
+    padding: 80px;
+    text-align: left;
+}
+
+#content-image {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.carousel-item>img {
+    height: 400px;
+    width: auto;
+    border-radius: 20px;
+}
+
+.carousel-prev-icon,
+.carousel-next-icon {
+    display: inline-block;
+    font-size: 50px;
+    color: #000;
+}
+
+.badge-seguimiento {
+    width: auto;
+    height: auto;
+    padding: 20px 35px;
+    border-radius: 35px;
+    color: #fff;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.badge-seguimiento-info {
+    background-color: #83c7ff;
+}
+
+.badge-seguimiento-success {
+    background-color: #82fd69;
+}
+
+.badge-seguimiento-warning {
+    background-color: #f8f545;
+}
+
+#content-details {
+    width: 75%;
+}
+
+@media (max-width: 1024px) {
+
+    #content-main,
+    #content-details {
+        width: 90%;
+    }
+}

@@ -5,6 +5,7 @@ $ventasCompras = "fragments/ventasCompras.php";
 $ventasSucursal = "fragments/ventasSucursal.php";
 $topClientes = "fragments/topClientes.php";
 $topProductos = "fragments/topProductos.php";
+$ordenesPendientes = "fragments/ordenesPendientes.php";
 $tiposMetales = "fragments/tiposMetales.php";
 
 ?>
@@ -18,6 +19,7 @@ $tiposMetales = "fragments/tiposMetales.php";
         include $ventasSucursal;
         include $topClientes;
         include $topProductos;
+        include $ordenesPendientes;
         ?>
     </div>
 </div>
