@@ -22,6 +22,10 @@ if (isset($_POST['fk_categoria']) && is_numeric($_POST['fk_categoria'])) {
     $fk_categoria =  $_POST['fk_categoria'];
 }
 
+if (isset($_POST['fk_subcategoria']) && is_numeric($_POST['fk_subcategoria'])) {
+    $fk_subcategoria =  $_POST['fk_subcategoria'];
+}
+
 if (isset($_POST['descripcion']) && is_string($_POST['descripcion'])) {
     $descripcion =  $_POST['descripcion'];
 }
@@ -69,7 +73,7 @@ if (isset($_POST['clave_unidad_sat']) && is_string($_POST['clave_unidad_sat'])) 
 
 
 
-if (!$rsp_set_producto = $mysqli->query("CALL sp_set_producto('$nombre', '$codigo_barras', '$descripcion', $fk_metal, $fk_categoria, $costo, $tipo_precio, $precio, $utilidad, $gramaje, $inventario, $inventariomin, $inventariomax, '$clave_producto_sat', '$clave_unidad_sat')")) {
+if (!$rsp_set_producto = $mysqli->query("CALL sp_set_producto('$nombre', '$codigo_barras', '$descripcion', $fk_metal, $fk_categoria, $fk_subcategoria, $costo, $tipo_precio, $precio, $utilidad, $gramaje, $inventario, $inventariomin, $inventariomax, '$clave_producto_sat', '$clave_unidad_sat')")) {
     $codigo = 201;
     $descripciond = "Error al guardar el registro";
 }

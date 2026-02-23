@@ -22,6 +22,10 @@ if (isset($_POST['fk_categoria']) && is_numeric($_POST['fk_categoria'])) {
     $fk_categoria = $_POST['fk_categoria'];
 }
 
+if (isset($_POST['fk_subcategoria']) && is_numeric($_POST['fk_subcategoria'])) {
+    $fk_subcategoria = $_POST['fk_subcategoria'];
+}
+
 if (isset($_POST['descripcion']) && is_string($_POST['descripcion'])) {
     $descripcion = $_POST['descripcion'];
 }
@@ -84,7 +88,7 @@ $precio_actual != $precio ? $precio_anterior = $precio_actual  : $precio_anterio
 
 //PRODUCTO
 $mysqli->next_result();
-if (!$mysqli->query("CALL sp_update_producto($pk_producto, '$nombre', '$descripcion', $fk_metal, $fk_categoria, $costo, $tipo_precio, $precio, $precio_anterior, $utilidad, $gramaje, $inventario, $inventariomin, $inventariomax, '$clave_producto_sat', '$clave_unidad_sat')")) {
+if (!$mysqli->query("CALL sp_update_producto($pk_producto, '$nombre', '$descripcion', $fk_metal, $fk_categoria, $fk_subcategoria, $costo, $tipo_precio, $precio, $precio_anterior, $utilidad, $gramaje, $inventario, $inventariomin, $inventariomax, '$clave_producto_sat', '$clave_unidad_sat')")) {
     $codigo = 201;
     $descripcion_error = "Error al guardar el registro";
 }

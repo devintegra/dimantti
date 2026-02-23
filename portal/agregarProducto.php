@@ -157,7 +157,7 @@ if (!$runidadessat = $mysqli->query("CALL sp_get_unidades_sat()")) {
                                         </div>
                                     </div>
 
-                                    <div class="col-lg-6">
+                                    <div class="col-lg-3">
                                         <div class="form-group">
                                             <label for="fk_categoria">Categoría</label>
                                             <select class='form-control' id='fk_categoria'>
@@ -167,6 +167,15 @@ if (!$runidadessat = $mysqli->query("CALL sp_get_unidades_sat()")) {
                                                     echo "<option value='$categorias[pk_categoria]'>$categorias[nombre]</option>";
                                                 }
                                                 ?>
+                                            </select>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-lg-3">
+                                        <div class="form-group">
+                                            <label for="fk_subcategoria">Subcategoría</label>
+                                            <select class='form-control' id='fk_subcategoria'>
+                                                <option value="0">Seleccione</option>
                                             </select>
                                         </div>
                                     </div>

@@ -27,16 +27,17 @@ for ($row = 2; $row <= $highestRow; $row++) {
         $codigo_barras = trim($sheet->getCell('B' . $row)->getValue());
         $fk_metal = trim($sheet->getCell('C' . $row)->getValue()) ?? 0;
         $fk_categoria = trim($sheet->getCell('D' . $row)->getValue()) ?? 0;
-        $descripcion = trim($sheet->getCell('E' . $row)->getValue());
-        $costo = trim($sheet->getCell('F' . $row)->getValue()) ?? 0;
-        $tipo_precio = trim($sheet->getCell('G' . $row)->getValue()) ?? 0;
-        $precio = trim($sheet->getCell('H' . $row)->getValue()) ?? 0;
-        $gramaje = trim($sheet->getCell('I' . $row)->getValue()) ?? 0;
-        $inventario = trim($sheet->getCell('J' . $row)->getValue()) ?? 2;
-        $inventariomin = trim($sheet->getCell('K' . $row)->getValue()) ?? 0;
-        $inventariomax = trim($sheet->getCell('L' . $row)->getValue()) ?? 0;
-        $clave_producto_sat = trim($sheet->getCell('M' . $row)->getValue());
-        $clave_unidad_sat = trim($sheet->getCell('N' . $row)->getValue());
+        $fk_subcategoria = trim($sheet->getCell('E' . $row)->getValue()) ?? 0;
+        $descripcion = trim($sheet->getCell('F' . $row)->getValue());
+        $costo = trim($sheet->getCell('G' . $row)->getValue()) ?? 0;
+        $tipo_precio = trim($sheet->getCell('H' . $row)->getValue()) ?? 0;
+        $precio = trim($sheet->getCell('I' . $row)->getValue()) ?? 0;
+        $gramaje = trim($sheet->getCell('J' . $row)->getValue()) ?? 0;
+        $inventario = trim($sheet->getCell('K' . $row)->getValue()) ?? 2;
+        $inventariomin = trim($sheet->getCell('L' . $row)->getValue()) ?? 0;
+        $inventariomax = trim($sheet->getCell('M' . $row)->getValue()) ?? 0;
+        $clave_producto_sat = trim($sheet->getCell('N' . $row)->getValue());
+        $clave_unidad_sat = trim($sheet->getCell('O' . $row)->getValue());
 
 
         //VERIFICAR SI EXISTE
@@ -62,12 +63,12 @@ for ($row = 2; $row <= $highestRow; $row++) {
         //GUARDAR
         if ($pk_producto == 0) {
             $mysqli->next_result();
-            if (!$mysqli->query("CALL sp_set_producto('$nombre', '$codigo_barras', '$descripcion', $fk_metal, $fk_categoria, $costo, $tipo_precio, $precio, 0, $gramaje, $inventario, $inventariomin, $inventariomax, '$clave_producto_sat', '$clave_unidad_sat')")) {
+            if (!$mysqli->query("CALL sp_set_producto('$nombre', '$codigo_barras', '$descripcion', $fk_metal, $fk_categoria, $fk_subcategoria, $costo, $tipo_precio, $precio, 0, $gramaje, $inventario, $inventariomin, $inventariomax, '$clave_producto_sat', '$clave_unidad_sat')")) {
                 array_push($registrosNoImportados, $nombre);
             }
         } else {
             $mysqli->next_result();
-            if (!$mysqli->query("CALL sp_update_producto($pk_producto, '$nombre', '$descripcion', $fk_metal, $fk_categoria, $costo, $tipo_precio, $precio, $precio_anterior, $utilidad, $gramaje, $inventario, $inventariomin, $inventariomax, '$clave_producto_sat', '$clave_unidad_sat')")) {
+            if (!$mysqli->query("CALL sp_update_producto($pk_producto, '$nombre', '$descripcion', $fk_metal, $fk_categoria, $fk_subcategoria, $costo, $tipo_precio, $precio, $precio_anterior, $utilidad, $gramaje, $inventario, $inventariomin, $inventariomax, '$clave_producto_sat', '$clave_unidad_sat')")) {
                 array_push($registrosNoImportados, $nombre);
             }
         }

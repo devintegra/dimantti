@@ -47,6 +47,7 @@ $clave = $row["clave"];
 $codigobarras = $row["codigobarras"];
 $fk_metal = $row["fk_metal"];
 $fk_categoria = $row["fk_categoria"];
+$fk_subcategoria = $row["fk_subcategoria"];
 $descripcion = $row["descripcion"];
 $costo = $row["costo"];
 $tipo_precio = $row["tipo_precio"];
@@ -79,6 +80,17 @@ $imagenes_totales = $rimagenes->num_rows;
 #region
 $mysqli->next_result();
 if (!$rcategorias = $mysqli->query("CALL sp_get_categorias()")) {
+    echo "Lo sentimos, esta aplicación está experimentando problemas";
+    exit;
+}
+#endregion
+
+
+
+//SUBCATEGORIAS
+#region
+$mysqli->next_result();
+if (!$rsp_get_subcategorias = $mysqli->query("CALL sp_get_subcategorias_by_categoria($fk_categoria)")) {
     echo "Lo sentimos, esta aplicación está experimentando problemas";
     exit;
 }
@@ -247,7 +259,7 @@ $arrayInventario = array(
                                         </div>
                                     </div>
 
-                                    <div class="col-lg-6">
+                                    <div class="col-lg-3">
                                         <div class="form-group">
                                             <label for="fk_categoria">Categoría</label>
                                             <select class='form-control' id='fk_categoria'>
@@ -258,6 +270,24 @@ $arrayInventario = array(
                                                         echo "<option value='$categorias[pk_categoria]' selected>$categorias[nombre]</option>";
                                                     } else {
                                                         echo "<option value='$categorias[pk_categoria]'>$categorias[nombre]</option>";
+                                                    }
+                                                }
+                                                ?>
+                                            </select>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-lg-3">
+                                        <div class="form-group">
+                                            <label for="fk_subcategoria">Subcategoría</label>
+                                            <select class='form-control' id='fk_subcategoria'>
+                                                <option value='0'>Seleccione</option>
+                                                <?php
+                                                while ($rows = $rsp_get_subcategorias->fetch_assoc()) {
+                                                    if ($rows['pk_subcategoria'] == $fk_subcategoria) {
+                                                        echo "<option value='$rows[pk_subcategoria]' selected>$rows[nombre]</option>";
+                                                    } else {
+                                                        echo "<option value='$rows[pk_subcategoria]'>$rows[nombre]</option>";
                                                     }
                                                 }
                                                 ?>

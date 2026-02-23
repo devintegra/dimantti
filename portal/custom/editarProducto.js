@@ -81,6 +81,63 @@ function initSlider() {
 
 
 
+//SUBCATEGORIAS
+//#region
+$(document).on('change', '#fk_categoria', function () {
+
+    let pk_categoria = $(this).val();
+
+    var parametros = {
+        "pk_categoria": pk_categoria
+    };
+
+    $.ajax({
+        data: parametros,
+
+        url: 'servicios/getSubcategorias.php',
+
+        type: 'GET',
+
+        contentType: "application/x-www-form-urlencoded;charset=utf-8",
+
+        beforeSend: function () {
+
+        },
+
+        success: function (response) {
+
+            if (response.codigo == 200) {
+
+                let registros = response.objList;
+                $('#fk_subcategoria').empty();
+
+                let options = "<option value='0'>Seleccione</option>";
+
+                registros.forEach(element => {
+                    options += `<option value='${element.pk_subcategoria}'>${element.nombre}</option>`;
+                });
+
+                $('#fk_subcategoria').append(options);
+
+            } else {
+
+                swal("Error", response.descripcion, "error").then(function () {
+                    location.reload();
+                });
+            }
+
+        },
+        error: function (arg1, arg2, arg3) {
+            console.log(arg3);
+        }
+    });
+
+});
+//#endregion
+
+
+
+
 //GUARDAR
 //#region
 function validar() {
@@ -92,14 +149,14 @@ function validar() {
         $('#nombre').css('background-color', '#ffdddd');
     }
 
-    if ($('#fk_metal').val() == 0) {
-        retorno = false;
-        $('#fk_metal').css('background-color', '#ffdddd');
-    }
-
     if ($('#fk_categoria').val() == 0) {
         retorno = false;
         $('#fk_categoria').css('background-color', '#ffdddd');
+    }
+
+    if ($('#fk_subcategoria').val() == 0) {
+        retorno = false;
+        $('#fk_subcategoria').css('background-color', '#ffdddd');
     }
 
     if ($('#costo').val().length < 1) {
@@ -155,6 +212,7 @@ $(document).on("click", "#guardar", function () {
             "codigo_barras": $("#codigo_barras").val(),
             "fk_metal": $("#fk_metal").val() ?? 0,
             "fk_categoria": $("#fk_categoria").val() ?? 0,
+            "fk_subcategoria": $("#fk_subcategoria").val() ?? 0,
             "descripcion": $("#descripcion").val(),
             "costo": $("#costo").val().replace(/,/g, "") ?? 0,
             "tipo_precio": $("input[name='rdPrecio']:checked").val(),
