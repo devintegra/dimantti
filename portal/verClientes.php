@@ -98,13 +98,23 @@ mysqli_set_charset($mysqli, 'utf8');
 
                                     while ($row = $resultado->fetch_assoc()) {
 
-                                        echo <<<HTML
-                                            <tr class="odd gradeX">
-                                                <td><a style='text-decoration:none' href='editarCliente.php?id=$row[pk_cliente]'>$row[nombre]</a></td>
-                                                <td><a style='text-decoration:none' href='editarCliente.php?id=$row[pk_cliente]'>$row[telefono]</a></td>
-                                                <td><a style='text-decoration:none' href='editarCliente.php?id=$row[pk_cliente]'>$row[direccion]</a></td>
-                                            </tr>
-                                        HTML;
+                                        if ($row["pk_cliente"] > 1) {
+                                            echo <<<HTML
+                                                <tr class="odd gradeX">
+                                                    <td><a style='text-decoration:none' href='editarCliente.php?id=$row[pk_cliente]'>$row[nombre]</a></td>
+                                                    <td><a style='text-decoration:none' href='editarCliente.php?id=$row[pk_cliente]'>$row[telefono]</a></td>
+                                                    <td><a style='text-decoration:none' href='editarCliente.php?id=$row[pk_cliente]'>$row[direccion]</a></td>
+                                                </tr>
+                                            HTML;
+                                        } else {
+                                            echo <<<HTML
+                                                <tr class="odd gradeX">
+                                                    <td>$row[nombre]</td>
+                                                    <td>$row[telefono]</td>
+                                                    <td>$row[direccion]</td>
+                                                </tr>
+                                            HTML;
+                                        }
                                     }
                                     ?>
                                 </tbody>

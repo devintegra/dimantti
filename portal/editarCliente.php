@@ -31,6 +31,9 @@ if (isset($_GET['id']) && is_string($_GET['id'])) {
     $pk_cliente = (int)$_GET['id'];
 }
 
+if ($pk_cliente == 1) {
+    header('Location: verClientes.php');
+}
 
 
 //DATOS
