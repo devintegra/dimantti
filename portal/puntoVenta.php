@@ -19,12 +19,17 @@ if ($nivel == 1) {
 }
 
 if ($nivel == 2) {
-    $tipo = "Chofer";
+    $tipo = "Vendedor";
     $menu = "fragments/menub.php";
     $fk_sucursal = $_SESSION["pk_sucursal"];
 }
 
-if ($nivel != 1) {
+if ($nivel == 4) {
+    $tipo = "Vendedor multisucursal";
+    $menu = "fragments/menud.php";
+}
+
+if ($nivel != 1 && $nivel != 2 && $nivel != 4) {
     header('Location: ../index.php');
 }
 

@@ -1,17 +1,17 @@
 var $ = jQuery;
 var productosAgregados = [];
 var id = 0;
+let fk_sucursal = parseInt($("#sucursal").val());
 
 
 $(document).ready(function () {
 
-    var fk_sucursal;
-    $("#sucursal").val().length != 0 ? fk_sucursal = $("#sucursal").val() : fk_sucursal = 0;
+    if (fk_sucursal == 0) {
+        getSucursales(fk_sucursal);
+        $('#modalEmpresa').modal('show');
+    }
 
-    getSucursales(fk_sucursal);
-    $('#modalEmpresa').modal('show');
-
-    if ($("#sucursal").val() != 0 && $("#existe_corte").val() == 0) {
+    if (fk_sucursal != 0 && $("#existe_corte").val() == 0) {
         $('#modalSaldoInicial').modal('show');
     }
 
