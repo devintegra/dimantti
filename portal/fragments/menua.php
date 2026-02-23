@@ -311,6 +311,11 @@ $avatar = $usuarios["imagen"];
                 </a>
                 <div class="collapse" id="configuracion">
                     <ul class="nav flex-column sub-menu">
+                        <li class="nav-item"><a class="nav-link" href="../portal/editarParametros.php">Parámetros de config.</a></li>
+                    </ul>
+                </div>
+                <div class="collapse" id="configuracion">
+                    <ul class="nav flex-column sub-menu">
                         <li class="nav-item"><a class="nav-link" href="../portal/verCategorias.php">Categorías</a></li>
                     </ul>
                 </div>
