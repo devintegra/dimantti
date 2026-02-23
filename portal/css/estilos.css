@@ -152,8 +152,13 @@ a {
 .btn-reabrir-dast,
 .btn-iniciar-dast,
 .btn-entregar-dast,
+.btn-purple-dast,
+.btn-orange-dast,
 .btn-eliminar-orden-dast,
 .btn-editar-dast,
+.btn-oro-dast,
+.btn-whatsapp-dast,
+.btn-rose-dast,
 .btn-reasignar-txt,
 .btn-reabrir-txt,
 .btn-iniciar-txt,
@@ -248,7 +253,55 @@ a {
     transform: translateY(-2px);
 }
 
+.btn-orange-dast {
+    background-image: radial-gradient(100% 100% at 100% 0, #e7ac68 0, var(--color-badge-orange) 100%);
+    box-shadow: rgba(45, 35, 66, .4) 0 2px 4px, rgba(45, 35, 66, .3) 0 7px 13px -3px, rgba(58, 65, 111, .5) 0 -3px 0 inset;
+}
 
+.btn-orange-dast:hover {
+    box-shadow: rgba(45, 35, 66, .4) 0 4px 8px, rgba(45, 35, 66, .3) 0 7px 13px -3px, var(--color-badge-orange-dark) 0 -3px 0 inset;
+    transform: translateY(-2px);
+}
+
+.btn-purple-dast {
+    background-image: radial-gradient(100% 100% at 100% 0, #de58d5 0, var(--color-badge-purple) 100%);
+    box-shadow: rgba(45, 35, 66, .4) 0 2px 4px, rgba(45, 35, 66, .3) 0 7px 13px -3px, rgba(58, 65, 111, .5) 0 -3px 0 inset;
+}
+
+.btn-purple-dast:hover {
+    box-shadow: rgba(45, 35, 66, .4) 0 4px 8px, rgba(45, 35, 66, .3) 0 7px 13px -3px, var(--color-badge-purple-dark) 0 -3px 0 inset;
+    transform: translateY(-2px);
+}
+
+.btn-oro-dast {
+    background-image: radial-gradient(100% 100% at 100% 0, #efbd71 0, #ca9a51 100%);
+    box-shadow: rgba(45, 35, 66, .4) 0 2px 4px, rgba(45, 35, 66, .3) 0 7px 13px -3px, rgba(58, 65, 111, .5) 0 -3px 0 inset;
+}
+
+.btn-oro-dast:hover {
+    box-shadow: rgba(45, 35, 66, .4) 0 4px 8px, rgba(45, 35, 66, .3) 0 7px 13px -3px, #c18f45 0 -3px 0 inset;
+    transform: translateY(-2px);
+}
+
+.btn-whatsapp-dast {
+    background-image: radial-gradient(100% 100% at 100% 0, #24cc63 0, #14b351 100%);
+    box-shadow: rgba(45, 35, 66, .4) 0 2px 4px, rgba(45, 35, 66, .3) 0 7px 13px -3px, rgba(58, 65, 111, .5) 0 -3px 0 inset;
+}
+
+.btn-whatsapp-dast:hover {
+    box-shadow: rgba(45, 35, 66, .4) 0 4px 8px, rgba(45, 35, 66, .3) 0 7px 13px -3px, #0c8f3e 0 -3px 0 inset;
+    transform: translateY(-2px);
+}
+
+.btn-rose-dast {
+    background-image: radial-gradient(100% 100% at 100% 0, #ff7cbc 0, #fb53a4 100%);
+    box-shadow: rgba(45, 35, 66, .4) 0 2px 4px, rgba(45, 35, 66, .3) 0 7px 13px -3px, rgba(58, 65, 111, .5) 0 -3px 0 inset;
+}
+
+.btn-rose-dast:hover {
+    box-shadow: rgba(45, 35, 66, .4) 0 4px 8px, rgba(45, 35, 66, .3) 0 7px 13px -3px, #ea3f92 0 -3px 0 inset;
+    transform: translateY(-2px);
+}
 
 
 /******************** Botones con Texto *******************/

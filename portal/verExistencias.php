@@ -94,6 +94,7 @@ mysqli_set_charset($mysqli, 'utf8');
                                         <th>Código de barras</th>
                                         <th>Descripción</th>
                                         <th>Existencias</th>
+                                        <th>Apartados</th>
                                         <th>Estatus</th>
                                     </tr>
                                 </thead>
@@ -104,6 +105,7 @@ mysqli_set_charset($mysqli, 'utf8');
                                         <th>Código de barras</th>
                                         <th>Descripción</th>
                                         <th>Existencias</th>
+                                        <th>Apartados</th>
                                         <th>Estatus</th>
                                     </tr>
                                 </tfoot>

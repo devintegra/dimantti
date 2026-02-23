@@ -632,6 +632,128 @@ $("#cancelarModal #guardar_cancelacion").click(function () {
 
 
 
+//APARTADO
+//#region
+$(document).on('click', '.entregarApartado', function () {
+
+    let pk_venta = $(this).attr('data-id');
+
+    Swal.fire({
+        title: 'Entregar productos',
+        text: "¿Estás seguro que deseas entregar los productos apartados al cliente?",
+        icon: 'warning',
+        showCancelButton: true,
+        iconColor: '#368FCD',
+        confirmButtonColor: '#368FCD',
+        cancelButtonColor: '#000',
+        confirmButtonText: 'Si, entregar',
+        cancelButtonText: 'Cancelar'
+
+    }).then((result) => {
+
+        if (result.isConfirmed) {
+
+            var parametros = {
+                "pk_venta": pk_venta
+            };
+
+            $.ajax({
+                data: parametros,
+
+                url: 'servicios/editarVentaEntregarApartado.php',
+
+                type: 'POST',
+
+                beforeSend: function () {
+
+                },
+
+                success: function (response) {
+
+                    if (response.codigo == 200) {
+                        swal("Entrega exitosa", "El registro se entregó correctamente", "success").then(function () {
+                            $(location).attr('href', "verVentas.php");
+                        });
+                    }
+                    else {
+                        swal("Error", response.descripcion, "error").then(function () {
+                            location.reload();
+                        });
+                    }
+
+                },
+                error: function (arg1, arg2, arg3) {
+                    console.log(arg3);
+                }
+            });
+        }
+    });
+
+});
+
+
+$(document).on('click', '.devolverApartado', function () {
+
+    let pk_venta = $(this).attr('data-id');
+
+    Swal.fire({
+        title: 'Devolver productos',
+        text: "¿Estás seguro que deseas devolver los productos apartados por el cliente al almacén?",
+        icon: 'warning',
+        showCancelButton: true,
+        iconColor: '#368FCD',
+        confirmButtonColor: '#368FCD',
+        cancelButtonColor: '#000',
+        confirmButtonText: 'Si, devolver',
+        cancelButtonText: 'Cancelar'
+
+    }).then((result) => {
+
+        if (result.isConfirmed) {
+
+            var parametros = {
+                "pk_venta": pk_venta
+            };
+
+            $.ajax({
+                data: parametros,
+
+                url: 'servicios/editarVentaDevolverApartado.php',
+
+                type: 'POST',
+
+                beforeSend: function () {
+
+                },
+
+                success: function (response) {
+
+                    if (response.codigo == 200) {
+                        swal("Devolución exitosa", "Los productos se devolvieron correctamente", "success").then(function () {
+                            $(location).attr('href', "verVentas.php");
+                        });
+                    }
+                    else {
+                        swal("Error", response.descripcion, "error").then(function () {
+                            location.reload();
+                        });
+                    }
+
+                },
+                error: function (arg1, arg2, arg3) {
+                    console.log(arg3);
+                }
+            });
+        }
+    });
+
+});
+//#endregion
+
+
+
+
+
 //EXTRAS
 //#region
 $('#limpiarfiltros').click(function () {

@@ -98,12 +98,13 @@ $qregistros = "SELECT tr_ventas.pk_venta as pk_venta,
         tr_ventas.descuento as descuento,
         tr_ventas.modificada,
         tr_ventas.observaciones,
-        tr_ventas.estatus
+        tr_ventas.estatus,
+        (SELECT COUNT(*) as total FROM tr_ventas_detalle WHERE fk_venta = tr_ventas.pk_venta AND estado = 1 AND entregado = 0) as total_productos_entregados
         FROM tr_ventas
         LEFT JOIN ct_clientes ON ct_clientes.pk_cliente = tr_ventas.fk_cliente
         LEFT JOIN ct_sucursales ON ct_sucursales.pk_sucursal = tr_ventas.fk_sucursal
         LEFT JOIN rt_sucursales_almacenes ON rt_sucursales_almacenes.pk_sucursal_almacen = tr_ventas.fk_almacen
-        WHERE tr_ventas.tipo in(1,3,5)
+        WHERE tr_ventas.tipo in(1,2,3,5)
         AND tr_ventas.subtotal > 0
     $flsucursal $flsearch $flventa $flfolio $flfecha $flsucursalnom $flcliente $flusuario $flobservaciones $fltotal
     ORDER BY tr_ventas.pk_venta DESC
@@ -134,7 +135,7 @@ while ($row = $rregistros->fetch_assoc()) {
             $origen = "<p class='badge-primary-integra'>Punto de venta</p>";
             break;
         case 2:
-            $origen = "<p class='badge-success-integra'>Web</p>";
+            $origen = "<p class='badge-success-integra'>Apartado</p>";
             break;
         case 3:
             $origen = "<p class='badge-orange-integra'>Desde prestamo</p>";
@@ -166,6 +167,17 @@ while ($row = $rregistros->fetch_assoc()) {
     #endregion
 
 
+    //SALDO
+    #region
+    $badge_saldo = "";
+    $saldo = number_format($row['saldo'], 2);
+
+    if ($row['saldo'] > 0) {
+        $badge_saldo = "<p class='badge-danger-integra'>Saldo: $$saldo</p>";
+    }
+    #endregion
+
+
     //SERIES PENDIENTES
     #region
     $qseries = "SELECT COUNT(*) as pendientes FROM tr_ventas_detalle WHERE fk_venta = $row[pk_venta] AND entregado = 0 AND estado = 1;";
@@ -190,6 +202,10 @@ while ($row = $rregistros->fetch_assoc()) {
     } else if ($row['estatus'] == 3) {
         $badge_estatus = "<p class='badge-danger-integra'>Cancelada</p>";
     }
+
+    if ($row["tipo"] == 2 && $row["saldo"] <= 0 && $row["total_productos_entregados"] > 0) {
+        $badge_estatus .= "<p class='badge-warning-integra'>Apartado por entregar</p>";
+    }
     #endregion
 
 
@@ -198,13 +214,6 @@ while ($row = $rregistros->fetch_assoc()) {
     $btn_acciones = "<a target='_blank' href='ventaPDF.php?id=$row[pk_venta]' class='btn-reabrir-dast' title='Detalles'><i class='fa fa-file-pdf-o'></i></a>";
 
     $btn_acciones = $btn_acciones . "<a target='_blank' href='abonosVentaPDF.php?id=$row[pk_venta]' class='btn-iniciar-dast' title='Abonos'><i class='fa fa-file-pdf-o'></i></a>";
-
-    // if ($series_pendientes > 0 && ($nivel == 1 || $nivel == 4)) {
-    //     $btn_acciones = $btn_acciones . "
-    //         <button type='button' class='btn-entregar-dast btnModalSeries' data-id='$row[pk_venta]' data-sucursal='$row[fk_sucursal]' data-almacen='$row[fk_almacen]' title='Capturar series pendientes'>
-    //             <i class='fa fa-list-ul mx-2'></i>
-    //         </button>";
-    // }
 
     if ($row['modificada'] == 0 && $row['estatus'] < 2 && ($nivel == 1 || $nivel == 4)) {
         $btn_acciones = $btn_acciones . "
@@ -238,10 +247,26 @@ while ($row = $rregistros->fetch_assoc()) {
                 <i class='fa fa-money mx-2'></i>
             </button>";
     }
+
+    if ((int)$row["tipo"] == 2) {
+        if ((float)$row["saldo"] <= 0 && (int)$row["total_productos_entregados"] > 0) {
+            $btn_acciones = $btn_acciones . "
+            <button type='button' class='btn-rose-dast entregarApartado' title='Entregar productos al cliente' data-id='$row[pk_venta]'>
+                <i class='fa fa-shopping-bag mx-2'></i>
+            </button>";
+        }
+
+        if ((int)$row["total_productos_entregados"] > 0) {
+            $btn_acciones = $btn_acciones . "
+            <button type='button' class='btn-oro-dast devolverApartado' title='Devolver productos al almacén' data-id='$row[pk_venta]'>
+                <i class='fa fa-undo mx-2'></i>
+            </button>";
+        }
+    }
     #endregion
 
 
-    $estatus = $badge_estatus . $badge_tipo_pago . $badge_factura;
+    $estatus = $badge_estatus . $badge_saldo . $badge_tipo_pago . $badge_factura;
 
     $totald = <<<HTML
         <p class='badge-success-integra'>$$total</p>
@@ -268,7 +293,7 @@ while ($row = $rregistros->fetch_assoc()) {
 
 //REGISTROS TOTALES
 #region
-$qtotal = "SELECT COUNT(*) AS total FROM tr_ventas WHERE tipo in(1,3,5)";
+$qtotal = "SELECT COUNT(*) AS total FROM tr_ventas WHERE tipo in(1,2,3,5)";
 
 if (!$rtotal = $mysqli->query($qtotal)) {
     echo "Lo sentimos, esta aplicación está experimentando problemas. Error al obtener los registros totales";
@@ -284,7 +309,7 @@ $total_records = $total["total"];
 
 //REGISTROS FILTRADOS
 #region
-$qfiltrados = "SELECT COUNT(*) AS total, SUM(total) AS totalVentas FROM tr_ventas WHERE tipo in(1,3,5) AND estado = 1";
+$qfiltrados = "SELECT COUNT(*) AS total, SUM(total) AS totalVentas FROM tr_ventas WHERE tipo in(1,2,3,5) AND estado = 1";
 
 if (!$rfiltrados = $mysqli->query($qfiltrados)) {
     echo "Lo sentimos, esta aplicación está experimentando problemas. Error al obtener los registros filtrados";

@@ -60,6 +60,7 @@ function getExistencias() {
                         <td>${element.codigobarras}</td>
                         <td style='white-space: normal'>${element.descripcion_producto}</td>
                         <td>${element.cantidad}</td>
+                        <td>${element.apartado}</td>
                         <td>${badge}</td>
                     </tr>
                 `;

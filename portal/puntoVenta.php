@@ -178,8 +178,11 @@ if ($rsaldos->num_rows == 0) {
                 <div class="card">
                     <div class="card-body">
                         <div class="d-flex flex-column flex-lg-row justify-content-between">
-                            <h4 class="card-title">Punto de venta</h4><br>
-                            <h6 class="card-title badge-warning-integra" id="lasucursal"></h6>
+                            <div class="d-flex align-items-center gap-2">
+                                <h4 class="card-title mb-0">Punto de venta</h4><br>
+                                <span class="badge-primary-integra fs-5" id="labelTipoVenta">Venta normal</span>
+                                <span class="badge-warning-integra fs-5" id="lasucursal"></span>
+                            </div>
                             <div>
                                 <a href="agregarCorte.php" class="w-auto"><button type="button" class="btn btn-social-icon-text btn-linkedin"><i class='bx bx-calculator'></i>Corte de caja</button></a>
                                 <a href="agregarRetiro.php" class="w-auto"><button type="button" class="btn btn-social-icon-text btn-google"><i class='bx bx-exit'></i>Salida de caja</button></a>
@@ -198,6 +201,19 @@ if ($rsaldos->num_rows == 0) {
 
 
                         <br><br>
+
+                        <div class="row">
+                            <div class="col-12">
+                                <div class="form-group">
+                                    <div class="d-flex align-items-center gap-4">
+                                        <div>
+                                            <input type="checkbox" id="chkApartado" name="chkApartado" value="1" style="width: 20px; height: 20px;">
+                                            <label class="mb-0" for="chkApartado" style="font-size: 18px; font-weight: bold; color: #0077b6;">Venta por Apartado</label>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
 
                         <div class="row d-flex">
                             <div class="col-lg-6">
@@ -527,7 +543,7 @@ if ($rsaldos->num_rows == 0) {
                             </div>
 
                             <div class="col-sm-12 col-lg-4 d-flex justify-content-end align-items-end flex-column">
-                                <h5 style="color: #4169e1">Cambio</h5>
+                                <h5 style="color: #4169e1" id="labelCambio">Cambio</h5>
                                 <h3 id="ticket_cambio" style="font-weight: bold;">
                                 </h3>
                             </div>

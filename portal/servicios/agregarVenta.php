@@ -44,6 +44,7 @@ $fk_usuario = $decoded['fk_usuario'];
 $fk_cliente = $decoded['fk_cliente'];
 $fk_cotizacion = $decoded['fk_cotizacion'];
 $fk_prestamo = $decoded['fk_prestamo'];
+$apartado = $decoded['apartado'];
 
 $efectivo = (float)$decoded['efectivo'];
 $credito = (float)$decoded['credito'];
@@ -69,13 +70,12 @@ $observaciones = $decoded['observaciones'];
 $arrSeries = explode("\n", $observaciones);
 $arrCount = count($arrSeries);
 
+$tipo_venta = $apartado == 0 ? 1 : 2;
+
 $ahora = date("Y-m-d H:i:s");
 $hora_actual = date("H") . ":" . date("i") . ":" . date("s");
 #endregion
 
-
-//SOLO SE EJECUTA CON EL BOTÓN DE GUARDAR
-//A DIFERENCIA DE agregarVentaAutomatico.php ESTE ARCHIVO MANEJA LAS EXISTENCIAS
 
 
 
@@ -118,14 +118,13 @@ if ($codigo == 200) {
     /*
     Tipo
     1.Desde punto de venta
-    2.Desde web
+    2.Desde apartado
     3.Desde prestamo
     4.Desde cotización
     */
 
-    $qventa = "SELECT * FROM tr_ventas WHERE pk_venta = $pk_venta AND estado = 1";
-
-    if (!$rventa = $mysqli->query($qventa)) {
+    $mysqli->next_result();
+    if (!$rventa = $mysqli->query("CALL sp_get_venta($pk_venta)")) {
         $codigo = 201;
         $descripcion = "Hubo un problema, porfavor vuelva a intentarlo";
         exit;
@@ -133,50 +132,55 @@ if ($codigo == 200) {
 
     if ($rventa->num_rows > 0) {
 
-        if (!$mysqli->query("UPDATE tr_ventas SET fk_usuario = '$fk_usuario', fk_cliente = $fk_cliente, fecha = CURDATE(), fk_sucursal = $fk_sucursal, fk_almacen = $fk_almacen, saldo = $saldo, anticipo = $monto_pago, efectivo = $efectivo, credito = $credito, debito = $debito, cheque = $cheque, transferencia = $transferencia, cheque_referencia = '$cheque_referencia', transferencia_referencia = '$transferencia_referencia', subtotal = $subtotal, total = $total, hora = '$hora_actual', tipo = 1, tipo_pago = $tipo_pago, descuento = $descuento, comision = $comision, observaciones = '$observaciones' WHERE pk_venta = $pk_venta AND estado = 1")) {
+        $mysqli->next_result();
+        if (!$mysqli->query("CALL sp_update_venta($pk_venta, '$fk_usuario', $fk_cliente, $fk_sucursal, $fk_almacen, $saldo, $monto_pago, $efectivo, $credito, $debito, $cheque, $transferencia, '$cheque_referencia', '$transferencia_referencia', $subtotal, $total, $tipo_venta, $tipo_pago, $descuento, $comision, '$observaciones')")) {
             $codigo = 201;
             $descripcion = "Hubo un problema, porfavor vuelva a intentarlo!";
         }
     } else {
 
-        if (!$mysqli->query("INSERT INTO tr_ventas (folio, fk_usuario, fk_cliente, fecha, fk_sucursal, fk_almacen, saldo, anticipo, subtotal, total, efectivo, credito, debito, cheque, transferencia, cheque_referencia, transferencia_referencia, hora, tipo, tipo_pago, descuento, comision, observaciones) VALUES ($pk_venta, '$fk_usuario', $fk_cliente, CURDATE(), $fk_sucursal, $fk_almacen, $saldo, $monto_pago, $subtotal, $total, $efectivo, $credito, $debito, $cheque, $transferencia, '$cheque_referencia', '$transferencia_referencia', '$hora_actual', 1, $tipo_pago, $descuento, $comision, '$observaciones')")) {
+        $mysqli->next_result();
+        if (!$rsp_set_venta = $mysqli->query("CALL sp_set_venta('$fk_usuario', $fk_cliente, $fk_sucursal, $fk_almacen, $saldo, $monto_pago, $subtotal, $total, $efectivo, $credito, $debito, $cheque, $transferencia, '$cheque_referencia', '$transferencia_referencia', $tipo_venta, $tipo_pago, $descuento, $comision, '$observaciones')")) {
             $codigo = 201;
             $descripcion = "Hubo un problema, porfavor vuelva a intentarlo!";
         }
 
-        $pk_venta = $mysqli->insert_id;
+        $rowv = $rsp_set_venta->fetch_assoc();
+        $pk_venta = $rowv["pk_venta"];
+
+
+        //FOLIO
+        #region
+        $qsucursal = "SELECT * FROM ct_sucursales WHERE pk_sucursal = (SELECT fk_sucursal FROM tr_ventas WHERE pk_venta = $pk_venta)";
+
+        $mysqli->next_result();
+        if (!$rsucursal = $mysqli->query($qsucursal)) {
+            echo "Lo sentimos, esta aplicación está experimentando problemas1.";
+            exit;
+        }
+        $sucursal = $rsucursal->fetch_assoc();
+        $sucursal_inicial = $sucursal["iniciales"];
+
+        $qentrada = "SELECT * FROM tr_ventas WHERE pk_venta = $pk_venta";
+
+        $mysqli->next_result();
+        if (!$rentrada = $mysqli->query($qentrada)) {
+            echo "Lo sentimos, esta aplicación está experimentando problemas2.";
+            exit;
+        }
+        $entrada = $rentrada->fetch_assoc();
+        $entrada_fecha = $entrada["fecha"];
+
+        $fecha_folio =  str_replace("-", "", $entrada_fecha);
+        $folio = "M-" . $sucursal_inicial . $fecha_folio . $pk_venta;
+
+        $mysqli->next_result();
+        if (!$mysqli->query("UPDATE tr_ventas SET folio = '$folio' WHERE pk_venta = $pk_venta AND estado = 1")) {
+            $codigo = 201;
+            $descripcion = "Hubo un problema, porfavor vuelva a intentarlo!";
+        }
+        #endregion
     }
-
-
-    //Generar folio
-    #region
-    $qsucursal = "SELECT * FROM ct_sucursales WHERE pk_sucursal = (SELECT fk_sucursal FROM tr_ventas WHERE pk_venta = $pk_venta)";
-
-    if (!$rsucursal = $mysqli->query($qsucursal)) {
-        echo "Lo sentimos, esta aplicación está experimentando problemas1.";
-        exit;
-    }
-    $sucursal = $rsucursal->fetch_assoc();
-    $sucursal_inicial = $sucursal["iniciales"];
-
-    $qentrada = "SELECT * FROM tr_ventas WHERE pk_venta = $pk_venta";
-
-    if (!$rentrada = $mysqli->query($qentrada)) {
-        echo "Lo sentimos, esta aplicación está experimentando problemas2.";
-        exit;
-    }
-    $entrada = $rentrada->fetch_assoc();
-    $entrada_fecha = $entrada["fecha"];
-
-    $fecha_folio =  str_replace("-", "", $entrada_fecha);
-    $folio = "M-" . $sucursal_inicial . $fecha_folio . $pk_venta;
-
-    if (!$mysqli->query("UPDATE tr_ventas SET folio = '$folio' WHERE pk_venta = $pk_venta AND estado = 1")) {
-        $codigo = 201;
-        $descripcion = "Hubo un problema, porfavor vuelva a intentarlo!";
-    }
-    #endregion
-
 }
 
 
@@ -190,6 +194,7 @@ if ($codigo == 200) {
         #region
         $qdatos = "SELECT * FROM ct_productos WHERE codigobarras = '$value[codigobarras]' AND estado = 1";
 
+        $mysqli->next_result();
         if (!$rdatos = $mysqli->query($qdatos)) {
             echo "<br>Lo sentimos, esta aplicación está experimentando problemas.";
             exit;
@@ -205,21 +210,12 @@ if ($codigo == 200) {
         //VENTAS DETALLE
         #region
         $total_producto = $value['unitario'] * $value['cantidad'];
-        if (!$mysqli->query("INSERT INTO tr_ventas_detalle(fk_producto, serie, cantidad, faltante, unitario, total, fk_venta, descripcion, fk_almacen) values ($pk_producto, '', $value[cantidad], $value[cantidad], $value[unitario], $total_producto, $pk_venta, '$nombre_producto', $fk_almacen)")) {
+        $entregado = $apartado == 1 ? 0 : 1;
+        $mysqli->next_result();
+        if (!$mysqli->query("INSERT INTO tr_ventas_detalle(fk_producto, serie, cantidad, faltante, unitario, total, fk_venta, descripcion, fk_almacen, entregado) values ($pk_producto, '', $value[cantidad], $value[cantidad], $value[unitario], $total_producto, $pk_venta, '$nombre_producto', $fk_almacen, $entregado)")) {
             $codigo = 201;
             $descripcion = "Hubo un problema, porfavor vuelva a intentarlo!";
         }
-
-        // for ($i = 0; $i < $value['cantidad']; $i++) {
-
-        //     $total_producto = $value['unitario'] * 1;
-
-        //     if (!$mysqli->query("INSERT INTO tr_ventas_detalle(fk_producto, serie, cantidad, faltante, unitario, total, fk_venta, descripcion, fk_almacen) values ($pk_producto, '', 1, 1, $value[unitario], $total_producto, $pk_venta, '$nombre_producto', $fk_almacen)")) {
-        //         $codigo = 201;
-        //         $descripcion = "Hubo un problema, porfavor vuelva a intentarlo!";
-        //     }
-        //     $pk_venta_detalle = $mysqli->insert_id;
-        // }
         #endregion
 
 
@@ -227,23 +223,18 @@ if ($codigo == 200) {
         //EXISTENCIAS
         #region
         if ($codigo == 200) {
-            $mysqli->next_result();
-            if (!$mysqli->query("CALL sp_update_existencias_salida($fk_sucursal, $fk_almacen, $pk_producto, $value[cantidad])")) {
-                $codigo = 201;
-                $descripcion = "Error al actualizar el almacén";
-            }
-        }
-        #endregion
-
-
-
-        //ENTREGAR EN TR_VENTAS_DETALLE
-        #region
-        if ($codigo == 200) {
-            $mysqli->next_result();
-            if (!$mysqli->query("UPDATE tr_ventas_detalle SET entregado = 1 WHERE fk_venta = $pk_venta AND fk_producto = $pk_producto AND serie = '' AND entregado = 0 AND estado = 1")) {
-                $codigo = 201;
-                $descripcion = "Error al actualizar el estatus";
+            if ($apartado == 0) {
+                $mysqli->next_result();
+                if (!$mysqli->query("CALL sp_update_existencias_salida($fk_sucursal, $fk_almacen, $pk_producto, $value[cantidad])")) {
+                    $codigo = 201;
+                    $descripcion = "Error al actualizar el almacén";
+                }
+            } else {
+                $mysqli->next_result();
+                if (!$mysqli->query("CALL sp_update_existencias_entrada_apartado($fk_sucursal, $fk_almacen, $pk_producto, $value[cantidad])")) {
+                    $codigo = 201;
+                    $descripcion = "Error al actualizar el almacén";
+                }
             }
         }
         #endregion
@@ -254,7 +245,8 @@ if ($codigo == 200) {
         #region
         if ($codigo == 200) {
             $mysqli->next_result();
-            if (!$mysqli->query("INSERT INTO tr_movimientos (fk_producto, fk_movimiento, fk_movimiento_detalle, fk_usuario, fk_sucursal, fk_almacen, tipo_venta, fecha, serie, cantidad, total) VALUES($pk_producto, 5, $pk_venta, '$fk_usuario', $fk_sucursal, $fk_almacen, 1, CURDATE(), '', $value[cantidad], $value[unitario] * $value[cantidad])")) {
+            $tipo_venta = $apartado == 0 ? 1 : 2;
+            if (!$mysqli->query("INSERT INTO tr_movimientos (fk_producto, fk_movimiento, fk_movimiento_detalle, fk_usuario, fk_sucursal, fk_almacen, tipo_venta, fecha, serie, cantidad, total) VALUES($pk_producto, 5, $pk_venta, '$fk_usuario', $fk_sucursal, $fk_almacen, $tipo_venta, CURDATE(), '', $value[cantidad], $value[unitario] * $value[cantidad])")) {
                 $codigo = 201;
                 $descripcion = "Error al registrar en la bitácora";
             }
@@ -272,6 +264,7 @@ if ($codigo == 200) {
     #region
     $qcliente = "SELECT * FROM ct_clientes WHERE pk_cliente = $fk_cliente";
 
+    $mysqli->next_result();
     if (!$rcliente = $mysqli->query($qcliente)) {
         echo "<br>Lo sentimos, esta aplicación está experimentando problemas.";
         exit;
@@ -282,12 +275,14 @@ if ($codigo == 200) {
     #endregion
 
     if ($credito_saldo > 0) {
+        $mysqli->next_result();
         if (!$mysqli->query("UPDATE ct_clientes SET credito = credito - $credito_saldo WHERE pk_cliente = $fk_cliente AND estado = 1")) {
             $codigo = 201;
             $descripcion = "Hubo un problema, porfavor vuelva a intentarlo!";
         }
 
         if ($codigo == 200) {
+            $mysqli->next_result();
             if (!$mysqli->query("INSERT INTO tr_creditos (fk_venta, fk_cliente, total, saldo, fecha_vencimiento) VALUES ($pk_venta, $fk_cliente, $credito_saldo, $credito_saldo, DATE_ADD(CURDATE(), INTERVAL $dias_credito DAY))")) {
                 $codigo = 201;
                 $descripcion = "Hubo un problema, porfavor vuelva a intentarlo!";
@@ -297,6 +292,7 @@ if ($codigo == 200) {
         if ($codigo == 200) {
             if ($credito_cliente > 0) {
                 $credito_tipo_pago == 1 ? $credito_aprobado = 1 : $credito_aprobado = 0;
+                $mysqli->next_result();
                 if (!$mysqli->query("INSERT INTO tr_abonos (monto, fk_factura, fk_usuario, fecha, hora, fk_sucursal, saldo, tipo, fk_pago, origen, aprobado) VALUES ($credito_cliente, $pk_venta, '$fk_usuario', CURDATE(), '$hora_actual', $fk_sucursal, $saldo, 2, $credito_tipo_pago, 1, $credito_aprobado)")) {
                     $codigo = 201;
                     $descripcion = "Hubo un problema, porfavor vuelva a intentarlo!";
@@ -321,6 +317,7 @@ if ($codigo == 200) {
                             break;
                     }
 
+                    $mysqli->next_result();
                     if (!$mysqli->query("UPDATE tr_ventas SET $credito_tipo_pago_name = $credito_cliente WHERE pk_venta = $pk_venta")) {
                         $codigo = 201;
                         $descripcion = "Hubo un problema, porfavor vuelva a intentarlo!";
@@ -343,6 +340,7 @@ if ($codigo == 200) {
         #region
         $qdevolucion = "SELECT * FROM tr_devoluciones WHERE pk_devolucion = $fk_devolucion AND estado = 1";
 
+        $mysqli->next_result();
         if (!$rdevolucion = $mysqli->query($qdevolucion)) {
             echo "<br>Lo sentimos, esta aplicación está experimentando problemas.";
             exit;
@@ -353,12 +351,14 @@ if ($codigo == 200) {
         #endregion
 
 
+        $mysqli->next_result();
         if (!$mysqli->query("UPDATE tr_devoluciones SET saldo = 0 WHERE pk_devolucion = $fk_devolucion AND estado = 1")) {
             $codigo = 201;
             $descripcion = "Hubo un problema, porfavor vuelva a intentarlo!";
         }
 
         if ($codigo == 200) {
+            $mysqli->next_result();
             if (!$mysqli->query("UPDATE tr_ventas SET anticipo = anticipo + $saldo_devolucion, saldo = saldo - $saldo_devolucion, nota_credito = $saldo_devolucion WHERE pk_venta = $pk_venta")) {
                 $codigo = 201;
                 $descripcion = "Hubo un problema, porfavor vuelva a intentarlo!";
@@ -381,6 +381,7 @@ if ($codigo == 200) {
 
         if ($efectivo > 0) {
             $efectivo >= $total ? $efectivo = $total : $efectivo = $efectivo;
+            $mysqli->next_result();
             if (!$mysqli->query("INSERT INTO tr_abonos (monto, fk_factura, fk_usuario, fecha, hora, fk_sucursal, saldo, tipo, fk_pago, origen, aprobado, comision) VALUES ($efectivo, $pk_venta, '$fk_usuario', CURDATE(), '$hora_actual', $fk_sucursal, $saldo, 2, 1, 1, 1, $comision)")) {
                 $codigo = 201;
                 $descripcion = "Hubo un problema, porfavor vuelva a intentarlo!";
@@ -389,6 +390,7 @@ if ($codigo == 200) {
 
         if ($transferencia > 0) {
             $transferencia >= $total ? $transferencia = $total : $transferencia = $transferencia;
+            $mysqli->next_result();
             if (!$mysqli->query("INSERT INTO tr_abonos (monto, fk_factura, fk_usuario, fecha, hora, fk_sucursal, saldo, tipo, fk_pago, origen, aprobado, comision) VALUES ($transferencia, $pk_venta, '$fk_usuario', CURDATE(), '$hora_actual', $fk_sucursal, $saldo, 2, 2, 1, 0, $comision)")) {
                 $codigo = 201;
                 $descripcion = "Hubo un problema, porfavor vuelva a intentarlo!";
@@ -397,6 +399,7 @@ if ($codigo == 200) {
 
         if ($debito > 0) {
             $debito >= $total ? $debito = $total : $debito = $debito;
+            $mysqli->next_result();
             if (!$mysqli->query("INSERT INTO tr_abonos (monto, fk_factura, fk_usuario, fecha, hora, fk_sucursal, saldo, tipo, fk_pago, origen, aprobado, comision) VALUES ($debito, $pk_venta, '$fk_usuario', CURDATE(), '$hora_actual', $fk_sucursal, $saldo, 2, 3, 1, 0, $comision)")) {
                 $codigo = 201;
                 $descripcion = "Hubo un problema, porfavor vuelva a intentarlo!";
@@ -405,6 +408,7 @@ if ($codigo == 200) {
 
         if ($cheque > 0) {
             $cheque >= $total ? $cheque = $total : $cheque = $cheque;
+            $mysqli->next_result();
             if (!$mysqli->query("INSERT INTO tr_abonos (monto, fk_factura, fk_usuario, fecha, hora, fk_sucursal, saldo, tipo, fk_pago, origen, aprobado, comision) VALUES ($cheque, $pk_venta, '$fk_usuario', CURDATE(), '$hora_actual', $fk_sucursal, $saldo, 2, 4, 1, 0, $comision)")) {
                 $codigo = 201;
                 $descripcion = "Hubo un problema, porfavor vuelva a intentarlo!";
@@ -413,6 +417,7 @@ if ($codigo == 200) {
 
         if ($credito > 0) {
             $credito >= $total ? $credito = $total : $credito = $credito;
+            $mysqli->next_result();
             if (!$mysqli->query("INSERT INTO tr_abonos (monto, fk_factura, fk_usuario, fecha, hora, fk_sucursal, saldo, tipo, fk_pago, origen, aprobado, comision) VALUES ($credito, $pk_venta, '$fk_usuario', CURDATE(), '$hora_actual', $fk_sucursal, $saldo, 2, 5, 1, 0, $comision)")) {
                 $codigo = 201;
                 $descripcion = "Hubo un problema, porfavor vuelva a intentarlo!";

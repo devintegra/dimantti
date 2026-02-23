@@ -124,6 +124,14 @@ if ($nivel != 1) {
                                                 $tipo = "Baja de almacén";
                                                 $nestilo = "badge-danger-integra";
                                                 break;
+                                            case 5:
+                                                if ($movimiento['tipo_venta'] == 1) {
+                                                    $tipo = "Venta en mostrador";
+                                                } else {
+                                                    $tipo = "Venta por apartado";
+                                                }
+                                                $nestilo = "badge-orange-integra";
+                                                break;
                                         }
 
                                         echo <<<HTML

@@ -913,12 +913,14 @@ function validarRegistro() {
 
 
 function validarGuardado() {
+
     var retorno = true;
     var total = parseFloat($('#total').text().trim().slice(1));
     var cambio = parseFloat($('#cambio').text().trim().slice(1));
     var ticket_cambio = parseFloat($('#ticket_cambio').text().trim().slice(1));
     var recibe = 0;
     var tipo_pago = '';
+    var apartado = $('#chkApartado').is(':checked') ? 1 : 0;
 
     if (total == 0) {
         retorno = false;
@@ -938,16 +940,21 @@ function validarGuardado() {
     var nota = parseFloat($("#modalTicket #nota_credito").find('option:selected').text().trim().slice(1));
     !nota ? nota = 0 : nota = nota;
 
-    if (tipo_pago == 'credito' || tipo_pago == 'debito' || tipo_pago == 'transferencia' || tipo_pago == 'cheque') {
+    if (apartado == 0 && (tipo_pago == 'credito' || tipo_pago == 'debito' || tipo_pago == 'transferencia' || tipo_pago == 'cheque')) {
         if ((recibe + nota) != total) {
             retorno = false;
             swal("Mensaje", `Este tipo de pago no acepta cambio, es necesario ingresar la cantidad total para continuar ($${total.toFixed(2)})`, "info");
         }
     }
 
-    if ((recibe + nota) < total) {
+    if (apartado == 0 && ((recibe + nota) < total)) {
         retorno = false;
         swal("Mensaje", "Es necesario ingresar la cantidad total en alguno(s) de los campos de tipo de pago para continuar", "info");
+    }
+
+    if (apartado == 1 && ((recibe + nota) <= 0)) {
+        retorno = false;
+        swal("Mensaje", "Es necesario ingresar algún monto de apartado en los campos de tipo de pago para continuar", "info");
     }
 
     return retorno;
@@ -1099,6 +1106,7 @@ function guardar() {
         efectivo = parseFloat($("#efectivo").val()) - parseFloat($('#ticket_cambio').text().trim().slice(1));
     }
 
+    var apartado = $('#chkApartado').is(':checked') ? 1 : 0;
 
     var parametros = {
         "pk_venta": 0,
@@ -1108,6 +1116,7 @@ function guardar() {
         "fk_cliente": $("#cliente").val(),
         "fk_cotizacion": $("#fk_cotizacion").val(),
         "fk_prestamo": 0,
+        "apartado": apartado,
 
         "productos": getProductos(),
 
@@ -1406,6 +1415,23 @@ $('#nueva').click(function () {
 
 $('#historial').click(function () {
     $(location).attr("href", "verVentas.php");
+});
+
+
+$(document).on('change', '#chkApartado', function () {
+
+    if ($(this).is(':checked')) {
+        $('#labelTipoVenta').text('Venta por apartado');
+        $('#labelTipoVenta').removeClass('badge-primary-integra');
+        $('#labelTipoVenta').addClass('badge-danger-integra');
+        $('#labelCambio').text('Por liquidar');
+    } else {
+        $('#labelTipoVenta').text('Venta normal');
+        $('#labelTipoVenta').addClass('badge-primary-integra');
+        $('#labelTipoVenta').removeClass('badge-danger-integra');
+        $('#labelCambio').text('Cambio');
+    }
+
 });
 
 

@@ -132,7 +132,7 @@ if ($codigo == 200) {
         //BITACORA
         if ($codigo == 200) {
             $mysqli->next_result();
-            if (!$mysqli->query("INSERT INTO tr_movimientos (fk_producto, serie, fk_movimiento, fk_movimiento_detalle, fk_usuario, fk_sucursal, fk_almacen, fecha, cantidad, total) values($value[fk_producto], '$value[serie]', 4, $pk_salida, '$fk_usuario', $fk_sucursal, $value[fk_sucursal_almacen], CURDATE(), $value[cantidad], $value[cantidad] * $value[unitario])")) {
+            if (!$mysqli->query("INSERT INTO tr_movimientos (fk_producto, serie, fk_movimiento, fk_movimiento_detalle, fk_usuario, fk_sucursal, fk_almacen, fecha, cantidad, total) values($value[fk_producto], '$value[serie]', 2, $pk_salida, '$fk_usuario', $fk_sucursal, $value[fk_sucursal_almacen], CURDATE(), $value[cantidad], $value[cantidad] * $value[unitario])")) {
                 $codigo = 201;
                 $descripcion = "Error al registrar la bitácora";
             }
