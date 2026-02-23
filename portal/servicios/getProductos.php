@@ -100,7 +100,8 @@ while ($row = $rproductos->fetch_assoc()) {
     #region
     $qexistencias = "SELECT ct_sucursales.nombre as sucursal,
             rt_sucursales_almacenes.nombre as almacen,
-            COALESCE(SUM(tr_existencias.cantidad), 0) as cantidad
+            COALESCE(SUM(tr_existencias.cantidad), 0) as cantidad,
+            COALESCE(SUM(tr_existencias.apartado), 0) as apartado
         FROM tr_existencias, ct_sucursales, rt_sucursales_almacenes
         WHERE tr_existencias.fk_producto = $row[pk_producto]
         AND tr_existencias.estado = 1
@@ -117,7 +118,7 @@ while ($row = $rproductos->fetch_assoc()) {
 
     $existencias_producto = "";
     while ($rowe = $rexistencias->fetch_assoc()) {
-        $existencias_producto .= "<strong>" . $rowe['sucursal'] . ". " . $rowe['almacen'] . ": </strong>" . $rowe['cantidad'] . "\n";
+        $existencias_producto .= "<strong>" . $rowe['sucursal'] . ". " . $rowe['almacen'] . ": </strong>" . $rowe['cantidad'] . "<strong> Apartados: </strong>" . $rowe['apartado'] . "\n";
     }
 
     if ((int)$row['transferencias'] > 0) {
