@@ -35,6 +35,13 @@ function validar() {
         $('#passc').css('background-color', '#ffdddd');
     }
 
+    if ($('#tipo').val() == 2) {
+        if ($('#sucursal').val() == 0) {
+            retorno = false;
+            $('#sucursal').css('background-color', '#ffdddd');
+        }
+    }
+
     return retorno;
 
 }
