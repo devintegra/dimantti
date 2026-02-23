@@ -10,9 +10,13 @@ if (isset($_POST['nombre']) && is_string($_POST['nombre'])) {
     $nombre = $_POST['nombre'];
 }
 
+if (isset($_POST['estatus_cliente_venta']) && is_numeric($_POST['estatus_cliente_venta'])) {
+    $estatus_cliente_venta = $_POST['estatus_cliente_venta'];
+}
 
 
-if (!$mysqli->query("INSERT INTO ct_categorias (nombre) VALUES ('$nombre')")) {
+
+if (!$mysqli->query("CALL sp_set_categoria('$nombre', $estatus_cliente_venta)")) {
     $codigo = 201;
     $descripcion = "Error al guardar el registro";
 }

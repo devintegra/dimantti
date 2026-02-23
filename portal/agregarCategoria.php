@@ -82,6 +82,16 @@ if ($nivel != 1) {
                                         <input type="text" id="nombre" name="nombre" placeholder="Nombre de la categoría" class="form-control" autocomplete="off">
                                     </div>
                                 </div>
+
+                                <div class="col-lg-6">
+                                    <div class="form-group">
+                                        <div>
+                                            <label for="chkVenta">¿Obligatorio seleccionar un cliente en la venta?</label>
+                                            <bx class="bx bxs-info-circle fs-4" title="Al marcar esta casilla, todos los productos de esta categoría al ser vendidos será obligatorio seleccionar un cliente"></bx>
+                                        </div>
+                                        <input type="checkbox" id="chkVenta" name="chkVenta" value="1" style="width: 20px; height: 20px;">
+                                    </div>
+                                </div>
                             </div>
 
                             <button id="guardar" type="button" class="btn btn-primary-dast mx-2"><i class="fa fa-save mx-2"></i>Guardar</button>

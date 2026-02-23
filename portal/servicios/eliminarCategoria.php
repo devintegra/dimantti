@@ -10,7 +10,7 @@ if (isset($_POST['pk_categoria']) && is_numeric($_POST['pk_categoria'])) {
 }
 
 
-if (!$mysqli->query("UPDATE ct_categorias set estado = 0 where pk_categoria=$pk_categoria")) {
+if (!$mysqli->query("CALL sp_delete_categoria($pk_categoria)")) {
     $codigo = 201;
     $descripcion = "Error al eliminar el registro";
 }

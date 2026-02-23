@@ -27,9 +27,8 @@ if ($nivel != 1) {
 }
 
 
-$qcategorias = "SELECT * FROM ct_categorias WHERE estado = 1";
-
-if (!$rcategorias = $mysqli->query($qcategorias)) {
+$mysqli->next_result();
+if (!$rcategorias = $mysqli->query("CALL sp_get_categorias()")) {
     echo "Lo sentimos, esta aplicación está experimentando problemas.";
     exit;
 }
@@ -92,12 +91,17 @@ if (!$rcategorias = $mysqli->query($qcategorias)) {
                                         <tr>
                                             <th>ID</th>
                                             <th>Nombre de la categoría</th>
+                                            <th>Cliente obligatorio en venta</th>
                                         </tr>
                                     </thead>
                                     <tbody>
                                         <?php
 
                                         while ($row = $rcategorias->fetch_assoc()) {
+
+                                            $estatus_cliente_venta = ($row["estatus_cliente_venta"]) == 1
+                                                ? "<span class='badge-success-integra'>Si</span>"
+                                                : "<span class='badge-danger-integra'>No</span>";
 
                                             echo <<<HTML
                                                 <tr class='odd gradeX'>
@@ -106,6 +110,9 @@ if (!$rcategorias = $mysqli->query($qcategorias)) {
                                                     </td>
                                                     <td>
                                                         <a href='editarCategoria.php?id=$row[pk_categoria]'>$row[nombre]</a>
+                                                    </td>
+                                                    <td>
+                                                        $estatus_cliente_venta
                                                     </td>
                                                 </tr>
                                             HTML;

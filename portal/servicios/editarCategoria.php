@@ -15,9 +15,13 @@ if (isset($_POST['nombre']) && is_string($_POST['nombre'])) {
     $nombre = $_POST['nombre'];
 }
 
+if (isset($_POST['estatus_cliente_venta']) && is_numeric($_POST['estatus_cliente_venta'])) {
+    $estatus_cliente_venta = $_POST['estatus_cliente_venta'];
+}
 
 
-if (!$mysqli->query("UPDATE ct_categorias set nombre = '$nombre' where pk_categoria = $pk_categoria")) {
+
+if (!$mysqli->query("CALL sp_update_categoria($pk_categoria, '$nombre', $estatus_cliente_venta)")) {
     $codigo = 201;
     $descripcion = "Error al guardar el registro";
 }

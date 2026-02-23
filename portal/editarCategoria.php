@@ -32,15 +32,16 @@ if (isset($_GET['id']) && is_string($_GET['id'])) {
 }
 
 
-$qcategoria = "SELECT * FROM ct_categorias WHERE pk_categoria = $pk_categoria";
 
-if (!$rcategoria = $mysqli->query($qcategoria)) {
+$mysqli->next_result();
+if (!$rcategoria = $mysqli->query("CALL sp_get_categoria($pk_categoria)")) {
     echo "<br>Lo sentimos, esta aplicación está experimentando problemas.1";
     exit;
 }
 
 $categoria = $rcategoria->fetch_assoc();
 $nombre = $categoria["nombre"];
+$estatus_cliente_venta = $categoria["estatus_cliente_venta"];
 
 ?>
 
@@ -99,6 +100,21 @@ $nombre = $categoria["nombre"];
                                         echo <<<HTML
                                             <input type='text' id='nombre' name='nombre' placeholder='Nombre de la categoría' class='form-control' value='$nombre' autocomplete='off'>
                                             <input type='hidden' id='pk_categoria' name='pk_categoria' class='form-control' value='$pk_categoria'>
+                                        HTML;
+                                        ?>
+                                    </div>
+                                </div>
+
+                                <div class="col-lg-6">
+                                    <div class="form-group">
+                                        <div>
+                                            <label for="chkVenta">¿Obligatorio seleccionar un cliente en la venta?</label>
+                                            <bx class="bx bxs-info-circle fs-4" title="Al marcar esta casilla, todos los productos de esta categoría al ser vendidos será obligatorio seleccionar un cliente"></bx>
+                                        </div>
+                                        <?php
+                                        $checked = $estatus_cliente_venta == 1 ? "checked" : "";
+                                        echo <<<HTML
+                                            <input type="checkbox" id="chkVenta" name="chkVenta" value="1" style="width: 20px; height: 20px;" $checked>
                                         HTML;
                                         ?>
                                     </div>

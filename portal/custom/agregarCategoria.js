@@ -33,10 +33,13 @@ $("#guardar").click(function () {
 
         $.LoadingOverlay("show", {
             color: "rgba(255, 255, 255, 0)"
-        })
+        });
+
+        let estatus_cliente_venta = $('#chkVenta').is(':checked') ? 1 : 0;
 
         var formData = new FormData(document.getElementById("formuploadajax"));
         formData.append("nombre", $("#nombre").val());
+        formData.append("estatus_cliente_venta", estatus_cliente_venta);
 
         $.ajax({
             url: "servicios/agregarCategoria.php",
