@@ -1,5 +1,7 @@
 var $ = jQuery;
 
+//GUARDAR
+//#region
 function validar() {
 
     var retorno = true;
@@ -31,54 +33,9 @@ function validar() {
         $('#passc').css('background-color', '#ffdddd');
     }
 
-    if ($('#tipo').val() == 2) {
-        if ($('#sueldo').val().length == 0 || $('#sueldo').val() == 0) {
-            retorno = false;
-            $('#sueldo').css('background-color', '#ffdddd');
-        }
-
-        if ($('#comision').val().length == 0) {
-            retorno = false;
-            $('#comision').css('background-color', '#ffdddd');
-        }
-    }
-
     return retorno;
 
 }
-
-
-function imgSeleccionada(seleccion) {
-    $('#img-seleccion').val(seleccion);
-}
-
-
-$('#ver_password').click(function () {
-    var tipo = document.getElementById("pass");
-    if (tipo.type == "password") {
-        tipo.type = "text";
-        $('#ver_password').css('color', '#368FCD');
-        $('#ver_password').attr("title", "Ocultar contraseña");
-    } else {
-        tipo.type = "password";
-        $('#ver_password').css('color', '#918D8D');
-        $('#ver_password').attr("title", "Mostrar contraseña");
-    }
-});
-
-
-$('#ver_passwordc').click(function () {
-    var tipo = document.getElementById("passc");
-    if (tipo.type == "password") {
-        tipo.type = "text";
-        $('#ver_passwordc').css('color', '#368FCD');
-        $('#ver_passwordc').attr("title", "Ocultar contraseña");
-    } else {
-        tipo.type = "password";
-        $('#ver_passwordc').css('color', '#918D8D');
-        $('#ver_passwordc').attr("title", "Mostrar contraseña");
-    }
-});
 
 
 $('#guardar').click(function () {
@@ -140,10 +97,42 @@ $('#guardar').click(function () {
 
     }
 });
+//#endregion
 
 
-$('#salir').click(function () {
-    $(location).attr("href", "index.php");
+
+//EXTRAS
+//#region
+function imgSeleccionada(seleccion) {
+    $('#img-seleccion').val(seleccion);
+}
+
+
+$('#ver_password').click(function () {
+    var tipo = document.getElementById("pass");
+    if (tipo.type == "password") {
+        tipo.type = "text";
+        $('#ver_password').css('color', '#368FCD');
+        $('#ver_password').attr("title", "Ocultar contraseña");
+    } else {
+        tipo.type = "password";
+        $('#ver_password').css('color', '#918D8D');
+        $('#ver_password').attr("title", "Mostrar contraseña");
+    }
+});
+
+
+$('#ver_passwordc').click(function () {
+    var tipo = document.getElementById("passc");
+    if (tipo.type == "password") {
+        tipo.type = "text";
+        $('#ver_passwordc').css('color', '#368FCD');
+        $('#ver_passwordc').attr("title", "Ocultar contraseña");
+    } else {
+        tipo.type = "password";
+        $('#ver_passwordc').css('color', '#918D8D');
+        $('#ver_passwordc').attr("title", "Mostrar contraseña");
+    }
 });
 
 
@@ -151,16 +140,17 @@ $("#tipo").change(function () {
 
     let tipo = $("#tipo").val();
 
-    if (tipo == 1 || tipo == 0) {
+    if (tipo == 0 || tipo == 1 || tipo == 4) {
         $("#sucursal").attr("disabled", "disabled");
     } else {
         $("#sucursal").removeAttr("disabled");
     }
 
-    if (tipo == 2) {
-        $("#contentNomina").removeClass("d-none");
-    } else {
-        $("#contentNomina").addClass("d-none");
-    }
+    // if (tipo == 2 || tipo == 4) {
+    //     $("#contentNomina").removeClass("d-none");
+    // } else {
+    //     $("#contentNomina").addClass("d-none");
+    // }
 
 });
+//#endregion

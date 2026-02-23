@@ -3,13 +3,7 @@ var $ = jQuery;
 
 $(document).ready(function () {
 
-    if ($("#tipo").val() != 1) {
-        $("#sucursal").removeAttr("disabled");
-    }
-
-    if ($("#tipo").val() == 2) {
-        $("#contentNomina").removeClass("d-none");
-    }
+    updateInputSucursalAndNomina();
 
 });
 
@@ -39,18 +33,6 @@ function validar() {
         retorno = false;
         $('#pass').css('background-color', '#ffdddd');
         $('#passc').css('background-color', '#ffdddd');
-    }
-
-    if ($('#tipo').val() == 2) {
-        if ($('#sueldo').val().length == 0 || $('#sueldo').val() == 0) {
-            retorno = false;
-            $('#sueldo').css('background-color', '#ffdddd');
-        }
-
-        if ($('#comision').val().length == 0) {
-            retorno = false;
-            $('#comision').css('background-color', '#ffdddd');
-        }
     }
 
     return retorno;
@@ -223,26 +205,26 @@ $('#ver_passwordc').click(function () {
 });
 
 
-$('#salir').click(function () {
-    $(location).attr("href", "index.php");
+$("#tipo").change(function () {
+    updateInputSucursalAndNomina();
 });
 
 
-$("#tipo").change(function () {
+function updateInputSucursalAndNomina() {
 
     let tipo = $("#tipo").val();
 
-    if (tipo != 1) {
-        $("#sucursal").removeAttr("disabled");
-    } else {
+    if (tipo == 0 || tipo == 1 || tipo == 4) {
         $("#sucursal").attr("disabled", "disabled");
-    }
-
-    if (tipo == 2) {
-        $("#contentNomina").removeClass("d-none");
     } else {
-        $("#contentNomina").addClass("d-none");
+        $("#sucursal").removeAttr("disabled");
     }
 
-});
+    // if (tipo == 2 || tipo == 4) {
+    //     $("#contentNomina").removeClass("d-none");
+    // } else {
+    //     $("#contentNomina").addClass("d-none");
+    // }
+
+}
 //#endregion

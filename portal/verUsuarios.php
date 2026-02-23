@@ -100,6 +100,12 @@ if ($nivel == 1) {
                                             case 2:
                                                 $tipou = "<p class='badge-primary-integra'>Vendedor</p>";
                                                 break;
+                                            case 3:
+                                                $tipou = "<p class='badge-warning-integra'>Joyero</p>";
+                                                break;
+                                            case 4:
+                                                $tipou = "<p class='badge-purple-integra'>Vendedor multisucursal</p>";
+                                                break;
                                         }
 
 

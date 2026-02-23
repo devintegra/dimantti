@@ -62,7 +62,8 @@ if (!$rsucursales = $mysqli->query($qsucursales)) {
 #region
 $arrayUsuarios = array(
     array('id' => 1, 'nombre' => 'Administrador'),
-    array('id' => 2, 'nombre' => 'Vendedor')
+    array('id' => 2, 'nombre' => 'Vendedor'),
+    array('id' => 4, 'nombre' => 'Vendedor multisucursal')
 );
 #endregion
 
@@ -110,30 +111,39 @@ $arrayUsuarios = array(
                         <div class="d-flex justify-content-between">
                             <h4 class="card-title">Editar usuario</h4>
                             <i class='bx bx-user' style="font-size:32px"></i>
+                            <?php
+                            echo <<<HTML
+                                <input type="hidden" id="empresa" name="text-input" value="$empresa">
+                                <input type='hidden' id='id' value='$pk_usuario'>
+                            HTML;
+                            ?>
                         </div>
                         <form class="forms-sample">
 
                             <div class="row">
-                                <div class="col-lg-6">
-                                    <div class="form-group">
-                                        <label for="tipo">Tipo</label>
-                                        <select class="form-control" id='tipo'>
-                                            <option value="0">SELECCIONE</option>
-                                            <?php
-                                            foreach ($arrayUsuarios as $rowu) {
-                                                if ($rowu['id'] == $nivelu) {
-                                                    echo "<option value='$rowu[id]' selected>$rowu[nombre]</option>";
-                                                } else {
-                                                    echo "<option value='$rowu[id]'>$rowu[nombre]</option>";
+                                <?php if ($nivelu != 3): ?>
+                                    <div class="col-lg-6">
+                                        <div class="form-group">
+                                            <label for="tipo">Tipo</label>
+                                            <select class="form-control" id='tipo'>
+                                                <option value="0">SELECCIONE</option>
+                                                <?php
+                                                foreach ($arrayUsuarios as $rowu) {
+                                                    if ($rowu['id'] == $nivelu) {
+                                                        echo "<option value='$rowu[id]' selected>$rowu[nombre]</option>";
+                                                    } else {
+                                                        echo "<option value='$rowu[id]'>$rowu[nombre]</option>";
+                                                    }
                                                 }
-                                            }
-                                            ?>
-                                        </select>
-                                        <?php
-                                        echo "<input type=\"hidden\" id=\"empresa\" name=\"text-input\" value=\"$empresa\">";
-                                        ?>
+                                                ?>
+                                            </select>
+                                        </div>
                                     </div>
-                                </div>
+                                <?php else: ?>
+                                    <?php
+                                    echo "<input type='hidden' id='tipo' name='text-input' value='$nivelu'>";
+                                    ?>
+                                <?php endif; ?>
                                 <div class="col-lg-6">
                                     <div class="form-group">
                                         <label for="nombre">Nombre</label>
@@ -215,12 +225,14 @@ $arrayUsuarios = array(
                             <?php
 
                             if ($nivel == 1) {
-                                echo "<div class='row'>
-                                            <div class='col-lg-6'>
-                                                <div class='form-group'>
+                                echo <<<HTML
+                                    <div class='row'>
+                                        <div class='col-lg-6'>
+                                            <div class='form-group'>
                                                 <label for='text-input' class='form-control-label'>Sucursal</label>
                                                 <select id='sucursal' class='form-control' disabled>
-                                        ";
+                                                    <option value='0'>SELECCIONE</option>
+                                HTML;
                                 while ($sucursales = $rsucursales->fetch_assoc()) {
                                     if ($sucursales['pk_sucursal'] == $sucursal) {
                                         echo "<option value='$sucursales[pk_sucursal]' selected>$sucursales[nombre]</option>";
@@ -228,10 +240,12 @@ $arrayUsuarios = array(
                                         echo "<option value='$sucursales[pk_sucursal]'>$sucursales[nombre]</option>";
                                     }
                                 }
-                                echo "</select>
+                                echo <<<HTML
+                                                </select>
                                             </div>
                                         </div>
-                                    </div>";
+                                    </div>
+                                HTML;
                             } else {
                                 echo "<input type='hidden' id='sucursal' value='$pk_sucursal'>";
                             }
@@ -240,11 +254,14 @@ $arrayUsuarios = array(
 
                             <div class="row d-flex justify-content-center">
                                 <?php
-                                echo "<input type='hidden' id='id' value='$pk_usuario'>";
+                                if ($nivelu != 3) {
+                                    echo <<<HTML
+                                        <div class="row col-lg-4 m-2">
+                                            <button id="eliminar" type="button" class="btn btn-danger mx-2 d-flex justify-content-center align-items-center"><i class='bx bx-x-circle mx-2' style="font-size: 20px;"></i>Eliminar</button>
+                                        </div>
+                                    HTML;
+                                }
                                 ?>
-                                <div class="row col-lg-4 m-2">
-                                    <button id="eliminar" type="button" class="btn btn-danger mx-2 d-flex justify-content-center align-items-center"><i class='bx bx-x-circle mx-2' style="font-size: 20px;"></i>Eliminar</button>
-                                </div>
                                 <div class="row col-lg-4 m-2">
                                     <button id="guardar" type="button" class="btn btn-primary-dast mx-2"><i class="fa fa-save mx-2"></i>Guardar</button>
                                 </div>
@@ -267,7 +284,7 @@ $arrayUsuarios = array(
     <script src="assets/loading/loadingoverlay.js"></script>
     <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
-    <script src="custom/editarUsuario.js"></script>
+    <script src="custom/editarUsuario.js?v=<?= time(); ?>"></script>
 
 </body>
 

@@ -15,13 +15,6 @@ if ($nivel == 1) {
     $menu = "fragments/menua.php";
 }
 
-if ($nivel == 2) {
-    $pk_sucursal = $_SESSION["pk_sucursal"];
-    $tipo = "Chofer";
-    $menu = "fragments/menub.php";
-}
-
-
 if ($nivel != 1) {
     header('Location: ../index.php');
 }
@@ -96,6 +89,7 @@ if (!$rsucursales = $mysqli->query($qsucursales)) {
                                             <option value='0'>SELECCIONE</option>
                                             <option value='1'>Administrador</option>
                                             <option value='2'>Vendedor</option>
+                                            <option value='4'>Vendedor multisucursal</option>
                                         </select>
 
                                         <?php
@@ -166,19 +160,23 @@ if (!$rsucursales = $mysqli->query($qsucursales)) {
                             <?php
 
                             if ($nivel == 1) {
-                                echo "<div class='row'>
-                                            <div class='col-lg-6'>
-                                                <div class='form-group'>
-                                                    <label for='sucursal'class='d-flex align-items-center gap-2'> <i class='bx bx-store-alt fs-5'></i>Sucursal</label>
-                                                    <select id='sucursal' class='form-control' disabled>
-                                            ";
+                                echo <<<HTML
+                                    <div class='row'>
+                                        <div class='col-lg-6'>
+                                            <div class='form-group'>
+                                                <label for='sucursal'class='d-flex align-items-center gap-2'> <i class='bx bx-store-alt fs-5'></i>Sucursal</label>
+                                                <select id='sucursal' class='form-control' disabled>
+                                                    <option value='0'>SELECCIONE</option>
+                                HTML;
                                 while ($sucursales = $rsucursales->fetch_assoc()) {
                                     echo "<option value='$sucursales[pk_sucursal]'>$sucursales[nombre]</option>";
                                 }
-                                echo "</select>
+                                echo <<<HTML
+                                                </select>
                                             </div>
                                         </div>
-                                    </div>";
+                                    </div>
+                                HTML;
                             } else {
                                 echo "<input type='hidden' id='sucursal' value='$pk_sucursal'>";
                             }
@@ -203,7 +201,7 @@ if (!$rsucursales = $mysqli->query($qsucursales)) {
     <script src="assets/main.js"></script>
     <script src="assets/loading/loadingoverlay.js"></script>
     <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
-    <script src="custom/agregarUsuario.js"></script>
+    <script src="custom/agregarUsuario.js?v=<?= time(); ?>"></script>
 
 </body>
 
