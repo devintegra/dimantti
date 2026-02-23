@@ -71,7 +71,7 @@ if ($nivel != 1) {
                     <div class="card-body">
                         <div class="d-flex justify-content-between">
                             <h4 class="card-title">Nueva categoría</h4>
-                            <i class='bx bx-area' style="font-size:32px"></i>
+                            <i class='bx bx-diamond' style="font-size:32px"></i>
                         </div>
                         <form class="forms-sample" enctype="multipart/form-data" id="formuploadajax">
 

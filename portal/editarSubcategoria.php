@@ -16,8 +16,14 @@ if ($nivel == 1) {
 
 if ($nivel == 2) {
     $pk_sucursal = $_SESSION["pk_sucursal"];
-    $tipo = "Chofer";
+    $tipo = "Vendedor";
     $menu = "fragments/menub.php";
+}
+
+if ($nivel == 3) {
+    $tipo = "Técnico";
+    $pk_sucursal = $_SESSION["pk_sucursal"];
+    $menu = "fragments/menuc.php";
 }
 
 
@@ -28,19 +34,31 @@ if ($nivel != 1) {
 mysqli_set_charset($mysqli, 'utf8');
 
 if (isset($_GET['id']) && is_string($_GET['id'])) {
-    $pk_categoria = (int)$_GET['id'];
+    $pk_subcategoria = (int)$_GET['id'];
 }
 
 
-$qcategoria = "SELECT * FROM ct_categorias WHERE pk_categoria = $pk_categoria";
-
-if (!$rcategoria = $mysqli->query($qcategoria)) {
+//DATOS
+$mysqli->next_result();
+if (!$rsp_get_subcategoria = $mysqli->query("CALL sp_get_subcategoria($pk_subcategoria)")) {
     echo "<br>Lo sentimos, esta aplicación está experimentando problemas.1";
     exit;
 }
 
-$categoria = $rcategoria->fetch_assoc();
-$nombre = $categoria["nombre"];
+$rows = $rsp_get_subcategoria->fetch_assoc();
+$nombre = $rows["nombre"];
+$fk_categoria = $rows["fk_categoria"];
+$estado = $rows["estado"];
+
+
+
+//CATEGORIAS
+$mysqli->next_result();
+if (!$rcategorias = $mysqli->query("CALL sp_get_categorias()")) {
+    echo "Lo sentimos, esta aplicación está experimentando problemas";
+    exit;
+}
+
 
 ?>
 
@@ -87,20 +105,53 @@ $nombre = $categoria["nombre"];
                 <div class="card">
                     <div class="card-body">
                         <div class="d-flex justify-content-between">
-                            <h4 class="card-title">Editar categoría</h4>
+                            <h4 class="card-title">Editar subcategoría</h4>
                             <i class='bx bx-diamond' style="font-size:32px"></i>
                         </div>
                         <form class="forms-sample" enctype="multipart/form-data" id="formuploadajax">
                             <div class="row">
-                                <div class="col-lg-6">
+                                <div class="col-lg-4">
                                     <div class="form-group">
-                                        <label for="nombre">Nombre</label>
+                                        <label for="categoria">Categoría</label>
+                                        <select class='form-control' id='categoria'>
+                                            <option value="0">Seleccione</option>
+                                            <?php
+                                            while ($rowc = $rcategorias->fetch_assoc()) {
+                                                if ($rowc["pk_categoria"] == $fk_categoria) {
+                                                    echo "<option value='$rowc[pk_categoria]' selected>$rowc[nombre]</option>";
+                                                } else {
+                                                    echo "<option value='$rowc[pk_categoria]'>$rowc[nombre]</option>";
+                                                }
+                                            }
+                                            ?>
+                                        </select>
+                                    </div>
+                                </div>
+
+                                <div class="col-lg-4">
+                                    <div class="form-group">
+                                        <label for="nombre">Nombre de la subcategoría</label>
                                         <?php
-                                        echo <<<HTML
-                                            <input type='text' id='nombre' name='nombre' placeholder='Nombre de la categoría' class='form-control' value='$nombre' autocomplete='off'>
-                                            <input type='hidden' id='pk_categoria' name='pk_categoria' class='form-control' value='$pk_categoria'>
-                                        HTML;
+                                        echo "<input type='text' id='nombre' name='nombre' placeholder='Nombre de la marca' class='form-control' value='$nombre'>
+                                        <input type='hidden' id='pk_subcategoria' name='pk_subcategoria' class='form-control' value='$pk_subcategoria'>";
                                         ?>
+                                    </div>
+                                </div>
+
+                                <div class="col-lg-4">
+                                    <div class="form-group">
+                                        <label for="estado">Estado</label>
+                                        <select class="form-control" id="estado">
+                                            <?php
+                                            if ($estado == 0) {
+                                                echo "<option value='0' selected>Inactivo</option>
+                                                <option value='1'>Activo</option>";
+                                            } else {
+                                                echo "<option value='0'>Inactivo</option>
+                                                <option value='1' selected>Activo</option>";
+                                            }
+                                            ?>
+                                        </select>
                                     </div>
                                 </div>
                             </div>
@@ -135,7 +186,7 @@ $nombre = $categoria["nombre"];
     <script src="assets/loading/loadingoverlay.js"></script>
     <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
     <script src="custom/jquery.confirm.js"></script>
-    <script src="custom/editarCategoria.js"></script>
+    <script src="custom/editarSubcategoria.js"></script>
 
 
 </body>
