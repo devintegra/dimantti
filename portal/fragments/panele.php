@@ -130,11 +130,8 @@ $nproductos = $productos["total"];
                         <div class="d-flex flex-wrap justify-content-center align-items-center">
                             <div>
                                 <h4 class="mb-0">
-                                    <?php
-                                    echo "<span class=\"count\">$nproductos</span>";
-                                    ?>
+                                    Existencias
                                 </h4>
-                                <p class="text-light">Productos</p>
                             </div>
 
                         </div>
@@ -144,7 +141,7 @@ $nproductos = $productos["total"];
                     </div>
 
                     <div class="footer px-0 d-flex justify-content-center align-items-end text-center pb-3" style="height:40px;" height="70">
-                        <a href="verProductos.php">Ver productos</a>
+                        <a href="verExistencias.php">Ver almacén</a>
                     </div>
                 </div>
             </div>

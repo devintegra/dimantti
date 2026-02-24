@@ -33,7 +33,7 @@ function validar() {
         $('#passc').css('background-color', '#ffdddd');
     }
 
-    if ($('#tipo').val() == 2) {
+    if ($('#tipo').val() == 2 || $('#tipo').val() == 5) {
         if ($('#sucursal').val() == 0) {
             retorno = false;
             $('#sucursal').css('background-color', '#ffdddd');

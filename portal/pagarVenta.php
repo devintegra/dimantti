@@ -20,15 +20,24 @@ if ($nivel == 1) {
 }
 
 if ($nivel == 2) {
-    $pk_sucursal = $_SESSION["pk_sucursal"];
-    $tipo = "Chofer";
+    $tipo = "Vendedor";
     $menu = "fragments/menub.php";
 }
 
+if ($nivel == 4) {
+    $tipo = "Vendedor multisucursal";
+    $menu = "fragments/menud.php";
+}
 
-if ($nivel != 1) {
+if ($nivel == 5) {
+    $tipo = "Administrador de sucursal";
+    $menu = "fragments/menue.php";
+}
+
+if ($nivel != 1 && $nivel != 2 && $nivel != 4 && $nivel != 5) {
     header('Location: ../index.php');
 }
+
 
 mysqli_set_charset($mysqli, 'utf8');
 
@@ -150,7 +159,7 @@ if (!$rsucursales = $mysqli->query($qsucursales)) {
                                 <div class="col-lg-4">
                                     <div class="form-group">
                                         <label for="monto">Monto</label>
-                                        <input type="text" class="form-control" id="monto" name="monto" placeholder="Monto">
+                                        <input type="text" class="form-control" id="monto" name="monto" placeholder="Monto" autocomplete="off">
                                         <?php
                                         echo "<input type='hidden' id='fk_venta' name='text-input' value='$pk_venta'>
                                         <input type='hidden' id='fk_usuario' name='text-input' value='$usuario'>

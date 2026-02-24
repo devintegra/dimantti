@@ -119,7 +119,7 @@ if ($codigo == 200) {
 
         //EXISTENCIAS
         if ($codigo == 200) {
-            if (!$mysqli->query("UPDATE tr_existencias SET cantidad = cantidad + $value[cantidad] WHERE fk_sucursal = $fk_sucursal AND fk_producto = $pk_producto AND serie = '$value[serie]' AND fk_almacen = $fk_almacen AND estado = 1")) {
+            if (!$mysqli->query("UPDATE tr_existencias SET cantidad = cantidad + $value[cantidad] WHERE fk_sucursal = $fk_sucursal AND fk_producto = $pk_producto AND fk_almacen = $fk_almacen AND estado = 1")) {
                 $codigo = 201;
                 $descripcion = "Hubo un problema, porfavor vuelva a intentarlo!";
             }

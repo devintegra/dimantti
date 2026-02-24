@@ -20,12 +20,24 @@ if ($nivel == 1) {
 
 if ($nivel == 2) {
     $fk_sucursal = $_SESSION["pk_sucursal"];
-    $tipo = "Chofer";
+    $tipo = "Vendedor";
     $menu = "fragments/menub.php";
 }
 
+if ($nivel == 4) {
+    $fk_sucursal = $_SESSION["pk_sucursal"];
+    $tipo = "Vendedor multisucursal";
+    $menu = "fragments/menud.php";
+}
 
-if ($nivel != 1) {
+if ($nivel == 5) {
+    $fk_sucursal = $_SESSION["pk_sucursal"];
+    $tipo = "Administrador de sucursal";
+    $menu = "fragments/menue.php";
+}
+
+
+if ($nivel != 1 && $nivel != 2 && $nivel != 4 && $nivel != 5) {
     header('Location: ../index.php');
 }
 
@@ -92,11 +104,7 @@ if (!$rpagos = $mysqli->query($qpagos)) {
                     <div class="card-body">
                         <div class="d-flex justify-content-between">
                             <h4 class="card-title">Ventas</h4>
-                            <?php
-                            if ($nivel == 1) {
-                                echo "<a href='puntoVenta.php'><button type='button' class='btn btn-social-icon-text btn-add'><i class='bx bx-plus'></i>Nueva venta</button></a>";
-                            }
-                            ?>
+                            <a href='puntoVenta.php'><button type='button' class='btn btn-social-icon-text btn-add'><i class='bx bx-plus'></i>Nueva venta</button></a>
                         </div>
 
                         <?php

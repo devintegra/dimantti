@@ -17,12 +17,6 @@ if ($nivel == 1) {
     $menu = "fragments/menua.php";
 }
 
-if ($nivel == 2) {
-    $tipo = "Chofer";
-    $pk_sucursal = $_SESSION["pk_sucursal"];
-    $menu = "fragments/menub.php";
-}
-
 if ($nivel != 1) {
     header('Location: ../index.php');
 }
@@ -203,7 +197,7 @@ if (!$rproductos = $mysqli->query($qproductos)) {
 
                                         <div class="col-sm-12 col-lg-4">
                                             <div class="form-group">
-                                                <label for="clave" class=" form-control-label"><i class='bx bxs-devices fs-5'></i>Producto</label>
+                                                <label for="clave" class=" form-control-label"><i class='bx bx-shopping-bag fs-5'></i>Producto</label>
                                                 <select id="clave" class="select2 form-control select2-hidden-accessible" style="width: 100%;" multiple>
                                                     <option value=""></option>
                                                     <?php

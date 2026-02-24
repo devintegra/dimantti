@@ -24,17 +24,7 @@ if ($nivel == 1) {
     $panel = "fragments/panela.php";
 }
 
-if ($nivel == 2) {
-    $tipo = "Vendedor";
-    $menu = "fragments/menub.php";
-}
-
-if ($nivel == 3) {
-    $tipo = "Tecnico";
-    $menu = "fragments/menuc.php";
-}
-
-if ($nivel != 1 && $nivel != 2 && $nivel != 3) {
+if ($nivel != 1) {
     header('Location: ../index.php');
 }
 

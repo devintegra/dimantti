@@ -18,10 +18,8 @@ if ($nivel == 1) {
     $menu = "fragments/menua.php";
 }
 
-if ($nivel == 2) {
-    $pk_sucursal = 0;
-    $tipo = "Chofer";
-    $menu = "fragments/menub.php";
+if ($nivel != 1) {
+    header('Location: ../index.php');
 }
 
 

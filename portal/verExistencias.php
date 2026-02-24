@@ -16,12 +16,23 @@ if ($nivel == 1) {
 
 if ($nivel == 2) {
     $pk_sucursal = $_SESSION["pk_sucursal"];
-    $tipo = "Chofer";
+    $tipo = "Vendedor";
     $menu = "fragments/menub.php";
 }
 
+if ($nivel == 4) {
+    $pk_sucursal = $_SESSION["pk_sucursal"];
+    $tipo = "Vendedor multisucursal";
+    $menu = "fragments/menud.php";
+}
 
-if ($nivel != 1) {
+if ($nivel == 5) {
+    $pk_sucursal = $_SESSION["pk_sucursal"];
+    $tipo = "Administrador de sucursal";
+    $menu = "fragments/menue.php";
+}
+
+if ($nivel != 1 && $nivel != 2 && $nivel != 4 && $nivel != 5) {
     header('Location: ../index.php');
 }
 

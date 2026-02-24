@@ -1,5 +1,4 @@
 <?php
-
 header('Cache-control: private');
 include("servicios/conexioni.php");
 mysqli_set_charset($mysqli, 'utf8');
@@ -102,7 +101,7 @@ $avatar = $usuarios["imagen"];
             <li class="nav-item font-weight-semibold d-none d-lg-block ms-0">
                 <div class="welcome-sub-text d-flex gap-3 justify-content-start align-items-center">
                     <h1 class="welcome-text fs-1"><span class="text-black fw-bold">Hola, <?php echo $nombre_usuario ?></span></h1>
-                    <p class="badge-success-integra fs-6">Administrador(a)</p>
+                    <p class="badge-purple-integra fs-6">Vendedor(a) multisucursal</p>
                 </div>
                 <h3 class="welcome-sub-text"> ¡Bienvenido!</h3>
                 <?php echo "<input type='hidden' id='nivel_usuario' value='$nivel_usuario' class='form-control'>"; ?>
@@ -302,143 +301,6 @@ $avatar = $usuarios["imagen"];
                 </a>
             </li>
             <li class="nav-item nav-category">MENU PRINCIPAL</li>
-            <!--KNOWLEDGE-->
-            <li class="nav-item">
-                <a class="nav-link" data-bs-toggle="collapse" href="#configuracion" aria-expanded="false" aria-controls="configuracion">
-                    <i class='bx bx-brain left-panel-icons'></i>
-                    <span class="menu-title">Configuración</span>
-                    <i class="menu-arrow"></i>
-                </a>
-                <div class="collapse" id="configuracion">
-                    <ul class="nav flex-column sub-menu">
-                        <li class="nav-item"><a class="nav-link" href="../portal/editarParametros.php">Parámetros de config.</a></li>
-                    </ul>
-                </div>
-                <div class="collapse" id="configuracion">
-                    <ul class="nav flex-column sub-menu">
-                        <li class="nav-item"><a class="nav-link" href="../portal/verCategorias.php">Categorías</a></li>
-                    </ul>
-                </div>
-                <div class="collapse" id="configuracion">
-                    <ul class="nav flex-column sub-menu">
-                        <li class="nav-item"><a class="nav-link" href="../portal/verSubcategorias.php">Subcategorías</a></li>
-                    </ul>
-                </div>
-                <div class="collapse" id="configuracion">
-                    <ul class="nav flex-column sub-menu">
-                        <li class="nav-item"><a class="nav-link" href="../portal/verMetales.php">Tipos de metales</a></li>
-                    </ul>
-                </div>
-                <div class="collapse" id="configuracion">
-                    <ul class="nav flex-column sub-menu">
-                        <li class="nav-item"><a class="nav-link" href="../portal/verPagos.php">Tipos de pago</a></li>
-                    </ul>
-                </div>
-                <div class="collapse" id="configuracion">
-                    <ul class="nav flex-column sub-menu">
-                        <li class="nav-item"><a class="nav-link" href="../portal/verMotivosSalida.php">Motivos de salida</a></li>
-                    </ul>
-                </div>
-                <div class="collapse" id="configuracion">
-                    <ul class="nav flex-column sub-menu">
-                        <li class="nav-item"><a class="nav-link" href="../portal/verMretiros.php">Motivos de retiro</a></li>
-                    </ul>
-                </div>
-                <div class="collapse" id="configuracion">
-                    <ul class="nav flex-column sub-menu">
-                        <li class="nav-item"><a class="nav-link" href="../portal/verClausulas.php">Cláusulas de garantía</a></li>
-                    </ul>
-                </div>
-            </li>
-
-            <!--EMPRESAS-->
-            <li class="nav-item">
-                <a class="nav-link" data-bs-toggle="collapse" href="#empresas" aria-expanded="false" aria-controls="charts">
-                    <i class='bx bx-buildings left-panel-icons'></i>
-                    <span class="menu-title">Empresas</span>
-                    <i class="menu-arrow"></i>
-                </a>
-                <div class="collapse" id="empresas">
-                    <ul class="nav flex-column sub-menu">
-                        <li class="nav-item"> <a class="nav-link" href="../portal/verEmpresas.php">Mi Empresa</a></li>
-                    </ul>
-                </div>
-            </li>
-
-            <!--USUARIOS-->
-            <li class="nav-item">
-                <a class="nav-link" data-bs-toggle="collapse" href="#usuarios" aria-expanded="false" aria-controls="charts">
-                    <i class='bx bx-user left-panel-icons'></i>
-                    <span class="menu-title">Usuarios</span>
-                    <i class="menu-arrow"></i>
-                </a>
-                <div class="collapse" id="usuarios">
-                    <ul class="nav flex-column sub-menu">
-                        <li class="nav-item"> <a class="nav-link" href="../portal/verUsuarios.php">ABC Usuarios</a></li>
-                    </ul>
-                </div>
-                <div class="collapse" id="usuarios">
-                    <ul class="nav flex-column sub-menu">
-                        <li class="nav-item"> <a class="nav-link" href="../portal/verPrestamos.php">Prestamos</a></li>
-                    </ul>
-                </div>
-            </li>
-
-            <!--SUCURSALES-->
-            <li class="nav-item">
-                <a class="nav-link" data-bs-toggle="collapse" href="#sucursales" aria-expanded="false" aria-controls="charts">
-                    <i class='bx bx-store left-panel-icons'></i>
-                    <span class="menu-title">Sucursales</span>
-                    <i class="menu-arrow"></i>
-                </a>
-                <div class="collapse" id="sucursales">
-                    <ul class="nav flex-column sub-menu">
-                        <li class="nav-item"> <a class="nav-link" href="../portal/verSucursales.php">ABC Sucursales</a></li>
-                    </ul>
-                </div>
-            </li>
-
-            <!--CLIENTES-->
-            <li class="nav-item">
-                <a class="nav-link" data-bs-toggle="collapse" href="#clientes" aria-expanded="false" aria-controls="charts">
-                    <i class='bx bx-user left-panel-icons'></i>
-                    <span class="menu-title">Clientes</span>
-                    <i class="menu-arrow"></i>
-                </a>
-                <div class="collapse" id="clientes">
-                    <ul class="nav flex-column sub-menu">
-                        <li class="nav-item"> <a class="nav-link" href="../portal/verClientes.php">ABC Clientes</a></li>
-                    </ul>
-                </div>
-            </li>
-
-            <!--PROVEEDORES-->
-            <li class="nav-item">
-                <a class="nav-link" data-bs-toggle="collapse" href="#proveedores" aria-expanded="false" aria-controls="charts">
-                    <i class='bx bx-group left-panel-icons'></i>
-                    <span class="menu-title">Proveedores</span>
-                    <i class="menu-arrow"></i>
-                </a>
-                <div class="collapse" id="proveedores">
-                    <ul class="nav flex-column sub-menu">
-                        <li class="nav-item"> <a class="nav-link" href="../portal/verProveedores.php">ABC Proveedores</a></li>
-                    </ul>
-                </div>
-            </li>
-
-            <!--PRODUCTOS-->
-            <li class="nav-item">
-                <a class="nav-link" data-bs-toggle="collapse" href="#productos" aria-expanded="false" aria-controls="charts">
-                    <i class='bx bx-shopping-bag left-panel-icons'></i>
-                    <span class="menu-title">Productos</span>
-                    <i class="menu-arrow"></i>
-                </a>
-                <div class="collapse" id="productos">
-                    <ul class="nav flex-column sub-menu">
-                        <li class="nav-item"> <a class="nav-link" href="../portal/verProductos.php">ABC Productos</a></li>
-                    </ul>
-                </div>
-            </li>
 
             <!--ALMACEN-->
             <li class="nav-item">
@@ -450,36 +312,6 @@ $avatar = $usuarios["imagen"];
                 <div class="collapse" id="almacen">
                     <ul class="nav flex-column sub-menu">
                         <li class="nav-item"> <a class="nav-link" href="../portal/verExistencias.php">Existencias</a></li>
-                    </ul>
-                </div>
-                <div class="collapse" id="almacen">
-                    <ul class="nav flex-column sub-menu">
-                        <li class="nav-item"> <a class="nav-link" href="../portal/verInventario.php">Registro de inventario</a></li>
-                    </ul>
-                </div>
-                <div class="collapse" id="almacen">
-                    <ul class="nav flex-column sub-menu">
-                        <li class="nav-item"> <a class="nav-link" href="../portal/verMovimientos.php">Bitácora de movimientos</a></li>
-                    </ul>
-                </div>
-                <div class="collapse" id="almacen">
-                    <ul class="nav flex-column sub-menu">
-                        <li class="nav-item"> <a class="nav-link" href="../portal/verCompras.php">Historial de Compras</a></li>
-                    </ul>
-                </div>
-                <div class="collapse" id="almacen">
-                    <ul class="nav flex-column sub-menu">
-                        <li class="nav-item"> <a class="nav-link" href="../portal/verEntradas.php">Entradas desde compras</a></li>
-                    </ul>
-                </div>
-                <div class="collapse" id="almacen">
-                    <ul class="nav flex-column sub-menu">
-                        <li class="nav-item"> <a class="nav-link" href="../portal/verEntradasD.php">Entradas directas</a></li>
-                    </ul>
-                </div>
-                <div class="collapse" id="almacen">
-                    <ul class="nav flex-column sub-menu">
-                        <li class="nav-item"> <a class="nav-link" href="../portal/verSalidasAlmacen.php">Salidas directas</a></li>
                     </ul>
                 </div>
             </li>
@@ -499,109 +331,6 @@ $avatar = $usuarios["imagen"];
                 <div class="collapse" id="ventas">
                     <ul class="nav flex-column sub-menu">
                         <li class="nav-item"> <a class="nav-link" href="../portal/verVentas.php">Historial de ventas</a></li>
-                    </ul>
-                </div>
-                <div class="collapse" id="ventas">
-                    <ul class="nav flex-column sub-menu">
-                        <li class="nav-item"> <a class="nav-link" href="../portal/verDevoluciones.php">Historial de devoluciones</a></li>
-                    </ul>
-                </div>
-                <div class="collapse" id="ventas">
-                    <ul class="nav flex-column sub-menu">
-                        <li class="nav-item"> <a class="nav-link" href="../portal/verFacturasHistorial.php">Historial de facturas</a></li>
-                    </ul>
-                </div>
-                <div class="collapse" id="ventas">
-                    <ul class="nav flex-column sub-menu">
-                        <li class="nav-item"> <a class="nav-link" href="../portal/validarPagos.php">Validador de pagos</a></li>
-                    </ul>
-                </div>
-                <div class="collapse" id="ventas">
-                    <ul class="nav flex-column sub-menu">
-                        <li class="nav-item"> <a class="nav-link" href="../portal/verCortes.php">Cortes de caja</a></li>
-                    </ul>
-                </div>
-                <div class="collapse" id="ventas">
-                    <ul class="nav flex-column sub-menu">
-                        <li class="nav-item"> <a class="nav-link" href="../portal/verRetiros.php">Retiros de caja</a></li>
-                    </ul>
-                </div>
-            </li>
-
-            <!--ORDENES-->
-            <li class="nav-item">
-                <a class="nav-link" data-bs-toggle="collapse" href="#ordenes" aria-expanded="false" aria-controls="charts">
-                    <i class='bx bx-cog left-panel-icons'></i>
-                    <span class="menu-title">Ordenes</span>
-                    <i class="menu-arrow"></i>
-                </a>
-                <div class="collapse" id="ordenes">
-                    <ul class="nav flex-column sub-menu">
-                        <li class="nav-item"> <a class="nav-link" href="../portal/verOrdenes.php">Ver ordenes</a></li>
-                    </ul>
-                </div>
-                <div class="collapse" id="ordenes">
-                    <ul class="nav flex-column sub-menu">
-                        <li class="nav-item"> <a class="nav-link" href="../portal/verOrdenesCurso.php">Ver en curso</a></li>
-                    </ul>
-                </div>
-                <div class="collapse" id="ordenes">
-                    <ul class="nav flex-column sub-menu">
-                        <li class="nav-item"> <a class="nav-link" href="../portal/verOrdenesPago.php">Abonar</a></li>
-                    </ul>
-                </div>
-            </li>
-
-            <!--REPORTES-->
-            <li class="nav-item">
-                <a class="nav-link" data-bs-toggle="collapse" href="#reportes" aria-expanded="false" aria-controls="sitios">
-                    <i class='bx bxs-report left-panel-icons'></i>
-                    <span class="menu-title">Reportes</span>
-                    <i class="menu-arrow"></i>
-                </a>
-                <div class="collapse" id="reportes">
-                    <ul class="nav flex-column sub-menu">
-                        <li class="nav-item"> <a class="nav-link" href="../portal/reporteInventario.php">Reporte de inventario</a></li>
-                    </ul>
-                </div>
-                <div class="collapse" id="reportes">
-                    <ul class="nav flex-column sub-menu">
-                        <li class="nav-item"> <a class="nav-link" href="../portal/reporteVentas.php">Reporte de ventas</a></li>
-                    </ul>
-                </div>
-                <div class="collapse" id="reportes">
-                    <ul class="nav flex-column sub-menu">
-                        <li class="nav-item"> <a class="nav-link" href="../portal/reporteVentasDetalle.php">Reporte de ventas detalle</a></li>
-                    </ul>
-                </div>
-                <div class="collapse" id="reportes">
-                    <ul class="nav flex-column sub-menu">
-                        <li class="nav-item"> <a class="nav-link" href="../portal/reporteVentasProductos.php">Reporte de ventas productos</a></li>
-                    </ul>
-                </div>
-                <div class="collapse" id="reportes">
-                    <ul class="nav flex-column sub-menu">
-                        <li class="nav-item"> <a class="nav-link" href="../portal/reporteUtilidades.php">Reporte de utilidades</a></li>
-                    </ul>
-                </div>
-                <div class="collapse" id="reportes">
-                    <ul class="nav flex-column sub-menu">
-                        <li class="nav-item"> <a class="nav-link" href="../portal/reporteCompras.php">Reporte de compras</a></li>
-                    </ul>
-                </div>
-                <div class="collapse" id="reportes">
-                    <ul class="nav flex-column sub-menu">
-                        <li class="nav-item"> <a class="nav-link" href="../portal/reporteMovimientos.php">Reporte de movimientos</a></li>
-                    </ul>
-                </div>
-                <div class="collapse" id="reportes">
-                    <ul class="nav flex-column sub-menu">
-                        <li class="nav-item"> <a class="nav-link" href="../portal/reporteGastos.php">Reporte de gastos</a></li>
-                    </ul>
-                </div>
-                <div class="collapse" id="reportes">
-                    <ul class="nav flex-column sub-menu">
-                        <li class="nav-item"> <a class="nav-link" href="../portal/reportePrecios.php">Reporte de lista de precios</a></li>
                     </ul>
                 </div>
             </li>

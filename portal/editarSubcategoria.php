@@ -14,19 +14,6 @@ if ($nivel == 1) {
     $menu = "fragments/menua.php";
 }
 
-if ($nivel == 2) {
-    $pk_sucursal = $_SESSION["pk_sucursal"];
-    $tipo = "Vendedor";
-    $menu = "fragments/menub.php";
-}
-
-if ($nivel == 3) {
-    $tipo = "Técnico";
-    $pk_sucursal = $_SESSION["pk_sucursal"];
-    $menu = "fragments/menuc.php";
-}
-
-
 if ($nivel != 1) {
     header('Location: ../index.php');
 }

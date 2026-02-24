@@ -29,7 +29,14 @@ if ($nivel == 4) {
     $menu = "fragments/menud.php";
 }
 
-if ($nivel != 1 && $nivel != 2 && $nivel != 4) {
+if ($nivel == 5) {
+    $tipo = "Administrador de sucursal";
+    $menu = "fragments/menue.php";
+    $fk_sucursal = $_SESSION["pk_sucursal"];
+}
+
+
+if ($nivel != 1 && $nivel != 2 && $nivel != 4 && $nivel != 5) {
     header('Location: ../index.php');
 }
 
@@ -49,6 +56,25 @@ $mysqli->next_result();
 if (!$rclientes = $mysqli->query("CALL sp_get_clientes()")) {
     echo "Lo sentimos, esta aplicación está experimentando problemas. 1";
     exit;
+}
+#endregion
+
+
+
+//SUCURSAL
+#region
+$nombre_sucursal = "";
+$fk_almacen = 0;
+if ($fk_sucursal > 0) {
+    $mysqli->next_result();
+    if (!$rsp_get_sucursal = $mysqli->query("CALL sp_get_sucursal($fk_sucursal)")) {
+        echo "Lo sentimos, esta aplicación está experimentando problemas. 2";
+        exit;
+    }
+
+    $rows = $rsp_get_sucursal->fetch_assoc();
+    $nombre_sucursal = $rows["nombre"];
+    $fk_almacen = $rows["fk_almacen"];
 }
 #endregion
 
@@ -161,7 +187,7 @@ $parametro_venta_valor = $rowpv['valor'];
                             <div class="d-flex align-items-center gap-2">
                                 <h4 class="card-title mb-0">Punto de venta</h4><br>
                                 <span class="badge-primary-integra fs-5" id="labelTipoVenta">Venta normal</span>
-                                <span class="badge-warning-integra fs-5" id="lasucursal"></span>
+                                <span class="badge-warning-integra fs-5" id="lasucursal"><?php echo $nombre_sucursal ?></span>
                             </div>
                             <div>
                                 <a href="agregarCorte.php" class="w-auto"><button type="button" class="btn btn-social-icon-text btn-linkedin"><i class='bx bx-calculator'></i>Corte de caja</button></a>
@@ -169,7 +195,7 @@ $parametro_venta_valor = $rowpv['valor'];
                                 <?php
                                 echo <<<HTML
                                     <input type='hidden' id='sucursal' class='form-control' value='$fk_sucursal'>
-                                    <input type='hidden' id='fk_almacen' class='form-control' value=''>
+                                    <input type='hidden' id='fk_almacen' class='form-control' value='$fk_almacen'>
                                     <input type='hidden' id='usuario_sesion' class='form-control' value='$usuario'>
                                     <input type='hidden' id='fk_cotizacion' class='form-control' value='$pk_cotizacion'>
                                     <input type='hidden' id='existe_corte' class='form-control' value='$existe_corte'>

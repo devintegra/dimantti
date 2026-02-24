@@ -190,6 +190,8 @@ function obtenerAlmacenes() {
 
             if (response.codigo == 200) {
 
+                $("#almacenes").empty();
+
                 response.objList.forEach(element => {
 
                     let contentHTML = `

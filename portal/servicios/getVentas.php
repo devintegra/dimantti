@@ -215,7 +215,7 @@ while ($row = $rregistros->fetch_assoc()) {
 
     $btn_acciones = $btn_acciones . "<a target='_blank' href='abonosVentaPDF.php?id=$row[pk_venta]' class='btn-iniciar-dast' title='Abonos'><i class='fa fa-file-pdf-o'></i></a>";
 
-    if ($row['modificada'] == 0 && $row['estatus'] < 2 && ($nivel == 1 || $nivel == 4)) {
+    if ($row['modificada'] == 0 && $row['estatus'] < 2 && ($nivel == 1 || $nivel == 5)) {
         $btn_acciones = $btn_acciones . "
             <button type='button' class='btn-iniciar-dast devolver' title='Devolver productos' data-id='$row[pk_venta]' data-sucursal='$row[fk_sucursal]' data-almacen='$row[fk_almacen]'>
                 <i class='fa fa-undo mx-2'></i>
@@ -227,7 +227,7 @@ while ($row = $rregistros->fetch_assoc()) {
 
     $badge_factura = "";
     if ($row['fk_factura'] == null || $row['fk_factura'] == '') {
-        if ($row['estatus'] < 2) {
+        if ($row['estatus'] < 2 && ($nivel == 1)) {
             $btn_acciones = $btn_acciones . "
                 <button type='button' class='btn-editar-dast facturarVenta' title='Facturar venta' data-id='$row[pk_venta]'>
                     <i class='fa fa-sticky-note-o mx-2'></i>
@@ -241,7 +241,7 @@ while ($row = $rregistros->fetch_assoc()) {
             </button>";
     }
 
-    if ($row["saldo"] > 0 && ($nivel == 1 || $nivel == 4)) {
+    if ($row["saldo"] > 0 && ($nivel == 1 || $nivel == 2 || $nivel == 4 || $nivel == 5)) {
         $btn_acciones = $btn_acciones . "
             <button type='button' class='btn-entregar-dast btnSaldarVenta' data-id='$row[pk_venta]' title='Saldo pendiente ($$row[saldo])'>
                 <i class='fa fa-money mx-2'></i>

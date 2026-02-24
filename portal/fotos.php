@@ -20,42 +20,7 @@ if ($nivel == 1) {
     $menu = "fragments/menua.php";
 }
 
-if ($nivel == 2) {
-    $pk_sucursal = $_SESSION["pk_sucursal"];
-    $tipo = "Vendedor";
-    $menu = "fragments/menub.php";
-
-
-    $qorden = "SELECT * FROM tr_ordenes where pk_orden=$pk_orden and fk_sucursal=$pk_sucursal";
-
-    if (!$rorden = $mysqli->query($qorden)) {
-        $error = 1;
-    }
-
-    if ($rorden->num_rows == 0) {
-        header('Location: ../index.php');
-    }
-}
-
-if ($nivel == 3) {
-    $pk_sucursal = $_SESSION["pk_sucursal"];
-    $tipo = "Tecnico";
-    $menu = "fragments/menuc.php";
-
-
-    $qorden = "SELECT * FROM tr_ordenes where pk_orden=$pk_orden and fk_sucursal=$pk_sucursal";
-
-    if (!$rorden = $mysqli->query($qorden)) {
-        $error = 1;
-    }
-
-    if ($rorden->num_rows == 0) {
-        header('Location: ../index.php');
-    }
-}
-
-
-if ($nivel != 1 && $nivel != 2 && $nivel != 3) {
+if ($nivel != 1) {
     header('Location: ../index.php');
 }
 

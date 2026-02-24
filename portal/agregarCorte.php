@@ -10,32 +10,33 @@ if (!isset($_SESSION['usuario'])) {
 
 $nivel = $_SESSION["nivel"];
 $usuario = $_SESSION["usuario"];
-$fk_sucursal = 0;
+$fk_sucursal = $_SESSION["pk_sucursal"];
 
 
 if ($nivel == 1) {
     $tipo = "Administrador";
     $menu = "fragments/menua.php";
-    $qsucursales = "SELECT * FROM ct_sucursales WHERE estado=1";
-    if (!$rsucursales = $mysqli->query($qsucursales)) {
-        echo "Lo sentimos, esta aplicación está experimentando problemas. 2";
-        exit;
-    }
 }
 
-if ($nivel == 2) {
-    $tipo = "Chofer";
-    $menu = "fragments/menub.php";
-    $qsucursales = "SELECT * FROM ct_sucursales WHERE estado=1";
-    if (!$rsucursales = $mysqli->query($qsucursales)) {
-        echo "Lo sentimos, esta aplicación está experimentando problemas. 2";
-        exit;
-    }
+if ($nivel == 5) {
+    $tipo = "Administrador de sucursal";
+    $menu = "fragments/menue.php";
 }
 
-if ($nivel != 1) {
+if ($nivel != 1 && $nivel != 5) {
     header('Location: ../index.php');
 }
+
+
+//SUCURSALES
+#region
+$qsucursales = "SELECT * FROM ct_sucursales WHERE estado=1";
+$mysqli->next_result();
+if (!$rsucursales = $mysqli->query($qsucursales)) {
+    echo "Lo sentimos, esta aplicación está experimentando problemas. 2";
+    exit;
+}
+#endregion
 
 
 //CORTES

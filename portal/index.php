@@ -26,7 +26,31 @@ if ($nivel == 2) {
     $dashboard = "fragments/dashboardb.php";
 }
 
-if ($nivel != 1 && $nivel != 2) {
+if ($nivel == 3) {
+    $pk_sucursal = $_SESSION["pk_sucursal"];
+    $tipo = "Técnico";
+    $menu = "fragments/menuc.php";
+    $panel = "fragments/panelc.php";
+    $dashboard = "fragments/dashboardc.php";
+}
+
+if ($nivel == 4) {
+    $pk_sucursal = $_SESSION["pk_sucursal"];
+    $tipo = "Vendedor multisucursal";
+    $menu = "fragments/menud.php";
+    $panel = "fragments/paneld.php";
+    $dashboard = "fragments/dashboardd.php";
+}
+
+if ($nivel == 5) {
+    $pk_sucursal = $_SESSION["pk_sucursal"];
+    $tipo = "Administrador de sucursal";
+    $menu = "fragments/menue.php";
+    $panel = "fragments/panele.php";
+    $dashboard = "fragments/dashboarde.php";
+}
+
+if ($nivel != 1 && $nivel != 2 && $nivel != 4 && $nivel != 5) {
     header('Location: ../index.php');
 }
 

@@ -106,6 +106,9 @@ if ($nivel == 1) {
                                             case 4:
                                                 $tipou = "<p class='badge-purple-integra'>Vendedor multisucursal</p>";
                                                 break;
+                                            case 5:
+                                                $tipou = "<p class='badge-danger-integra'>Administrador de sucursal</p>";
+                                                break;
                                         }
 
 

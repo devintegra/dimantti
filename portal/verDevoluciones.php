@@ -20,12 +20,22 @@ if ($nivel == 1) {
 
 if ($nivel == 2) {
     $fk_sucursal = $_SESSION["pk_sucursal"];
-    $tipo = "Chofer";
+    $tipo = "Vendedor";
     $menu = "fragments/menub.php";
 }
 
+if ($nivel == 4) {
+    $tipo = "Vendedor multisucursal";
+    $menu = "fragments/menud.php";
+}
 
-if ($nivel != 1) {
+if ($nivel == 5) {
+    $fk_sucursal = $_SESSION["pk_sucursal"];
+    $tipo = "Administrador de sucursal";
+    $menu = "fragments/menue.php";
+}
+
+if ($nivel != 1 && $nivel != 5) {
     header('Location: ../index.php');
 }
 
@@ -111,6 +121,8 @@ mysqli_set_charset($mysqli, 'utf8');
                                 <tbody>
                                     <?php
 
+                                    ($nivel == 1 || $nivel == 4) ? $flsucursal = "" : $flsucursal = " AND tr_devoluciones.fk_sucursal = $fk_sucursal";
+
                                     $qdevoluciones = "SELECT tr_devoluciones.pk_devolucion,
                                         tr_devoluciones.fk_venta,
                                         tr_devoluciones.fk_usuario,
@@ -123,7 +135,7 @@ mysqli_set_charset($mysqli, 'utf8');
                                     FROM tr_devoluciones, ct_clientes, ct_sucursales
                                     WHERE tr_devoluciones.estado = 1
                                     AND ct_clientes.pk_cliente = tr_devoluciones.fk_cliente
-                                    AND ct_sucursales.pk_sucursal = tr_devoluciones.fk_sucursal";
+                                    AND ct_sucursales.pk_sucursal = tr_devoluciones.fk_sucursal$flsucursal";
 
                                     if (!$rdevoluciones = $mysqli->query($qdevoluciones)) {
                                         echo "Lo sentimos, esta aplicación está experimentando problemas.";

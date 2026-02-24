@@ -15,13 +15,13 @@ if ($nivel == 1) {
     $menu = "fragments/menua.php";
 }
 
-if ($nivel == 2) {
+if ($nivel == 5) {
     $pk_sucursal = $_SESSION["pk_sucursal"];
-    $tipo = "Chofer";
-    $menu = "fragments/menub.php";
+    $tipo = "Administrador de sucursal";
+    $menu = "fragments/menue.php";
 }
 
-if ($nivel != 1) {
+if ($nivel != 1 && $nivel != 5) {
     header('Location: ../index.php');
 }
 
@@ -131,6 +131,42 @@ if ($nivel != 1) {
                                                     $tipo = "Venta por apartado";
                                                 }
                                                 $nestilo = "badge-orange-integra";
+                                                break;
+                                            case 6:
+                                                $tipo = "Devolución";
+                                                $nestilo = "badge-purple-integra";
+                                                break;
+                                            case 7:
+                                                $tipo = "Devolución de venta";
+                                                $nestilo = "badge-purple-integra";
+                                                break;
+                                            case 8:
+                                                $tipo = "Devolución por cancelación de venta";
+                                                $nestilo = "badge-purple-integra";
+                                                break;
+                                            case 9:
+                                                $tipo = "Recepción de productos desde transferencia";
+                                                $nestilo = "badge-orange-integra";
+                                                break;
+                                            case 10:
+                                                $tipo = "Devolución de transferencia";
+                                                $nestilo = "badge-warning-integra";
+                                                break;
+                                            case 11:
+                                                $tipo = "Devolución de prestamo";
+                                                $nestilo = "badge-warning-integra";
+                                                break;
+                                            case 12:
+                                                $tipo = "Venta de prestamo";
+                                                $nestilo = "badge-success-integra";
+                                                break;
+                                            case 13:
+                                                $tipo = "Baja desde órden";
+                                                $nestilo = "badge-danger-integra";
+                                                break;
+                                            default:
+                                                $tipo = "NA";
+                                                $nestilo = "badge-default-integra";
                                                 break;
                                         }
 

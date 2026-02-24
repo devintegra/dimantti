@@ -81,6 +81,7 @@ if (!$rorden = $mysqli->query("CALL sp_get_orden($pk_orden)")) {
 
 $orden = $rorden->fetch_assoc();
 $fk_sucursal = $orden["fk_sucursal"];
+$fk_almacen = $fk_sucursal;
 $fk_cliente = $orden["fk_cliente"];
 $fk_tecnico = $orden["fk_tecnico"];
 $anticipo = $orden["anticipo"];
@@ -134,16 +135,17 @@ $fecha_folio = str_replace("-", "", $fecha);
 $folio = $orden["folio"];
 
 $mysqli->next_result();
-if (!$mysqli->query("INSERT INTO tr_ventas (folio, fk_usuario, fk_cliente, fecha, hora, fk_sucursal, saldo, anticipo, subtotal, total, efectivo, credito, debito, cheque, transferencia, cheque_referencia, transferencia_referencia, tipo, tipo_pago, descuento, comision, observaciones) values ('$folio', '$fk_usuario', $fk_cliente, CURDATE(), '$hora_actual', $fk_sucursal, 0, $entregado, $subtotal, $totale, $efectivo, $credito, $debito, $cheque, $transferencia, '$cheque_referencia', '$transferencia_referencia', 5, $tipo_pago, $descuento, $comision, 'Venta de Orden de servicio $folio')")) {
+if (!$rsp_set_venta = $mysqli->query("CALL sp_set_venta('$fk_usuario', $fk_cliente, $fk_sucursal, $fk_almacen, 0, $entregado, $subtotal, $totale, $efectivo, $credito, $debito, $cheque, $transferencia, '$cheque_referencia', '$transferencia_referencia', 5, $tipo_pago, $descuento, $comision, 'Venta de Orden de servicio $folio')")) {
     $codigo = 201;
     $descripcion = "Hubo un problema, porfavor vuelva a intentarlo!";
 }
 
-$pk_venta = $mysqli->insert_id;
+$rowv = $rsp_set_venta->fetch_assoc();
+$pk_venta = $rowv["pk_venta"];
 
 if ($codigo == 200) {
     $mysqli->next_result();
-    if (!$mysqli->query("UPDATE tr_ordenes set fk_venta=$pk_venta WHERE pk_orden=$pk_orden")) {
+    if (!$mysqli->query("UPDATE tr_ordenes set fk_venta = $pk_venta, anticipo = anticipo + $entregado WHERE pk_orden=$pk_orden")) {
         $codigo = 201;
     }
 }
@@ -181,7 +183,7 @@ while ($orden_detalle = $rorden_detalle->fetch_assoc()) {
     }
 
     $mysqli->next_result();
-    if (!$mysqli->query("INSERT INTO tr_ventas_detalle (fk_venta, fk_producto, descripcion, cantidad, unitario, total) values ($pk_venta, $fk_producto_orden, '$orden_detalle[comentarios]', 1, $orden_detalle[precio], $orden_detalle[precio])")) {
+    if (!$mysqli->query("INSERT INTO tr_ventas_detalle (fk_venta, fk_producto, descripcion, cantidad, unitario, total, fk_almacen) values ($pk_venta, $fk_producto_orden, '$orden_detalle[comentarios]', 1, $orden_detalle[precio], $orden_detalle[precio], $fk_almacen)")) {
         $codigo = 201;
         $descripcion = "Error al guardar el detalle";
     }

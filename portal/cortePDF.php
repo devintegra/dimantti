@@ -573,7 +573,7 @@ HTML;
 #region
 $pdf->Image('@' . file_get_contents('servicios/logo.png'), 30, 5, 0, 24);
 $pdf->writeHTMLCell(70, '', 5, 25, $parrafo_header);
-$pdf->writeHTMLCell(76, '', 2, 70, $content_table);
+$pdf->writeHTMLCell(76, '', 2, 75, $content_table);
 #endregion
 
 

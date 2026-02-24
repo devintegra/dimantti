@@ -18,14 +18,14 @@ if ($nivel == 1) {
     $menu = "fragments/menua.php";
 }
 
-if ($nivel == 2) {
+if ($nivel == 5) {
     $fk_sucursal = $_SESSION["pk_sucursal"];
-    $tipo = "Chofer";
-    $menu = "fragments/menub.php";
+    $tipo = "Administrador de sucursal";
+    $menu = "fragments/menue.php";
 }
 
 
-if ($nivel != 1) {
+if ($nivel != 1 && $nivel != 5) {
     header('Location: ../index.php');
 }
 
@@ -87,7 +87,7 @@ if ($fk_sucursal != 0) {
                         <div class="d-flex justify-content-between">
                             <h4 class="card-title">Cortes de caja</h4>
                             <?php
-                            if ($nivel == 1 || $nivel == 4) {
+                            if ($nivel == 1 || $nivel == 5) {
                                 echo "<a href='agregarCorte.php'><button type='button' class='btn btn-social-icon-text btn-add'><i class='bx bx-plus'></i>Nuevo corte de caja</button></a>";
                             }
                             ?>
@@ -122,9 +122,10 @@ if ($fk_sucursal != 0) {
                                 <tbody>
                                     <?php
 
-                                    $nivel == 1 ? $flusuario = "" : $flusuario = " AND tr_cortes.fk_usuario = '$usuario'";
+                                    $flusuario = ($nivel == 2 || $nivel == 4) ? " AND tr_cortes.fk_usuario = '$usuario'" : "";
+                                    $flsucursal = ($nivel == 5) ? " AND tr_cortes.fk_sucursal = '$fk_sucursal'" : "";
 
-                                    $qcortes = "SELECT * FROM tr_cortes WHERE estatus != 0 AND estado = 1$flusuario";
+                                    $qcortes = "SELECT * FROM tr_cortes WHERE estatus != 0 AND estado = 1$flusuario$flsucursal";
 
                                     if (!$rcortes = $mysqli->query($qcortes)) {
                                         echo "Lo sentimos, esta aplicación está experimentando problemas.";
@@ -159,7 +160,7 @@ if ($fk_sucursal != 0) {
                                         if ($row['estatus'] == 1) {
                                             $estatus = "Pendiente de aprobación";
                                             $color = "badge-warning-integra";
-                                            if ($nivel == 1) {
+                                            if ($nivel == 1 || $nivel == 5) {
                                                 $botons = "<button type='button' class='btn-reabrir-dast' onclick='aprobacion($row[pk_corte], 0)' title='No aprobar'><i class='fa fa-close'></i></button>
                                             <button type='button' class='btn-entregar-dast' onclick='aprobacion($row[pk_corte], 2)' title='Aprobar'><i class='fa fa-check'></i></button>";
                                             }

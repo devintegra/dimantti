@@ -63,7 +63,8 @@ if (!$rsucursales = $mysqli->query($qsucursales)) {
 $arrayUsuarios = array(
     array('id' => 1, 'nombre' => 'Administrador'),
     array('id' => 2, 'nombre' => 'Vendedor'),
-    array('id' => 4, 'nombre' => 'Vendedor multisucursal')
+    array('id' => 4, 'nombre' => 'Vendedor multisucursal'),
+    array('id' => 5, 'nombre' => 'Administrador de sucursal')
 );
 #endregion
 

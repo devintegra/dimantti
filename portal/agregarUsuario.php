@@ -90,6 +90,7 @@ if (!$rsucursales = $mysqli->query($qsucursales)) {
                                             <option value='1'>Administrador</option>
                                             <option value='2'>Vendedor</option>
                                             <option value='4'>Vendedor multisucursal</option>
+                                            <option value='5'>Administrador de sucursal</option>
                                         </select>
 
                                         <?php

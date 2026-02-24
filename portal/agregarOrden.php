@@ -18,28 +18,7 @@ if ($nivel == 1) {
     $qusuarios = "SELECT * FROM ct_usuarios where estado=1";
 }
 
-if ($nivel == 2) {
-    $tipo = "Admin sucursal";
-    $menu = "fragments/menub.php";
-    $sucursal = $_SESSION["pk_sucursal"];
-    $qusuarios = "SELECT * FROM ct_usuarios where estado=1 and fk_sucursal=$sucursal";
-}
-
-if ($nivel == 3) {
-    $tipo = "Técnico";
-    $menu = "fragments/menuc.php";
-    $sucursal = $_SESSION["pk_sucursal"];
-    $qusuarios = "SELECT * FROM ct_usuarios where estado=1 and fk_sucursal=$sucursal";
-}
-
-if ($nivel == 4) {
-    $tipo = "Vendedor";
-    $menu = "fragments/menud.php";
-    $sucursal = $_SESSION["pk_sucursal"];
-    $qusuarios = "SELECT * FROM ct_usuarios where estado=1 and fk_sucursal=$sucursal";
-}
-
-if ($nivel != 1 && $nivel != 3 && $nivel != 4) {
+if ($nivel != 1) {
     header('Location: ../index.php');
 }
 
