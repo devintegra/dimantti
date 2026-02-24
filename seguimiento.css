@@ -100,4 +100,8 @@ header>h1 {
     #content-details {
         width: 90%;
     }
+
+    #content-main #accordionExample li {
+        font-size: 24px;
+    }
 }

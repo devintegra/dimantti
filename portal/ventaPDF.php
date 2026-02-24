@@ -282,6 +282,9 @@ if ($entrada_tipo != 2) {
 #region
 $url = "https://dimantti.integracontrol.online/portal/ventaPDF.php?id=$id&ph=";
 QRcode::png($url, "qrcode.png");
+
+$urlc = "https://dimantti.integracontrol.online/clausulas.php";
+QRcode::png($urlc, "qrcodeclausulas.png");
 #endregion
 
 
@@ -397,11 +400,15 @@ $parrafo_productos = <<<HTML
                 <td colspan="4"></td>
             </tr>
             <tr>
-                <td colspan="4">CLAUSULAS DE GARANTIA</td>
+                <td colspan="2">DESCARGAR TICKET</td>
+                <td colspan="2">CLAUSULAS DE GARANTIA</td>
             </tr>
             <tr>
-                <td colspan="4">
-                    <img src="qrcode.png" style="width: 100px; height: auto;">
+                <td colspan="2">
+                    <img src="qrcode.png" style="width: 80px; height: auto;">
+                </td>
+                <td colspan="2">
+                    <img src="qrcodeclausulas.png" style="width: 80px; height: auto;">
                 </td>
             </tr>
         </tfoot>

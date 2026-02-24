@@ -344,6 +344,11 @@ $avatar = $usuarios["imagen"];
                         <li class="nav-item"><a class="nav-link" href="../portal/verMretiros.php">Motivos de retiro</a></li>
                     </ul>
                 </div>
+                <div class="collapse" id="configuracion">
+                    <ul class="nav flex-column sub-menu">
+                        <li class="nav-item"><a class="nav-link" href="../portal/verClausulas.php">Cláusulas de garantía</a></li>
+                    </ul>
+                </div>
             </li>
 
             <!--EMPRESAS-->
