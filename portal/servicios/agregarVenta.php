@@ -41,7 +41,11 @@ $pk_venta = $decoded['pk_venta'];
 $fk_sucursal = $decoded['fk_sucursal'];
 $fk_almacen = $decoded['fk_almacen'];
 $fk_usuario = $decoded['fk_usuario'];
+
 $fk_cliente = $decoded['fk_cliente'];
+$nombre_cliente = $decoded['nombre_cliente'];
+$telefono_cliente = $decoded['telefono_cliente'];
+
 $fk_cotizacion = $decoded['fk_cotizacion'];
 $fk_prestamo = $decoded['fk_prestamo'];
 $apartado = $decoded['apartado'];
@@ -102,6 +106,20 @@ if ($codigo == 200) {
         $tipo_pago = 2;
         $saldo = $total - $monto_pago;
     }
+}
+
+
+
+//CLIENTE
+if ($codigo == 200 && $fk_cliente == 0) {
+    $mysqli->next_result();
+    if (!$rsp_set_cliente = $mysqli->query("CALL sp_set_cliente('$nombre_cliente', '$telefono_cliente', $fk_sucursal, '', 0, 0, 0, 2, 1, '', '', 0, 1, '', '', '')")) {
+        $codigo = 201;
+        $descripcion = "Error al guardar el registro";
+    }
+
+    $rowc = $rsp_set_cliente->fetch_assoc();
+    $fk_cliente = $rowc["pk_cliente"];
 }
 
 

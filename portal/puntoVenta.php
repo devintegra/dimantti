@@ -196,28 +196,39 @@ $parametro_venta_valor = $rowpv['valor'];
                             </div>
                         </div>
 
-                        <div class="row d-flex">
+                        <div class="row">
                             <div class="col-lg-6">
                                 <div class="form-group gap-3 d-flex flex-column">
                                     <label for="cliente" style="font-size: 16px; font-weight: bold;">Cliente: </label>
-                                    <?php
-                                    if ($pk_cotizacion) {
-                                        echo "<input type='hidden' id='cliente' class='form-control' value='$fk_cliente'>
-                                        <input type='text' id='clientenom' style='margin-top: -17px; padding: 16px;' class='form-control' value='$cliente' disabled>";
-                                    } else {
-                                        echo "<select id='cliente' class='select2 form-control'>";
+                                    <select id='cliente' class='select2 form-control'>
+                                        <option value="0">NUEVO CLIENTE</option>
+                                        <?php
                                         while ($clientes = $rclientes->fetch_assoc()) {
-                                            echo "<option value='$clientes[pk_cliente]'>$clientes[nombre]</option>";
+                                            echo "<option value='$clientes[pk_cliente]' data-telefono='$clientes[telefono]'>$clientes[nombre]</option>";
                                         }
-                                        echo "</select>";
-                                    }
-
+                                        ?>
+                                    </select>
+                                    <?php
                                     echo <<<HTML
                                         <input type='hidden' id='cliente_dias' class='form-control' value='$dias_credito'>
                                         <input type='hidden' id='cliente_limite' class='form-control' value='$limite_credito'>
                                         <input type='hidden' id='cliente_credito' class='form-control' value='$credito'>
                                     HTML;
                                     ?>
+                                </div>
+                            </div>
+
+                            <div class="col-lg-3">
+                                <div class="form-group">
+                                    <label for="nombre_cliente">Nombre</label>
+                                    <input type="text" class="form-control" id="nombre_cliente" name="nombre_cliente" placeholder="Nombre del cliente" autocomplete="off">
+                                </div>
+                            </div>
+
+                            <div class="col-lg-3">
+                                <div class="form-group">
+                                    <label for="telefono_cliente">Teléfono</label>
+                                    <input type="text" class="form-control" id="telefono_cliente" name="telefono_cliente" placeholder="(999) 999-9999" autocomplete="off">
                                 </div>
                             </div>
                         </div>
@@ -829,6 +840,7 @@ $parametro_venta_valor = $rowpv['valor'];
         });
     </script>
 
+    <script src="custom/jquery.maskedinput.js"></script>
     <script src="assets/loading/loadingoverlay.js"></script>
     <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>

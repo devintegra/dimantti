@@ -49,6 +49,9 @@ $(document).ready(function () {
     });
 
 
+    $("#telefono_cliente").mask("(999) 999-9999");
+
+
     $('.datepicker').datepicker({
         dateFormat: 'yy-mm-dd'
     });
@@ -283,7 +286,7 @@ $(document).on('click', '#modalSaldoInicial #guardar_saldo', function () {
 
 
 
-//AGREGAR PRODUCTOS
+//AGREGAR PRODUCTOS / CLIENTES
 //#region
 $('#clave').on('select2:select', function (e) {
 
@@ -361,7 +364,21 @@ $(document).on("input", ".precio", function () {
 
 $(document).on("change", "#cliente", function () {
 
-    var fk_cliente = $(this).val();
+    let fk_cliente = $(this).val();
+    let nombre = $(this).find('option:selected').text().trim();
+    let telefono = $(this).find('option:selected').attr('data-telefono');
+
+    if (fk_cliente > 0) {
+        $('#nombre_cliente').val(nombre);
+        $('#telefono_cliente').val(telefono);
+        $('#nombre_cliente').prop('disabled', true);
+        $('#telefono_cliente').prop('disabled', true);
+    } else {
+        $('#nombre_cliente').val("");
+        $('#telefono_cliente').val("");
+        $('#nombre_cliente').prop('disabled', false);
+        $('#telefono_cliente').prop('disabled', false);
+    }
 
     actualizarTablaProductos(fk_cliente, productosAgregados);
 
@@ -921,14 +938,21 @@ function validarRegistro() {
         }
     });
 
-    if (cliente <= 1 && total >= parametro_venta_valor) {
+    if (cliente == 1 && total >= parametro_venta_valor) {
         retorno = false;
         swal("Mensaje", `Es necesario seleccionar un cliente para ventas de $${parametro_venta_valor.toFixed(2)} o más`, "info");
     }
 
-    if (cliente <= 1 && getCategoriasRequiredCliente()) {
+    if (cliente == 1 && getCategoriasRequiredCliente()) {
         retorno = false;
         swal("Mensaje", `Algunos de los productos agregados pertenecen a categorías que requieren que se seleccione un cliente para continuar`, "info");
+    }
+
+    if ($('#cliente').val() == 0) {
+        if ($('#nombre_cliente').val().length == 0) {
+            retorno = false;
+            swal('Mensaje', 'El campo de nombre del cliente es obligatorio', 'info');
+        }
     }
 
     return retorno;
@@ -1137,7 +1161,11 @@ function guardar() {
         "fk_sucursal": $("#sucursal").val(),
         "fk_almacen": $("#fk_almacen").val(),
         "fk_usuario": $("#fk_usuario").val(),
+
         "fk_cliente": $("#cliente").val(),
+        "nombre_cliente": $("#nombre_cliente").val(),
+        "telefono_cliente": $("#telefono_cliente").val(),
+
         "fk_cotizacion": $("#fk_cotizacion").val(),
         "fk_prestamo": 0,
         "apartado": apartado,
