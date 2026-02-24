@@ -44,9 +44,11 @@ foreach ($decoded['productos'] as $key => $value) {
 
     $qproductos = "SELECT p.pk_producto, p.codigobarras, p.nombre, p.descripcion, p.precio, p.tipo_precio, p.gramaje,
             m.precio as precio_gramaje,
+            COALESCE(c.estatus_cliente_venta, 0) as estatus_cliente_venta,
             (SELECT imagen FROM rt_imagenes_productos WHERE fk_producto = p.pk_producto and estado = 1 LIMIT 1) as imagen
         FROM ct_productos p
         LEFT JOIN ct_metales m ON m.pk_metal = p.fk_metal
+        JOIN ct_categorias c ON c.pk_categoria = p.fk_categoria
         WHERE p.pk_producto = $value[fk_producto]
         AND p.estado = 1";
 
@@ -63,6 +65,7 @@ foreach ($decoded['productos'] as $key => $value) {
     $tipo_precio = $producto["tipo_precio"];
     $gramaje = $producto["gramaje"];
     $precio_gramaje = $producto["precio_gramaje"];
+    $estatus_cliente_venta = $producto["estatus_cliente_venta"];
     $imagen = $producto["imagen"];
     $file = "productos/$imagen";
     $pathImage = is_file($file) ? "servicios/productos/$imagen" : "images/picture.png";
@@ -77,6 +80,7 @@ foreach ($decoded['productos'] as $key => $value) {
         "codigobarras" => $codigobarras,
         "nombre" => $nombre,
         "imagen" => $pathImage,
+        "estatus_cliente_venta" => $estatus_cliente_venta,
         "precio" => number_format($precio, 2),
         "cantidad" => $cantidad,
         "total" => number_format($total, 2)

@@ -43,47 +43,10 @@ $pk_cotizacion = 0;
 
 
 
-//FILTROS
-#region
-$filtro = "";
-$filtroexi = "";
-if ($fk_sucursal != 0) {
-    $filtro = " AND ct_usuarios.fk_sucursal in ($fk_sucursal, 0)";
-    $filtroexi = " AND tr_existencias.fk_sucursal = $fk_sucursal";
-}
-#endregion
-
-
-
-//USUARIOS
-#region
-$qusuarioss = "SELECT * FROM ct_usuarios WHERE estado = 1$filtro";
-
-if (!$rusuarioss = $mysqli->query($qusuarioss)) {
-    echo "Lo sentimos, esta aplicación está experimentando problemas. 1";
-    exit;
-}
-#endregion
-
-
-
 //CLIENTES
 #region
-$qclientes = "SELECT * FROM ct_clientes where estado = 1";
-
-if (!$rclientes = $mysqli->query($qclientes)) {
-    echo "Lo sentimos, esta aplicación está experimentando problemas. 1";
-    exit;
-}
-#endregion
-
-
-
-//PRODUCTOS
-#region
-$qproductos = "SELECT * FROM ct_productos where estado = 1";
-
-if (!$rproductos = $mysqli->query($qproductos)) {
+$mysqli->next_result();
+if (!$rclientes = $mysqli->query("CALL sp_get_clientes()")) {
     echo "Lo sentimos, esta aplicación está experimentando problemas. 1";
     exit;
 }
@@ -93,9 +56,8 @@ if (!$rproductos = $mysqli->query($qproductos)) {
 
 //MÉTODOS DE PAGOS
 #region
-$qpagos = "SELECT * FROM ct_pagos where estado=1";
-
-if (!$rpagos = $mysqli->query($qpagos)) {
+$mysqli->next_result();
+if (!$rpagos = $mysqli->query("CALL sp_get_pagos()")) {
     echo "Lo sentimos, esta aplicación está experimentando problemas. 2";
     exit;
 }
@@ -105,9 +67,8 @@ if (!$rpagos = $mysqli->query($qpagos)) {
 
 //SALDOS INICIALES
 #region
-$qsaldos = "SELECT * FROM tr_saldos_iniciales WHERE fk_usuario = '$usuario' AND estado = 1 ORDER BY pk_saldo_inicial DESC LIMIT 1";
-
-if (!$rsaldos = $mysqli->query($qsaldos)) {
+$mysqli->next_result();
+if (!$rsaldos = $mysqli->query("CALL sp_get_saldo_inicial_ultimo('$usuario')")) {
     echo "<br>Lo sentimos, esta aplicación está experimentando problemas.";
     exit;
 }
@@ -123,6 +84,20 @@ if ($rsaldos->num_rows == 0) {
         $existe_corte = 1;
     }
 }
+#endregion
+
+
+
+//PARAMETRO DE VENTA MINIMA PARA SELECCION DE CLIENTE
+#region
+$mysqli->next_result();
+if (!$rsp_get_parametro_venta = $mysqli->query("CALL sp_get_parametro(1)")) {
+    echo "<br>Lo sentimos, esta aplicación está experimentando problemas.";
+    exit;
+}
+
+$rowpv = $rsp_get_parametro_venta->fetch_assoc();
+$parametro_venta_valor = $rowpv['valor'];
 #endregion
 
 
@@ -199,6 +174,7 @@ if ($rsaldos->num_rows == 0) {
                                     <input type='hidden' id='fk_cotizacion' class='form-control' value='$pk_cotizacion'>
                                     <input type='hidden' id='existe_corte' class='form-control' value='$existe_corte'>
                                     <input type='hidden' id='fk_usuario' class='form-control' value='$usuario'>
+                                    <input type='hidden' id='parametro_venta_valor' class='form-control' value='$parametro_venta_valor'>
                                 HTML;
                                 ?>
                             </div>

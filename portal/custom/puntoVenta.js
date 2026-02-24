@@ -2,6 +2,7 @@ var $ = jQuery;
 var productosAgregados = [];
 var id = 0;
 let fk_sucursal = parseInt($("#sucursal").val());
+let parametro_venta_valor = parseFloat($('#parametro_venta_valor').val());
 
 
 $(document).ready(function () {
@@ -403,7 +404,7 @@ function actualizarTablaProductos(fk_cliente, productosAgregados) {
                     let total = parseFloat(element.total).toFixed(2);
 
                     let trHTML = `
-                        <tr class='odd gradeX fp' id='${element.pk_producto}*-*${element.codigobarras}'>
+                        <tr class='odd gradeX fp' id='${element.pk_producto}*-*${element.codigobarras}' data-estatus-cliente-venta='${element.estatus_cliente_venta}'>
                             <td>
                                 <i class='fa fa-trash eliminar' style='padding: 3px; background-color: red; color:white'></i>
                             </td>
@@ -877,12 +878,34 @@ function getProductos() {
 }
 
 
+function getCategoriasRequiredCliente() {
+
+    let retorno = false;
+
+    $("#entradas tbody tr").each(function (index) {
+
+        let estatus_cliente_venta = $(this).attr('data-estatus-cliente-venta');
+
+        if (estatus_cliente_venta == 1) {
+            retorno = true;
+            return retorno;
+        }
+
+    });
+
+    return retorno;
+
+}
+
+
 function validarRegistro() {
+
     var retorno = true;
     var total = parseFloat($('#total').text().trim().slice(1));
     var cambio = parseFloat($('#cambio').text().trim().slice(1));
     var recibe = parseFloat($('#recibe').val());
     var ticket_cambio = parseFloat($('#ticket_cambio').text().trim().slice(1));
+    var cliente = parseInt($('#cliente').val());
 
     if (total == 0) {
         retorno = false;
@@ -898,17 +921,18 @@ function validarRegistro() {
         }
     });
 
-    // if (recibe.length < 1 || recibe == 0) {
-    //     retorno = false;
-    //     swal("Mensaje", "Es necesario indicar la cantidad recibida", "info");
-    // }
+    if (cliente <= 1 && total >= parametro_venta_valor) {
+        retorno = false;
+        swal("Mensaje", `Es necesario seleccionar un cliente para ventas de $${parametro_venta_valor.toFixed(2)} o más`, "info");
+    }
 
-    // if (cambio < 0 || ticket_cambio < 0) {
-    //     retorno = false;
-    //     swal("Mensaje", "La venta no puede ser vendida por debajo del total indicado", "info");
-    // }
+    if (cliente <= 1 && getCategoriasRequiredCliente()) {
+        retorno = false;
+        swal("Mensaje", `Algunos de los productos agregados pertenecen a categorías que requieren que se seleccione un cliente para continuar`, "info");
+    }
 
     return retorno;
+
 }
 
 
