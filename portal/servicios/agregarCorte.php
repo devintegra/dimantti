@@ -78,7 +78,7 @@ if ($tipo == 1) {
     $qabonos = "SELECT tr_abonos.*
         FROM tr_abonos, tr_ventas
         WHERE tr_abonos.fk_corte = 0
-        AND tr_abonos.origen IN (4, $tipo)$filtro_abonos$filtro_usuario_abonos
+        AND tr_abonos.origen IN (2, 4, $tipo)$filtro_abonos$filtro_usuario_abonos
         AND tr_abonos.fk_factura = tr_ventas.pk_venta
         AND tr_abonos.estado = 1";
 } else if ($tipo == 2) {

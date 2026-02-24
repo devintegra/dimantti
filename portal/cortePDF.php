@@ -274,9 +274,10 @@ if ($contrato_tipo == 1) { //Venta
     tr_abonos.fk_pago,
     ct_pagos.nombre as pago,
     ct_clientes.nombre as cliente,
-    tr_ventas.folio as folio
+    tr_ventas.folio as folio,
+    tr_abonos.origen
     FROM ct_sucursales, tr_abonos, tr_ventas, ct_clientes, ct_pagos
-    WHERE tr_abonos.origen IN (1, 4)
+    WHERE tr_abonos.origen IN (1, 2, 4)
         AND tr_abonos.estado = 1
         AND tr_abonos.fk_sucursal=ct_sucursales.pk_sucursal
         AND tr_abonos.fk_factura=tr_ventas.pk_venta
@@ -293,7 +294,8 @@ if ($contrato_tipo == 1) { //Venta
         tr_abonos.fk_pago,
         ct_pagos.nombre as pago,
         ct_clientes.nombre as cliente,
-        tr_ordenes.folio as folio
+        tr_ordenes.folio as folio,
+        tr_abonos.origen
         FROM ct_sucursales, tr_ventas, tr_abonos, tr_ordenes, ct_clientes, ct_pagos
         WHERE tr_abonos.origen IN (2, 4)
             AND tr_abonos.estado = 1
@@ -336,12 +338,29 @@ while ($row = $rventasd->fetch_assoc()) {
         $total_credito += $row["cantidad"];
     }
 
+    //TIPO DE VENTA
+    #region
+    $styleOrigen = "";
+    switch ($row['origen']) {
+        case 1:
+            $origen = "Venta Mostrador";
+            break;
+        case 2:
+            $origen = "Reparación";
+            $styleOrigen = "font-weight: bold; color: #5468ff";
+            break;
+        case 3:
+            $origen = "Saldo inicial";
+            break;
+    }
+    #endregion
+
     $cantidadf = number_format($row["cantidad"], 2);
-    $descripcion = "(Venta Mostrador) " . $row['fecha'] . "." . $row['folio'] . " (" . $row['cliente'] . ")";
+    $descripcion = $row['fecha'] . "." . $row['folio'] . " (" . $row['cliente'] . ")";
 
     $tr_table .= <<<HTML
         <tr>
-            <td style="width: 50%;">$descripcion</td>
+            <td style="width: 50%;"> <span style="$styleOrigen">($origen)</span> $descripcion</td>
             <td style="width: 25%; text-align: right;">$row[pago]</td>
             <td style="width: 25%; text-align: right;">$$cantidadf</td>
         </tr>
